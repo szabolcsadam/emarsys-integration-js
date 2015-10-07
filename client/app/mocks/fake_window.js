@@ -18,7 +18,7 @@ class FakeWindow {
       getElementById: sinon.stub().returns('fake_element')
     };
 
-    this.SUITE = {
+    this.Emarsys = {
       config: {
         session_id: 'SESSIONID'
       },

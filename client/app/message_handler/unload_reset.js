@@ -12,11 +12,7 @@ class MessageHandlerUnloadReset extends AbstractMessageHandler {
     var eventNamespace = 'confirm_navigation_' + message.source.integration_instance_id;
 
     $(this.window).off('beforeunload.' + eventNamespace);
-    $(message.selection).off('click.' + eventNamespace);
-  }
-
-  static create(global) {
-    return new MessageHandlerUnloadReset(global);
+    $(message.data.selection).off('click.' + eventNamespace);
   }
 
 }

@@ -12,10 +12,6 @@ class MessageHandlerRefresh extends AbstractMessageHandler {
     this.window.location.reload();
   }
 
-  static create(global) {
-    return new MessageHandlerRefresh(global);
-  }
-
 }
 
 module.exports = MessageHandlerRefresh;

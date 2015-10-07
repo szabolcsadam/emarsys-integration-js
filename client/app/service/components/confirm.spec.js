@@ -21,34 +21,42 @@ describe('Confirm Component', function() {
     var testCases = [
       {
         name: 'should return HTML with modal title',
-        data: {
-          title: 'foo'
+        message: {
+          data: {
+            title: 'foo'
+          }
         },
         expected: '<h2>foo</h2>'
       },
       {
         name: 'should return HTML with modal body',
-        data: {
-          title: 'foo',
-          body: 'bar'
+        message: {
+          data: {
+            title: 'foo',
+            body: 'bar'
+          }
         },
         expected: '<p>bar</p>'
       },
       {
         name: 'should return HTML with a cancel button',
-        data: {
-          title: 'foo',
-          ok: 'yes',
-          cancel: 'no'
+        message: {
+          data: {
+            title: 'foo',
+            ok: 'yes',
+            cancel: 'no'
+          }
         },
         regexpected: new RegExp('<button type="button".*class="e-btn">no</button>')
       },
       {
         name: 'should return HTML with an ok button',
-        data: {
-          title: 'foo',
-          ok: 'yes',
-          cancel: 'no'
+        message: {
+          data: {
+            title: 'foo',
+            ok: 'yes',
+            cancel: 'no'
+          }
         },
         regexpected: new RegExp('<button type="button".*class="e-btn e-btn-primary">yes</button>')
       }
@@ -56,12 +64,12 @@ describe('Confirm Component', function() {
 
     testCases.forEach(function(test) {
       it(test.name, function() {
-        test.data.source = {
+        test.message.source = {
           integration_id: 'foo-integration',
           integration_instance_id: 1234
         };
 
-        var html = confirmComponent.getModalContent(test.data);
+        var html = confirmComponent.getModalContent(test.message);
         if (test.regexpected) {
           expect(html).to.match(test.regexpected);
         } else {

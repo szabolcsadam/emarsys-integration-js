@@ -13,11 +13,11 @@ class MessageHandlerAlert extends AbstractMessageHandler {
       'e-alert'
     ];
 
-    if (message.className) {
-      classNames.push(message.className);
+    if (message.data.className) {
+      classNames.push(message.data.className);
     }
 
-    if (message.icon) {
+    if (message.data.icon) {
       classNames.push('e-alert-withicon');
     }
 
@@ -29,20 +29,20 @@ class MessageHandlerAlert extends AbstractMessageHandler {
       '<div class="' + this.getClassNames(message).join(' ') + '">'
     ];
 
-    if (message.icon) {
+    if (message.data.icon) {
       markup.push('<span class="e-alert__icon">');
-      markup.push('<svg class="e-icon"><use xlink:href="#' + message.icon + '"></use></svg>');
+      markup.push('<svg class="e-icon"><use xlink:href="#' + message.data.icon + '"></use></svg>');
       markup.push('</span>');
     }
 
-    markup.push('<span class="e-alert__message">' + this.cleanMessage(message.text) + '</span>');
+    markup.push('<span class="e-alert__message">' + this.cleanMessage(message.data.text) + '</span>');
     markup.push('<div>');
 
     return markup.join('\n');
   }
 
   handleMessage(message) {
-    message.timeout = message.timeout || 5000;
+    message.data.timeout = message.data.timeout || 5000;
 
     var $eAlert = $(this.getHtml(message));
     $eAlert.appendTo(this.getMessageContainerElement());
@@ -51,11 +51,7 @@ class MessageHandlerAlert extends AbstractMessageHandler {
       $eAlert.fadeOut('normal', function() {
         $(this).remove();
       });
-    }, message.timeout);
-  }
-
-  static create(global) {
-    return new MessageHandlerAlert(global);
+    }, message.data.timeout);
   }
 
 }

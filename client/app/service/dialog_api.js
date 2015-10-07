@@ -1,21 +1,26 @@
 'use strict';
 
 var extend = require('extend');
-var IntegrationApi = require('./integration_api');
 var ConfirmComponent = require('./components/confirm');
 var ModalComponent = require('./components/modal');
 
-class DialogApi extends IntegrationApi {
+class DialogApi {
 
-  constructor(window) {
-    super(window);
+  get params() {
+    return JSON.parse(document.getElementsByTagName('e-modal')[0].getAttribute('data-params'));
+  }
+
+  constructor(api) {
+    this.api = api;
+    this.global = api.global;
 
     this.deferreds = {};
     this.confirmParams = {};
   }
 
-  submit(success, data = {}) {
-    var message = this.generateMessage(success, data);
+  submit(success, data) {
+    data = data || {};
+    var message = this.generateMessageData(success, data);
 
     if (this.deferreds[this.params.dialogId]) {
       if (success) {
@@ -24,13 +29,12 @@ class DialogApi extends IntegrationApi {
         this.deferreds[this.params.dialogId].reject(message);
       }
     } else {
-      this.window.SUITE.integration.messageToService(message, this.params.openerIntegrationInstanceId);
+      this.api.messageToService('dialog:submit', message, this.params.openerIntegrationInstanceId);
     }
   }
 
-  generateMessage(success, data = {}) {
+  generateMessageData(success, data = {}) {
     var message = extend({
-      event: 'dialog:submit',
       dialogId: this.params.dialogId,
       success: success
     }, data);
@@ -40,13 +44,6 @@ class DialogApi extends IntegrationApi {
     }
 
     return message;
-  }
-
-  resize() {
-    this.window.SUITE.integration.messageToSuite({
-      event: 'resize',
-      height: this.window.document.getElementsByClassName('modal-container')[0].scrollHeight
-    });
   }
 
   confirm(options) {
@@ -61,21 +58,21 @@ class DialogApi extends IntegrationApi {
     this.getConfirmComponent(options).render();
 
     if (options.source.integration_id === 'SUITE') {
-      this.deferreds[options.dialogId] = this.window.$.Deferred();
+      this.deferreds[options.dialogId] = this.global.$.Deferred();
       return this.deferreds[options.dialogId].promise();
     }
   }
 
   getConfirmComponent(options) {
-    return new ConfirmComponent(this.window, options);
+    return new ConfirmComponent(this.global, options);
   }
 
   confirmNavigation(url, confirmOptions) {
     var confirmPromise = this.confirm(confirmOptions);
 
     confirmPromise.then(() => {
-      this.window.$(this.window).off('beforeunload');
-      this.window.location.href = url;
+      this.global.$(this.global).off('beforeunload');
+      this.global.location.href = url;
     }).fail(() => {
       this.close();
     });
@@ -84,17 +81,11 @@ class DialogApi extends IntegrationApi {
   }
 
   modal(options) {
-    new ModalComponent(this.window, options).render();
+    new ModalComponent(this.global, options).render();
   }
 
   close() {
-    this.window.SUITE.integration.messageToSuite({
-      event: 'modal:close'
-    });
-  }
-
-  static create(global) {
-    return new DialogApi(global);
+    this.global.$('e-modal').remove();
   }
 
 }

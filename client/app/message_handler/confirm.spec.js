@@ -1,5 +1,7 @@
 'use strict';
 
+var MessageHandler = require('./confirm');
+
 describe('Confirm Handler', function() {
 
   var fakeWindow;
@@ -7,7 +9,7 @@ describe('Confirm Handler', function() {
 
   beforeEach(function() {
     fakeWindow = require('../mocks/fake_window').create();
-    messageHandler = require('./confirm').create(fakeWindow);
+    messageHandler = new MessageHandler(fakeWindow);
   });
 
   it('should listen to messages with event "confirm"', function() {

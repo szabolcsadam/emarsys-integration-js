@@ -1,5 +1,6 @@
 'use strict';
 
+var extend = require('extend');
 var Dialog = require('./dialog');
 
 class Modal extends Dialog {
@@ -28,14 +29,14 @@ class Modal extends Dialog {
     ];
 
     ['src', 'width', 'height'].forEach((attributeName) => {
-      attributes.push(attributeName + '="' + options[attributeName] + '"');
+      attributes.push(attributeName + '="' + options.data[attributeName] + '"');
     });
 
     return attributes;
   }
 
   decorateUrl(options, integrationInstanceId) {
-    var glue = options.src.indexOf('?') < 0 ? '?' : '&';
+    var glue = options.data.src.indexOf('?') < 0 ? '?' : '&';
 
     var params = [
       'integration_id=' + options.source.integration_id,
@@ -43,13 +44,15 @@ class Modal extends Dialog {
       'opener_integration_instance_id=' + options.source.integration_instance_id
     ];
 
-    return options.src + glue + params.join('&');
+    return options.data.src + glue + params.join('&');
   }
 
   getModalContent(options, integrationInstanceId) {
-    options.width = options.width || 650;
-    options.height= options.height || 500;
-    options.src = this.decorateUrl(options, integrationInstanceId);
+    options.data = extend({
+      width: 650,
+      height: 500
+    }, options.data);
+    options.data.src = this.decorateUrl(options, integrationInstanceId);
 
     return '<iframe ' + this.getAttributes(options, integrationInstanceId).join(' ') + '></iframe>';
   }

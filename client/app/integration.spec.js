@@ -1,43 +1,48 @@
 'use strict';
 
 var sinon = require('sinon');
+var EventListener = require('./message_handler/listener');
 
 describe('Integration', function() {
 
   var fakeWindow;
-  var alertHandler;
-  var refreshHandler;
+  var eventListener;
 
   beforeEach(function() {
     fakeWindow = require('./mocks/fake_window').create();
-    alertHandler = require('./message_handler/alert').create(fakeWindow);
-    refreshHandler = require('./message_handler/refresh').create(fakeWindow);
+    eventListener = new EventListener(fakeWindow);
   });
 
   it('should trigger alertHandler when receiving an "alert" event', function() {
     var eventData = {
+      event: 'alert',
       data: {
-        event: 'alert'
+        foo: 'bar'
       }
     };
 
-    sinon.stub(alertHandler, 'handleMessage');
-    fakeWindow.trigger('message', eventData);
+    sinon.stub(eventListener.messageHandlers.alert, 'handleMessage');
+    fakeWindow.trigger('message', {
+      data: JSON.stringify(eventData)
+    });
 
-    expect(alertHandler.handleMessage).to.have.been.calledWith(eventData.data);
+    expect(eventListener.messageHandlers.alert.handleMessage).to.have.been.calledWith(eventData);
   });
 
   it('should not trigger refreshHandler when receiving an "alert" event', function() {
     var eventData = {
+      event: 'alert',
       data: {
-        event: 'alert'
+        foo: 'bar'
       }
     };
 
-    sinon.stub(alertHandler, 'handleMessage');
-    sinon.stub(refreshHandler, 'handleMessage');
-    fakeWindow.trigger('message', eventData);
+    sinon.stub(eventListener.messageHandlers.alert, 'handleMessage');
+    sinon.stub(eventListener.messageHandlers.refresh, 'handleMessage');
+    fakeWindow.trigger('message', {
+      data: JSON.stringify(eventData)
+    });
 
-    expect(refreshHandler.handleMessage).to.have.callCount(0);
+    expect(eventListener.messageHandlers.refresh.handleMessage).to.have.callCount(0);
   });
 });

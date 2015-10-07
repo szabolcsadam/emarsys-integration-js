@@ -1,6 +1,7 @@
 'use strict';
 
 var sinon = require('sinon');
+var MessageHandler = require('./proxy');
 
 describe('Proxy Handler', function() {
 
@@ -11,7 +12,7 @@ describe('Proxy Handler', function() {
   beforeEach(function() {
     fakeWindow = require('../mocks/fake_window').create();
     fakeIframe = require('../mocks/fake_iframe').create();
-    messageHandler = require('./proxy').create(fakeWindow);
+    messageHandler = new MessageHandler(fakeWindow);
   });
 
   it('should listen to messages with event "proxy"', function() {
@@ -20,23 +21,26 @@ describe('Proxy Handler', function() {
 
   describe('#handleMessage', function() {
     var message = {
-      envelope: {
-        foo: 'bar'
-      },
-      integrationInstanceId: 1234
+      data: {
+        envelope: {
+          foo: 'bar'
+        },
+        integrationInstanceId: 1234
+      }
     };
 
     beforeEach(function() {
-      messageHandler.window.SUITE.integration = {
+      messageHandler.window.Emarsys.integration = {
         messageToService: sinon.stub()
       };
     });
 
     it('should send the message the service', function() {
       messageHandler.handleMessage(message);
-      expect(messageHandler.window.SUITE.integration.messageToService).to.be.calledWith(
-        message.envelope,
-        message.integrationInstanceId);
+      expect(messageHandler.window.Emarsys.integration.messageToService).to.be.calledWith(
+        message.data.event,
+        message.data.envelope,
+        message.data.integrationInstanceId);
     });
   });
 

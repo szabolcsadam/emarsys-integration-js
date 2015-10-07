@@ -2,15 +2,23 @@
 
 var sinon = require('sinon');
 var Q = require('q');
+var EmarsysApi = require('./emarsys_api');
+var DialogApi = require('./dialog_api');
 
 describe('DialogApi', function() {
 
   var fakeWindow;
+  var emarsysApi;
   var dialogApi;
 
   beforeEach(function() {
     fakeWindow = require('../mocks/fake_window').create();
-    dialogApi = require('./dialog_api').create(fakeWindow);
+    emarsysApi = new EmarsysApi({
+      global: fakeWindow,
+      integrationId: 'EMARSYS',
+      integrationInstanceId: 'EMARSYS'
+    });
+    dialogApi = new DialogApi(emarsysApi);
   });
 
   describe('#submit', function() {
@@ -20,10 +28,7 @@ describe('DialogApi', function() {
     var fakeDialogId = 'foo';
 
     beforeEach(function() {
-      fakeWindow.SUITE.integration = {
-        messageToService: sinon.stub()
-      };
-
+      sinon.stub(emarsysApi, 'messageToService');
       sinon.stub(dialogApi, 'params', {
         get: function() {
           return {
@@ -33,18 +38,18 @@ describe('DialogApi', function() {
         }
       });
 
-      sinon.stub(dialogApi, 'generateMessage').returns(fakeMessage);
+      sinon.stub(dialogApi, 'generateMessageData').returns(fakeMessage);
     });
 
     it('should generate a message', function() {
       dialogApi.submit(true);
-      expect(dialogApi.generateMessage).to.be.called;
+      expect(dialogApi.generateMessageData).to.be.called;
     });
 
     describe('submitting to a service', function() {
       it('should send the message to a service', function() {
         dialogApi.submit(true);
-        expect(fakeWindow.SUITE.integration.messageToService).to.be.calledWith(fakeMessage, 'bar');
+        expect(emarsysApi.messageToService).to.be.calledWith('dialog:submit', fakeMessage, 'bar');
       });
     });
 
@@ -68,26 +73,15 @@ describe('DialogApi', function() {
   });
 
   describe('#close', function() {
-    beforeEach(function() {
-      fakeWindow.SUITE.integration = {
-        messageToSuite: sinon.stub()
-      };
-    });
-
-    it('should send a message to close the dialog', function() {
+    it('should look up e-modal elements', function() {
       dialogApi.close();
-      expect(fakeWindow.SUITE.integration.messageToSuite).to.be.calledWith({
-        event: 'modal:close'
-      });
+      expect(fakeWindow.$).to.be.calledWith('e-modal');
     });
   });
 
-  describe('#generateMessage', function() {
+  describe('#generateMessageData', function() {
     beforeEach(function() {
-      fakeWindow.SUITE.integration = {
-        messageToService: sinon.stub()
-      };
-
+      sinon.stub(emarsysApi, 'messageToService');
       sinon.stub(dialogApi, 'params', {
         get: function() {
           return {
@@ -105,7 +99,6 @@ describe('DialogApi', function() {
           success: true,
           data: null,
           expected: {
-            event: 'dialog:submit',
             dialogId: 'foo',
             success: true
           }
@@ -115,7 +108,6 @@ describe('DialogApi', function() {
           success: false,
           data: null,
           expected: {
-            event: 'dialog:submit',
             dialogId: 'foo',
             success: false
           }
@@ -127,7 +119,6 @@ describe('DialogApi', function() {
             key: 'value'
           },
           expected: {
-            event: 'dialog:submit',
             dialogId: 'foo',
             success: false,
             key: 'value'
@@ -137,7 +128,7 @@ describe('DialogApi', function() {
 
       testCases.forEach(function(test) {
         it(test.name, function() {
-          var message = dialogApi.generateMessage(test.success, test.data);
+          var message = dialogApi.generateMessageData(test.success, test.data);
           expect(message).to.eql(test.expected);
         });
       });
@@ -148,11 +139,10 @@ describe('DialogApi', function() {
         dialogApi.confirmParams['foo'] = {
           test: 'option-value'
         };
-        var message = dialogApi.generateMessage(true, {
+        var message = dialogApi.generateMessageData(true, {
           key: 'data-value'
         });
         expect(message).to.eql({
-          event: 'dialog:submit',
           dialogId: 'foo',
           success: true,
           key: 'data-value',

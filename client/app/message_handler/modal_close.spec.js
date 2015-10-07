@@ -1,5 +1,7 @@
 'use strict';
 
+var MessageHandler = require('./modal_close');
+
 describe('Modal:Close Handler', function() {
 
   var fakeWindow;
@@ -7,7 +9,7 @@ describe('Modal:Close Handler', function() {
 
   beforeEach(function() {
     fakeWindow = require('../mocks/fake_window').create();
-    messageHandler = require('./modal_close').create(fakeWindow);
+    messageHandler = new MessageHandler(fakeWindow);
   });
 
   it('should listen to messages with event "modal:close"', function() {

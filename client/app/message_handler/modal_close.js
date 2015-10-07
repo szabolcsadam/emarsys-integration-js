@@ -9,11 +9,7 @@ class MessageHandlerModalClose extends AbstractMessageHandler {
   }
 
   handleMessage() {
-    $('e-modal').remove();
-  }
-
-  static create(global) {
-    return new MessageHandlerModalClose(global);
+    this.window.Emarsys.integration.dialog.close();
   }
 
 }

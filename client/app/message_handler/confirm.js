@@ -9,11 +9,7 @@ class MessageHandlerConfirm extends AbstractMessageHandler {
   }
 
   handleMessage(message) {
-    this.window.SUITE.integration.dialog.confirm(message);
-  }
-
-  static create(global) {
-    return new MessageHandlerConfirm(global);
+    this.window.Emarsys.integration.dialog.confirm(message);
   }
 
 }

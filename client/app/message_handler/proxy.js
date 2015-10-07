@@ -9,12 +9,11 @@ class MessageHandlerProxy extends AbstractMessageHandler {
   }
 
   handleMessage(message) {
-    message.envelope = message.envelope || {};
-    this.window.SUITE.integration.messageToService(message.envelope, message.integrationInstanceId);
-  }
-
-  static create(global) {
-    return new MessageHandlerProxy(global);
+    message.data.envelope = message.data.envelope || {};
+    this.window.Emarsys.integration.messageToService(
+      message.data.event,
+      message.data.envelope,
+      message.data.integrationInstanceId);
   }
 
 }

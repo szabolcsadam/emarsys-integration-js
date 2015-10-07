@@ -1,15 +1,17 @@
-[![Codeship Status for emartech/suite-integration-js](https://codeship.com/projects/b8c16ed0-353d-0133-8e59-224ef9168358/status?branch=master)](https://codeship.com/projects/100723)
+[![Codeship Status for emartech/emarsys-integration-js](https://codeship.com/projects/b8c16ed0-353d-0133-8e59-224ef9168358/status?branch=master)](https://codeship.com/projects/100723)
 
-# suite-integration-js
+# emarsys-integration-js
 
-Suite Integration JS (SIJS) is an API providing methods of communication between Suite and integrated services running in an iframe. One can send post messages out of the iframe and SIJS will handle those requests if there is a handler for.
+Emarsys Integration JS (SIJS) is an API providing methods of communication between Emarsys and integrated services running in an iframe. One can send post messages out of the iframe and SIJS will handle those requests if there is a handler for.
 
 __General message format__
 
 ```
 {
   "event": "handler",
-  "some_key": "data",
+  "data": {
+    "some_key": "data"
+   },
   "source": {
     "integration_id": "some_integration",
     "integration_instance_id": "iframe's random id"
@@ -36,10 +38,12 @@ __Message format__
 ```
 {
   "event": "alert",
-  "text": "Error saving content",
-  "icon": "circle-exclamation",
-  "className": "e-alert-danger",
-  "timeout": 3000
+  "data": {    
+    "text": "Error saving content",
+    "icon": "circle-exclamation",
+    "className": "e-alert-danger",
+    "timeout": 3000
+  }
 }
 ```
 
@@ -61,7 +65,9 @@ __Message format__
 ```
 {
   "event": "enable",
-  "selection": "#foo-id"
+  "data": {
+    "selection": "#foo-id"
+  }
 }
 ```
 
@@ -80,9 +86,11 @@ __Message format__
 ```
 {
   "event": "modal",
-  "src": "some-url-in-your-service",
-  "width": 500,
-  "height": 200,
+  "data": {
+    "src": "some-url-in-your-service",
+    "width": 500,
+    "height": 200,
+  },
   "source": {
     "integration_id": "some_integration",
     "integration_instance_id": "12345"
@@ -130,9 +138,11 @@ __Message format__
 ```
 {
   "event": "navigate",
-  "target": {
-    "pathname": "some/prespecified/path",
-    "param_foo": "foo_indeed"
+  "data": {
+    "target": {
+      "pathname": "some/prespecified/path",
+      "param_foo": "foo_indeed"
+    }
   }
 }
 ```
@@ -162,10 +172,13 @@ __Message format__
 ```
 {
   "event": "proxy",
-  "envelope": {
-    "some_key": "data"
-  },
-  "integrationInstanceId": "9876"
+  "data": {
+    "event": "service-event",
+    "envelope": {
+      "some_key": "data"
+    },
+    "integrationInstanceId": "9876"
+  }
 }
 ```
 
@@ -197,7 +210,9 @@ __Message format__
 ```
 {
   "event": "resize",
-  "height": 100,
+  "data": {
+    "height": 100,
+  },
   "source": {
     "integration_id": "some_integration",
     "integration_instance_id": "12345"
@@ -215,7 +230,7 @@ __Fields__
 
 # Development
 
-If you would like to make local changes, you need to run `gulp start`. You can reach the resulting code [on this local URL then](http://localhost:1234/integration.js).
+If you would like to make local changes, you need to run `gulp start`. You can reach the resulting code [on this local URL then](http://localhost:1235/integration.js).
 
 # Deployment
 

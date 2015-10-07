@@ -9,7 +9,7 @@ class MessageHandlerResize extends AbstractMessageHandler {
   }
 
   handleMessage(message) {
-    var height = parseInt(message.height, 10);
+    var height = parseInt(message.data.height, 10);
     var $iframe = $(this.getIntegrationIframe(message.source.integration_instance_id));
 
     if (height) {
@@ -18,10 +18,6 @@ class MessageHandlerResize extends AbstractMessageHandler {
         .parent()
         .height(height);
     }
-  }
-
-  static create(global) {
-    return new MessageHandlerResize(global);
   }
 
 }

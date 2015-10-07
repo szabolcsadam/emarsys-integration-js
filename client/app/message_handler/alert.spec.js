@@ -1,6 +1,7 @@
 'use strict';
 
 var sinon = require('sinon');
+var MessageHandler = require('./alert');
 
 describe('Alert Handler', function() {
 
@@ -9,7 +10,7 @@ describe('Alert Handler', function() {
 
   beforeEach(function() {
     fakeWindow = require('../mocks/fake_window').create();
-    messageHandler = require('./alert').create(fakeWindow);
+    messageHandler = new MessageHandler(fakeWindow);
   });
 
   it('should listen to messages with event "alert"', function() {
@@ -20,15 +21,19 @@ describe('Alert Handler', function() {
     var testCases = [
       {
         name: 'should return classNames when no special className specified',
-        data: {},
+        message: {
+          data: {}
+        },
         expected: [
           'e-alert'
         ]
       },
       {
         name: 'should return classNames when className is specified',
-        data: {
-          className: 'e-alert-foo'
+        message: {
+          data: {
+            className: 'e-alert-foo'
+          }
         },
         expected: [
           'e-alert',
@@ -37,8 +42,10 @@ describe('Alert Handler', function() {
       },
       {
         name: 'should return classNames when icon is specified',
-        data: {
-          icon: 'foo'
+        message: {
+          data: {
+            icon: 'foo'
+          }
         },
         expected: [
           'e-alert',
@@ -47,9 +54,11 @@ describe('Alert Handler', function() {
       },
       {
         name: 'should return classNames when className and icon is specified',
-        data: {
-          className: 'e-alert-foo',
-          icon: 'bar'
+        message: {
+          data: {
+            className: 'e-alert-foo',
+            icon: 'bar'
+          }
         },
         expected: [
           'e-alert',
@@ -61,7 +70,7 @@ describe('Alert Handler', function() {
 
     testCases.forEach(function(test) {
       it(test.name, function() {
-        var classNames = messageHandler.getClassNames(test.data);
+        var classNames = messageHandler.getClassNames(test.message);
         expect(classNames).to.eql(test.expected);
       });
     });
@@ -77,27 +86,35 @@ describe('Alert Handler', function() {
     var testCases = [
       {
         name: 'should return HTML with classNames',
-        data: {},
+        message: {
+          data: {}
+        },
         expected: 'e-alert'
       },
       {
         name: 'should return HTML with proper class when icon is set',
-        data: {
-          icon: 'foo'
+        message: {
+          data: {
+            icon: 'foo'
+          }
         },
         expected: 'e-alert__icon'
       },
       {
         name: 'should return HTML with the icon referred when icon is set',
-        data: {
-          icon: 'foo'
+        message: {
+          data: {
+            icon: 'foo'
+          }
         },
         expected: '#foo'
       },
       {
         name: 'should return HTML with text message',
-        data: {
-          text: 'lorem ipsum dolor sit amet'
+        message: {
+          data: {
+            text: 'lorem ipsum dolor sit amet'
+          }
         },
         expected: 'lorem ipsum dolor sit amet'
       }
@@ -105,7 +122,7 @@ describe('Alert Handler', function() {
 
     testCases.forEach(function(test) {
       it(test.name, function() {
-        var html = messageHandler.getHtml(test.data);
+        var html = messageHandler.getHtml(test.message);
         expect(html).to.have.string(test.expected);
       });
     });

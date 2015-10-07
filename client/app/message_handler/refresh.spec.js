@@ -1,5 +1,7 @@
 'use strict';
 
+var MessageHandler = require('./refresh');
+
 describe('Refresh Handler', function() {
 
   var fakeWindow;
@@ -7,7 +9,7 @@ describe('Refresh Handler', function() {
 
   beforeEach(function() {
     fakeWindow = require('../mocks/fake_window').create();
-    messageHandler = require('./refresh').create(fakeWindow);
+    messageHandler = new MessageHandler(fakeWindow);
   });
 
   it('should listen to messages with event "refresh"', function() {

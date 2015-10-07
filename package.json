@@ -1,5 +1,5 @@
 {
-  "name": "suite-integration-js",
+  "name": "emarsys-integration-js",
   "version": "1.0.1",
   "description": "",
   "main": "index.js",
@@ -30,12 +30,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/emartech/suite-integration-js.git"
+    "url": "git+https://github.com/emartech/emarsys-integration-js.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/emartech/suite-integration-js/issues"
+    "url": "https://github.com/emartech/emarsys-integration-js/issues"
   },
-  "homepage": "https://github.com/emartech/suite-integration-js#readme"
+  "homepage": "https://github.com/emartech/emarsys-integration-js#readme"
 }

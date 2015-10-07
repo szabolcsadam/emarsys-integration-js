@@ -1,5 +1,7 @@
 'use strict';
 
+var MessageHandler = require('./enable_button');
+
 describe('Enable Handler', function() {
 
   var fakeWindow;
@@ -8,23 +10,27 @@ describe('Enable Handler', function() {
 
   beforeEach(function() {
     fakeWindow = require('../mocks/fake_window').create();
-    messageHandler = require('./enable').create(fakeWindow);
+    messageHandler = new MessageHandler(fakeWindow);
   });
 
   it('should listen to messages with event "enable"', function() {
-    expect(messageHandler.MESSAGE_EVENT).to.be.eql('enable');
+    expect(messageHandler.MESSAGE_EVENT).to.be.eql('enable_button');
   });
 
   it('should select the element with selection passed', function() {
     messageHandler.handleMessage({
-      selection: fakeSelection
+      data: {
+        selection: fakeSelection
+      }
     });
     expect(fakeWindow.$).to.have.been.calledWith(fakeSelection);
   });
 
   it('should remove the class "e-btn-disabled" from the element selected', function() {
     messageHandler.handleMessage({
-      selection: fakeSelection
+      data: {
+        selection: fakeSelection
+      }
     });
     expect(fakeWindow.$(fakeSelection).removeClass).to.have.been.calledWith('e-btn-disabled');
   });

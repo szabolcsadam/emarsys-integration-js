@@ -9,16 +9,12 @@ class MessageHandlerModal extends AbstractMessageHandler {
   }
 
   handleMessage(message) {
-    if (message.src.match(/^\/{1}[^\/]+/)) {
-      message.src = '//' + this.window.location.host + message.src;
-      message.src = message.src.replace('{session_id}', this.window.SUITE.config.session_id);
+    if (message.data.src.match(/^\/{1}[^\/]+/)) {
+      message.data.src = '//' + this.window.location.host + message.data.src;
+      message.data.src = message.data.src.replace('{session_id}', this.window.Emarsys.config.session_id);
     }
 
-    this.window.SUITE.integration.dialog.modal(message);
-  }
-
-  static create(global) {
-    return new MessageHandlerModal(global);
+    this.window.Emarsys.integration.dialog.modal(message);
   }
 
 }

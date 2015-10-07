@@ -53,7 +53,7 @@ class MessageHandlerNavigate extends AbstractMessageHandler {
   }
 
   replaceUrlParams(url, params) {
-    params.session_id = this.window.SUITE.config.session_id;
+    params.session_id = this.window.Emarsys.config.session_id;
 
     for (var key in params) {
       if (params.hasOwnProperty(key) && key !== 'pathname') {
@@ -65,20 +65,16 @@ class MessageHandlerNavigate extends AbstractMessageHandler {
   }
 
   handleMessage(message) {
-    var url = this.getUrlByPathname(message.target.pathname);
-    url = this.replaceUrlParams(url, message.target);
+    var url = this.getUrlByPathname(message.data.target.pathname);
+    url = this.replaceUrlParams(url, message.data.target);
 
-    if (this.window.SUITE.integration.unload.initialized) {
-      return this.window.SUITE.integration.dialog.confirmNavigation(
+    if (this.window.Emarsys.integration.unload.initialized) {
+      return this.window.Emarsys.integration.dialog.confirmNavigation(
         url,
         this.getNavigationConfirmOptions(message));
     } else {
       this.window.location.href = url;
     }
-  }
-
-  static create(global) {
-    return new MessageHandlerNavigate(global);
   }
 
 }

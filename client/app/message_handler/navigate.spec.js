@@ -1,6 +1,7 @@
 'use strict';
 
 var sinon = require('sinon');
+var MessageHandler = require('./navigate');
 
 describe('Navigate Handler', function() {
 
@@ -9,7 +10,7 @@ describe('Navigate Handler', function() {
 
   beforeEach(function() {
     fakeWindow = require('../mocks/fake_window').create();
-    messageHandler = require('./navigate').create(fakeWindow);
+    messageHandler = new MessageHandler(fakeWindow);
   });
 
   it('should listen to messages with event "navigate"', function() {
@@ -19,10 +20,12 @@ describe('Navigate Handler', function() {
   it('should set proper location when calling handleMessage with params', function() {
     messageHandler.handleMessage({
       event: 'navigate',
-      target: {
-        pathname: 'email_analysis/details',
-        campaign_id: 666,
-        launch_id: 999
+      data: {
+        target: {
+          pathname: 'email_analysis/details',
+          campaign_id: 666,
+          launch_id: 999
+        }
       }
     });
 
@@ -48,8 +51,10 @@ describe('Navigate Handler', function() {
   it('should set proper location when calling handleMessage without params', function() {
     messageHandler.handleMessage({
       event: 'navigate',
-      target: {
-        pathname: 'email_campaigns/list'
+      data: {
+        target: {
+          pathname: 'email_campaigns/list'
+        }
       }
     });
 
@@ -58,19 +63,21 @@ describe('Navigate Handler', function() {
 
   describe('when unload confirm is initialized', function() {
     beforeEach(function() {
-      fakeWindow.SUITE.integration.unload.initialized = true;
-      fakeWindow.SUITE.integration.dialog.confirmNavigation = sinon.stub().returns(fakeWindow.resolved());
+      fakeWindow.Emarsys.integration.unload.initialized = true;
+      fakeWindow.Emarsys.integration.dialog.confirmNavigation = sinon.stub().returns(fakeWindow.resolved());
     });
 
     it('should pop a confirm dialog when we have the unload confirm initialized', function() {
       messageHandler.handleMessage({
         event: 'navigate',
-        target: {
-          pathname: 'email_campaigns/list'
+        data: {
+          target: {
+            pathname: 'email_campaigns/list'
+          }
         }
       });
 
-      expect(fakeWindow.SUITE.integration.dialog.confirmNavigation).to.be.called;
+      expect(fakeWindow.Emarsys.integration.dialog.confirmNavigation).to.be.called;
     });
   });
 

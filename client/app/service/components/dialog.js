@@ -14,7 +14,7 @@ class Dialog {
     this.window.riot.mount($eModal[0], {
       opened: true,
       type: this.modalType,
-      width: this.options.width
+      width: this.options.data.width
     });
   }
 

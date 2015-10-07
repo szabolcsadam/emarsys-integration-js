@@ -16,7 +16,7 @@ class Confirm extends Dialog {
       integrationId: this.options.source.integration_id,
       integrationInstanceId: 'SUITE',
       openerIntegrationInstanceId: this.options.source.integration_instance_id,
-      dialogId: this.options.dialogId
+      dialogId: this.options.data.dialogId
     }));
   }
 
@@ -30,22 +30,22 @@ class Confirm extends Dialog {
 
   getModalContent(options) {
     var retval = [
-      '<h2>' + this.cleanMessage(options.title) + '</h2>'
+      '<h2>' + this.cleanMessage(options.data.title) + '</h2>'
     ];
 
-    if (options.body) {
-      retval.push('<p>' + this.cleanMessage(options.body) + '</p>');
+    if (options.data.body) {
+      retval.push('<p>' + this.cleanMessage(options.data.body) + '</p>');
     }
 
     retval.push('<div class="e-buttongroup">');
     retval.push(this.getButtonHtml(
-      'window.SUITE.integration.dialog.submit(false)',
+      'window.Emarsys.integration.dialog.submit(false)',
       'e-btn',
-      options.cancel));
+      options.data.cancel));
     retval.push(this.getButtonHtml(
-      'window.SUITE.integration.dialog.submit(true)',
+      'window.Emarsys.integration.dialog.submit(true)',
       'e-btn e-btn-primary',
-      options.ok));
+      options.data.ok));
     retval.push('</div>');
 
     return retval.join('\n');

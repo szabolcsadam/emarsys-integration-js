@@ -1,24 +1,17 @@
 'use strict';
 
-var SuiteApi = require('./service/suite_api');
+var EmarsysApi = require('./service/emarsys_api');
 var DialogApi = require('./service/dialog_api');
+var EventListener = require('./message_handler/listener');
 
 (function(global) {
+  global.Emarsys = global.Emarsys || {};
+  global.Emarsys.integration = new EmarsysApi({
+    global: global,
+    integrationId: 'EMARSYS',
+    integrationInstanceId: 'EMARSYS'
+  });
+  global.Emarsys.integration.dialog = new DialogApi(global.Emarsys.integration);
 
-  global.SUITE = global.SUITE || {};
-  global.SUITE.integration = SuiteApi.create(global);
-  global.SUITE.integration.dialog = DialogApi.create(global);
-
-  require('./message_handler/alert').create(global);
-  require('./message_handler/confirm').create(global);
-  require('./message_handler/enable').create(global);
-  require('./message_handler/modal').create(global);
-  require('./message_handler/modal_close').create(global);
-  require('./message_handler/navigate').create(global);
-  require('./message_handler/proxy').create(global);
-  require('./message_handler/refresh').create(global);
-  require('./message_handler/resize').create(global);
-  require('./message_handler/unload_init').create(global);
-  require('./message_handler/unload_reset').create(global);
-
+  new EventListener(global);
 })(window);

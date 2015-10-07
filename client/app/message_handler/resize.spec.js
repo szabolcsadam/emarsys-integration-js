@@ -1,5 +1,7 @@
 'use strict';
 
+var MessageHandler = require('./resize');
+
 describe('Resize Handler', function() {
 
   var fakeWindow;
@@ -8,7 +10,7 @@ describe('Resize Handler', function() {
 
   beforeEach(function() {
     fakeWindow = require('../mocks/fake_window').create();
-    messageHandler = require('./resize').create(fakeWindow);
+    messageHandler = new MessageHandler(fakeWindow);
   });
 
   it('should listen to messages with event "resize"', function() {

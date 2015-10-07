@@ -17,10 +17,12 @@ describe('Modal Component', function() {
 
     beforeEach(function() {
       attributes = modalComponent.getAttributes({
-        src: 'http://example.com',
-        width: 100,
-        height: 200,
-        shouldNotPass: 'really',
+        data: {
+          src: 'http://example.com',
+          width: 100,
+          height: 200,
+          shouldNotPass: 'really'
+        },
         source: {
           integration_id: 'foo-integration',
           integration_instance_id: 1234
@@ -61,36 +63,46 @@ describe('Modal Component', function() {
     var testCases = [
       {
         name: 'should return HTML with e-modal tag',
-        data: {
-          src: 'http://example.com'
+        message: {
+          data: {
+            src: 'http://example.com'
+          }
         },
         expected: '<e-modal'
       },
       {
         name: 'should set width to 650 by default',
-        data: {
-          src: 'http://example.com'
+        message: {
+          data: {
+            src: 'http://example.com'
+          }
         },
         expected: 'width="650"'
       },
       {
         name: 'should set height to 500 by default',
-        data: {
-          src: 'http://example.com'
+        message: {
+          data: {
+            src: 'http://example.com'
+          }
         },
         expected: 'height="500"'
       },
       {
         name: 'should return HTML with iframe',
-        data: {
-          src: 'http://example.com'
+        message: {
+          data: {
+            src: 'http://example.com'
+          }
         },
         expected: '<iframe'
       },
       {
         name: 'should return HTML with iframe with proper src',
-        data: {
-          src: 'http://example.com'
+        message: {
+          data: {
+            src: 'http://example.com'
+          }
         },
         expected: [
           'src="http://example.com?integration_id=foo-integration',
@@ -100,8 +112,10 @@ describe('Modal Component', function() {
       },
       {
         name: 'should return HTML with iframe with proper src for src with params too',
-        data: {
-          src: 'http://example.com?param=foo'
+        message: {
+          data: {
+            src: 'http://example.com?param=foo'
+          }
         },
         expected: [
           'src="http://example.com?param=foo',
@@ -112,17 +126,21 @@ describe('Modal Component', function() {
       },
       {
         name: 'should set width to value passed',
-        data: {
-          src: 'http://example.com',
-          width: 100
+        message: {
+          data: {
+            src: 'http://example.com',
+            width: 100
+          }
         },
         expected: 'width="100"'
       },
       {
         name: 'should set height to value passed',
-        data: {
-          src: 'http://example.com',
-          height: 200
+        message: {
+          data: {
+            src: 'http://example.com',
+            height: 200
+          }
         },
         expected: 'height="200"'
       }
@@ -130,12 +148,12 @@ describe('Modal Component', function() {
 
     testCases.forEach(function(test) {
       it(test.name, function() {
-        test.data.source = {
+        test.message.source = {
           integration_id: 'foo-integration',
           integration_instance_id: 1234
         };
 
-        var html = modalComponent.getHtml(test.data, 9876);
+        var html = modalComponent.getHtml(test.message, 9876);
         expect(html).to.have.string(test.expected);
       });
     });
