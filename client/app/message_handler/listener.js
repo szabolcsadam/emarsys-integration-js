@@ -22,7 +22,6 @@ class EventListener {
       var message = e.data;
 
       if (typeof message === 'string') {
-        console.log(message);
         try {
           message = JSON.parse(message);
           if (this.messageHandlers[message.event]) {
