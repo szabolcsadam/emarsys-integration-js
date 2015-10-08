@@ -8,7 +8,7 @@ class MessageHandlerNavigate extends AbstractMessageHandler {
     return 'navigate';
   }
 
-  getUrlByPathname(pathname) {
+  getUrlByTarget(pathname) {
     var targets = {
       'email_campaigns/list': [
         'campaignmanager.php?session_id={session_id}',
@@ -52,7 +52,7 @@ class MessageHandlerNavigate extends AbstractMessageHandler {
     throw new Error('Error 404: Unknown pathname');
   }
 
-  replaceUrlParams(url, params) {
+  replaceUrlParams(url, params = {}) {
     params.session_id = this.window.Emarsys.config.session_id;
 
     for (var key in params) {
@@ -65,8 +65,8 @@ class MessageHandlerNavigate extends AbstractMessageHandler {
   }
 
   handleMessage(message) {
-    var url = this.getUrlByPathname(message.data.target.pathname);
-    url = this.replaceUrlParams(url, message.data.target);
+    var url = this.getUrlByTarget(message.data.target);
+    url = this.replaceUrlParams(url, message.data.params);
 
     if (this.window.Emarsys.integration.unload.initialized) {
       return this.window.Emarsys.integration.dialog.confirmNavigation(

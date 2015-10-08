@@ -2,7 +2,7 @@
 
 var MessageHandler = require('./enable_button');
 
-describe('Enable Handler', function() {
+describe('EnableButton Handler', function() {
 
   var fakeWindow;
   var messageHandler;
@@ -20,7 +20,7 @@ describe('Enable Handler', function() {
   it('should select the element with selection passed', function() {
     messageHandler.handleMessage({
       data: {
-        selection: fakeSelection
+        selector: fakeSelection
       }
     });
     expect(fakeWindow.$).to.have.been.calledWith(fakeSelection);
@@ -29,7 +29,7 @@ describe('Enable Handler', function() {
   it('should remove the class "e-btn-disabled" from the element selected', function() {
     messageHandler.handleMessage({
       data: {
-        selection: fakeSelection
+        selector: fakeSelection
       }
     });
     expect(fakeWindow.$(fakeSelection).removeClass).to.have.been.calledWith('e-btn-disabled');

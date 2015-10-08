@@ -9,7 +9,7 @@ class MessageHandlerEnableButton extends AbstractMessageHandler {
   }
 
   handleMessage(message) {
-    this.window.$(message.data.selection)
+    this.window.$(message.data.selector)
       .removeClass('e-btn-disabled');
   }
 

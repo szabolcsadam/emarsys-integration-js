@@ -21,8 +21,8 @@ describe('Navigate Handler', function() {
     messageHandler.handleMessage({
       event: 'navigate',
       data: {
-        target: {
-          pathname: 'email_analysis/details',
+        target: 'email_analysis/details',
+        params: {
           campaign_id: 666,
           launch_id: 999
         }
@@ -52,9 +52,7 @@ describe('Navigate Handler', function() {
     messageHandler.handleMessage({
       event: 'navigate',
       data: {
-        target: {
-          pathname: 'email_campaigns/list'
-        }
+        target: 'email_campaigns/list'
       }
     });
 
@@ -71,9 +69,7 @@ describe('Navigate Handler', function() {
       messageHandler.handleMessage({
         event: 'navigate',
         data: {
-          target: {
-            pathname: 'email_campaigns/list'
-          }
+          target: 'email_campaigns/list'
         }
       });
 
@@ -81,11 +77,11 @@ describe('Navigate Handler', function() {
     });
   });
 
-  it('should throw 404 when calling getUrlByPathname with invalid pathname', function() {
+  it('should throw 404 when calling getUrlByTarget with invalid pathname', function() {
     var exceptionThrown;
 
     try {
-      messageHandler.getUrlByPathname('invalid/pathname');
+      messageHandler.getUrlByTarget('invalid/pathname');
     } catch (e) {
       exceptionThrown = e;
     }
