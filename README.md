@@ -56,7 +56,35 @@ __Fields__
 |className|Alert sub-class to use when rendering the alert. Eg. 'e-alert-success' for a green bar, 'e-alert-danger' for a red one.|NO|
 |timeout|Amount of time after the alert will fade out and get removed from the DOM, in milliseconds.|NO|5000|
 
-## Enable
+## Confirm
+
+This handler will open a confirm dialog with the content given.
+
+__Message format__
+
+```
+{
+  "event": "enable_button",
+  "data": {
+    "title": "Are you sure you want to navigate away?",
+    "body": "You have unsaved changes you will lose if navigating away.",
+    "ok": "Yes I am",
+    "cancel": "No, I'm not"
+  }
+}
+```
+
+__Options__
+
+|Field|Role|Mandatory|Default|
+|-----|----|---------|-------|
+|title: String|Title of the confirm dialog.|YES||
+|body: String|Body text of the confirm dialog.|NO||
+|cancel: String|Text of Cancel button.|YES||
+|ok: String|Text of OK button.|YES||
+
+
+## EnableButton
 
 This handler will remove the class _e-btn-disabled_ from a selection of DOM elements.
 
@@ -64,9 +92,9 @@ __Message format__
 
 ```
 {
-  "event": "enable",
+  "event": "enable_button",
   "data": {
-    "selection": "#foo-id"
+    "selector": "#foo-id"
   }
 }
 ```
@@ -75,11 +103,11 @@ __Fields__
 
 |Field|Role|Mandatory|
 |-----|----|---------|
-|selection|jQuery selection.|YES|
+|selector|jQuery selector.|YES|
 
 ## Modal
 
-This handler will open a modal dialog with content provided by your service rendered in an iframe inside the modal. It will generate a new integration instance ID for the iframe and glue integration_id, integration_instance_id and opener_integration_instance_id to the iframe URL.
+This handler will open a modal dialog with content provided by either Emarsys or your service rendered in an iframe inside the modal. It will generate a new integration instance ID for the iframe and glue integration_id, integration_instance_id and opener_integration_instance_id to the iframe URL.
 
 __Message format__
 
@@ -139,9 +167,9 @@ __Message format__
 {
   "event": "navigate",
   "data": {
-    "target": {
-      "pathname": "some/prespecified/path",
-      "param_foo": "foo_indeed"
+    "target": "some/prespecified/path",
+    "params": {
+      "foo": "foo_indeed"
     }
   }
 }
@@ -151,10 +179,10 @@ __Fields__
 
 |Field|Role|Mandatory|
 |-----|----|---------|
-|target.pathname|The prespecified target you would like to head to.|YES|
-|target.param_foo|The general param the actual target needs.|MIXED|
+|target|The prespecified target you would like to head to.|YES|
+|params.foo|The general param the actual target needs.|MIXED|
 
-__Path names available__
+__Targets available__
 
 |Target|Action|Params|
 |------|------|------|
@@ -227,6 +255,56 @@ __Fields__
 |height|The iframe's desired height.|YES|
 |source.integration_id|ID of the integration the message is coming from.|NO|
 |source.integration_instance_id|Random instance ID of the integration the message is coming from.|YES|
+
+## Unload:init
+
+This handler will set up click handler for `<a>` elements, popping a navigation confirm dialog when clicked. It makes sense to call send this event right after your content gets dirty.
+
+__Message format__
+
+```
+{
+  "event": "unload:init",
+  "data": {
+    "selector": "#menu",
+    "confirm": {
+      "title": "Are you sure you want to navigate away?",
+      "body": "You have unsaved changes you will lose if navigating away.",
+      "ok": "Yes I am",
+      "cancel": "No, I'm not"
+    }
+  }
+}
+```
+
+__Fields__
+
+|Field|Role|Mandatory|Default|
+|-----|----|---------|-------|
+|selector: String|Selector for ancestor elements of `<a>` elements.|YES||
+|confirm: Object|Options for confirm dialog. See `dialog.confirm()`.|NO|Options for a general unload confirm dialog.|
+
+## Unload:reset
+
+Stopping to watch click events of elements selected by `selector`.  It makes sense to call this method right after your content gets clean (ie. saved).
+
+__Message format__
+
+```
+{
+  "event": "unload:reset",
+  "data": {
+    "selector": "#menu"
+  }
+}
+```
+
+__Fields__
+
+|Field|Role|Mandatory|
+|-----|----|---------|
+|selector: String|Selector for ancestor elements of `<a>` elements.|YES|
+
 
 # Development
 
