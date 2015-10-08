@@ -14,18 +14,26 @@ class AbstractMessageHandler {
     return this.window.document.getElementById('integration-' + integrationInstanceId);
   }
 
-  getNavigationConfirmOptions(message) {
+  getFakeConfirmMessage(message) {
+    var retval = {
+      source: {
+        integration_id: 'EMARSYS'
+      }
+    };
     var defaultConfirm = {
       ok: this.window.gettext('Ok'),
       cancel: this.window.gettext('Cancel'),
       title: this.window.gettext('Confirm navigation'),
-      body: this.window.gettext('You have unsaved changes you will lose if you leave this page.'),
-      source: {
-        integration_id: 'SUITE'
-      }
+      body: this.window.gettext('You have unsaved changes you will lose if you leave this page.')
     };
 
-    return this.window.$.extend({}, defaultConfirm, message.confirm);
+    if (message.data.confirm) {
+      retval.data = this.window.$.extend({}, defaultConfirm, message.data.confirm);
+    } else {
+      retval.data = defaultConfirm;
+    }
+
+    return retval;
   }
 
   getMessageContainerElement() {

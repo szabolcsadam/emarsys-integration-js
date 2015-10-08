@@ -10,15 +10,14 @@ class MessageHandlerUnloadInit extends AbstractMessageHandler {
 
   handleMessage(message) {
     var eventNamespace = 'confirm_navigation_' + message.source.integration_instance_id;
-
-    message.data.confirm = this.getNavigationConfirmOptions(message);
+    var fakeConfirmMessage = this.getFakeConfirmMessage(message);
 
     $(this.window).off('beforeunload.' + eventNamespace);
     $(this.window).on('beforeunload.' + eventNamespace, function() {
-      return message.data.confirm.body;
+      return fakeConfirmMessage.data.body;
     });
 
-    $(message.data.selection)
+    $(message.data.selector)
       .off('click.' + eventNamespace)
       .on('click.' + eventNamespace, 'a[href][target!="_blank"]:not([onclick])', (event) => {
         if (event.ctrlKey || event.metaKey || event.which === 2 || !event.target.hostname) {
@@ -28,7 +27,7 @@ class MessageHandlerUnloadInit extends AbstractMessageHandler {
         event.preventDefault();
         event.stopPropagation();
 
-        this.window.Emarsys.integration.dialog.confirmNavigation(event.target.href, message.data.confirm);
+        this.window.Emarsys.integration.dialog.confirmNavigation(event.target.href, fakeConfirmMessage);
       });
 
     this.window.Emarsys.integration.unload.initialized = true;

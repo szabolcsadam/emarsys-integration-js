@@ -53,7 +53,7 @@ describe('DialogApi', function() {
       });
     });
 
-    describe('submitting to suite', function() {
+    describe('submitting to Emarsys', function() {
       beforeEach(function() {
         dialogApi.deferreds[fakeDialogId] = Q.defer();
         sinon.stub(dialogApi.deferreds[fakeDialogId], 'reject');
@@ -153,10 +153,12 @@ describe('DialogApi', function() {
   });
 
   describe('#confirm', function() {
-    var confirmOptions = {
-      optional: false,
+    var confirmMessage = {
+      data: {
+        dialogId: 1234
+      },
       source: {
-        integration_id: 'SUITE'
+        integration_id: 'EMARSYS'
       }
     };
     var fakeConfirmComponent = {
@@ -165,15 +167,29 @@ describe('DialogApi', function() {
 
     beforeEach(function() {
       dialogApi.getConfirmComponent = sinon.stub().returns(fakeConfirmComponent);
+      dialogApi.generateDialogId = sinon.stub().returns(1000);
     });
 
     it('should create a confirm dialog', function() {
-      dialogApi.confirm(confirmOptions);
-      expect(dialogApi.getConfirmComponent).to.be.calledWith(confirmOptions);
+      dialogApi.confirm(confirmMessage);
+      expect(dialogApi.getConfirmComponent).to.be.calledWith(confirmMessage);
     });
 
-    it('should render the confirm dialog when it is not optional', function() {
-      dialogApi.confirm(confirmOptions);
+    it('should create a confirm dialog with a random ID when no ID is given', function() {
+      dialogApi.confirm({
+        data: {},
+        source: confirmMessage.source
+      });
+      expect(dialogApi.getConfirmComponent).to.be.calledWith({
+        data: {
+          dialogId: 1000
+        },
+        source: confirmMessage.source
+      });
+    });
+
+    it('should render the confirm dialog', function() {
+      dialogApi.confirm(confirmMessage);
       expect(fakeConfirmComponent.render).to.be.called;
     });
   });

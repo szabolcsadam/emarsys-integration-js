@@ -6,12 +6,19 @@ var EventListener = require('./message_handler/listener');
 
 (function(global) {
   global.Emarsys = global.Emarsys || {};
-  global.Emarsys.integration = new EmarsysApi({
+  var emarsysApi = new EmarsysApi({
     global: global,
     integrationId: 'EMARSYS',
     integrationInstanceId: 'EMARSYS'
   });
-  global.Emarsys.integration.dialog = new DialogApi(global.Emarsys.integration);
+
+  global.Emarsys.integration = {
+    messageToService: emarsysApi.messageToService.bind(emarsysApi),
+    dialog: new DialogApi(emarsysApi),
+    unload: {
+      initialized: false
+    }
+  };
 
   new EventListener(global);
 })(window);

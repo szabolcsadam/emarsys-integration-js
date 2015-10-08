@@ -71,7 +71,7 @@ class MessageHandlerNavigate extends AbstractMessageHandler {
     if (this.window.Emarsys.integration.unload.initialized) {
       return this.window.Emarsys.integration.dialog.confirmNavigation(
         url,
-        this.getNavigationConfirmOptions(message));
+        this.getFakeConfirmMessage(message));
     } else {
       this.window.location.href = url;
     }

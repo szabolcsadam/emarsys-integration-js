@@ -46,29 +46,33 @@ class DialogApi {
     return message;
   }
 
-  confirm(options) {
-    if (!options.dialogId) {
-      options.dialogId = Math.floor(Math.random() * 10000000);
+  generateDialogId() {
+    return Math.floor(Math.random() * 10000000);
+  }
+
+  confirm(message) {
+    if (!message.data.dialogId) {
+      message.data.dialogId = this.generateDialogId();
     }
 
-    if (options.params) {
-      this.confirmParams[options.dialogId] = options.params;
+    if (message.data.params) {
+      this.confirmParams[message.data.dialogId] = message.data.params;
     }
 
-    this.getConfirmComponent(options).render();
+    this.getConfirmComponent(message).render();
 
-    if (options.source.integration_id === 'SUITE') {
-      this.deferreds[options.dialogId] = this.global.$.Deferred();
-      return this.deferreds[options.dialogId].promise();
+    if (message.source.integration_id === 'EMARSYS') {
+      this.deferreds[message.data.dialogId] = this.global.$.Deferred();
+      return this.deferreds[message.data.dialogId].promise();
     }
   }
 
-  getConfirmComponent(options) {
-    return new ConfirmComponent(this.global, options);
+  getConfirmComponent(message) {
+    return new ConfirmComponent(this.global, message);
   }
 
-  confirmNavigation(url, confirmOptions) {
-    var confirmPromise = this.confirm(confirmOptions);
+  confirmNavigation(url, message) {
+    var confirmPromise = this.confirm(message);
 
     confirmPromise.then(() => {
       this.global.$(this.global).off('beforeunload');
@@ -80,8 +84,8 @@ class DialogApi {
     return confirmPromise;
   }
 
-  modal(options) {
-    new ModalComponent(this.global, options).render();
+  modal(message) {
+    new ModalComponent(this.global, message).render();
   }
 
   close() {

@@ -14,7 +14,7 @@ class Confirm extends Dialog {
     var $eModal = this.window.$('e-modal');
     $eModal.attr('data-params', JSON.stringify({
       integrationId: this.options.source.integration_id,
-      integrationInstanceId: 'SUITE',
+      integrationInstanceId: 'EMARSYS',
       openerIntegrationInstanceId: this.options.source.integration_instance_id,
       dialogId: this.options.data.dialogId
     }));
