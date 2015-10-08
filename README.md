@@ -1,4 +1,9 @@
-[![Codeship Status for emartech/emarsys-integration-js](https://codeship.com/projects/b8c16ed0-353d-0133-8e59-224ef9168358/status?branch=master)](https://codeship.com/projects/100723)
+# Build status
+
+|Branch|Status|
+|------|------|
+|master|[![Codeship Status for emartech/emarsys-integration-js](https://codeship.com/projects/c32db210-4f1d-0133-4363-02c24d531ca5/status?branch=master)](https://codeship.com/projects/107145)|
+|production|[![Codeship Status for emartech/emarsys-integration-js](https://codeship.com/projects/c32db210-4f1d-0133-4363-02c24d531ca5/status?branch=production)](https://codeship.com/projects/107145)|
 
 # emarsys-integration-js
 
