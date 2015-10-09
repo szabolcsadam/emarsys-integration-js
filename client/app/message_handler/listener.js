@@ -27,19 +27,19 @@ class EventListener {
           if (this.messageHandlers[message.event]) {
             this.messageHandlers[message.event].handleMessage(message);
           } else {
-            console.warn('Unknown message ' + message.event);
+            console.log('Unknown message ' + message.event);
           }
         }
         catch (e) {
-          console.warn('Failed to decode JSON message.');
-          console.warn('Message was:', message);
+          console.log('Failed to handle message.');
+          console.log('Message was:', message);
         }
       } else {
-        console.warn([
+        console.log([
           'Non-JSON integration messages are deprecated.',
           'Use emarsys-integration-client instead to send messages to Emarsys B2CC.'
         ].join(' '));
-        console.warn('Message was:', message);
+        console.log('Message was:', message);
       }
     });
 
