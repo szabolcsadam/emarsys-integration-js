@@ -42,6 +42,12 @@ class MessageHandlerNavigate extends AbstractMessageHandler {
         'admin=n',
         'status=current',
         'type=all'
+      ].join('&'),
+
+      'contact_lists/details': [
+        'userprofiles.php?session_id={session_id}',
+        'action=searchnlist',
+        'list_id={contact_list_id}'
       ].join('&')
     };
 
