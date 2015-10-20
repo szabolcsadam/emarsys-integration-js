@@ -39,6 +39,7 @@ class Modal extends Dialog {
     var glue = options.data.src.indexOf('?') < 0 ? '?' : '&';
 
     var params = [
+      'dialogId=' + options.data.dialogId,
       'integration_id=' + options.source.integration_id,
       'integration_instance_id=' + integrationInstanceId,
       'opener_integration_instance_id=' + options.source.integration_instance_id

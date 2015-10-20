@@ -101,11 +101,13 @@ describe('Modal Component', function() {
         name: 'should return HTML with iframe with proper src',
         message: {
           data: {
-            src: 'http://example.com'
+            src: 'http://example.com',
+            dialogId: 1111
           }
         },
         expected: [
-          'src="http://example.com?integration_id=foo-integration',
+          'src="http://example.com?dialogId=1111',
+          'integration_id=foo-integration',
           'integration_instance_id=9876',
           'opener_integration_instance_id=1234"'
         ].join('&')
@@ -114,11 +116,13 @@ describe('Modal Component', function() {
         name: 'should return HTML with iframe with proper src for src with params too',
         message: {
           data: {
-            src: 'http://example.com?param=foo'
+            src: 'http://example.com?param=foo',
+            dialogId: 1111
           }
         },
         expected: [
           'src="http://example.com?param=foo',
+          'dialogId=1111',
           'integration_id=foo-integration',
           'integration_instance_id=9876',
           'opener_integration_instance_id=1234"'
