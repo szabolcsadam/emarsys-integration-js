@@ -2,23 +2,23 @@
 
 var sinon = require('sinon');
 var Q = require('q');
-var EmarsysApi = require('./emarsys_api');
+var Transmitter = require('../comm/transmitter');
 var DialogApi = require('./dialog_api');
 
 describe('DialogApi', function() {
 
   var fakeWindow;
-  var emarsysApi;
+  var transmitter;
   var dialogApi;
 
   beforeEach(function() {
     fakeWindow = require('../mocks/fake_window').create();
-    emarsysApi = new EmarsysApi({
+    transmitter = new Transmitter({
       global: fakeWindow,
       integrationId: 'EMARSYS',
       integrationInstanceId: 'EMARSYS'
     });
-    dialogApi = new DialogApi(emarsysApi);
+    dialogApi = new DialogApi(transmitter);
   });
 
   describe('#submit', function() {
@@ -28,7 +28,7 @@ describe('DialogApi', function() {
     var fakeDialogId = 'foo';
 
     beforeEach(function() {
-      sinon.stub(emarsysApi, 'messageToService');
+      sinon.stub(transmitter, 'messageToService');
       sinon.stub(dialogApi, 'params', {
         get: function() {
           return {
@@ -49,7 +49,7 @@ describe('DialogApi', function() {
     describe('submitting to a service', function() {
       it('should send the message to a service', function() {
         dialogApi.submit(true);
-        expect(emarsysApi.messageToService).to.be.calledWith('dialog:submit', fakeMessage, 'bar');
+        expect(transmitter.messageToService).to.be.calledWith('dialog:submit', fakeMessage, 'bar');
       });
     });
 
@@ -81,7 +81,7 @@ describe('DialogApi', function() {
 
   describe('#generateMessageData', function() {
     beforeEach(function() {
-      sinon.stub(emarsysApi, 'messageToService');
+      sinon.stub(transmitter, 'messageToService');
       sinon.stub(dialogApi, 'params', {
         get: function() {
           return {
