@@ -36,7 +36,7 @@ class MessageHandlerAlert extends AbstractMessageHandler {
     }
 
     markup.push('<span class="e-alert__message">' + this.cleanMessage(message.data.text) + '</span>');
-    markup.push('<div>');
+    markup.push('</div>');
 
     return markup.join('\n');
   }
