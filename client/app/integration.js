@@ -3,6 +3,7 @@
 var extend = require('extend');
 
 var Receiver = require('emarsys-integration-client').comm.Receiver;
+var AlertApi = require('emarsys-integration-client').api.Alert;
 var Transmitter = require('./comm/transmitter');
 var DialogApi = require('./service/dialog_api');
 var messageHandlers = [
@@ -33,6 +34,7 @@ var messageHandlers = [
   global.Emarsys.integration = {
     messageToService: transmitter.messageToService.bind(transmitter),
     addMessageHandler: receiver.addMessageHandler.bind(receiver),
+    alert: AlertApi.create(transmitter),
     dialog: new DialogApi(transmitter),
     unload: {
       initialized: false
