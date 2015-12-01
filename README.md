@@ -43,7 +43,7 @@ __Message format__
 ```
 {
   "event": "alert",
-  "data": {    
+  "data": {
     "text": "Error saving content",
     "icon": "circle-exclamation",
     "className": "e-alert-danger",
@@ -56,7 +56,7 @@ __Fields__
 
 |Field|Role|Mandatory|Default|
 |-----|----|---------|-------|
-|text|Name of the handler to pass the message to.|YES|
+|text|Alert message.|YES|
 |icon|Icon class of the icon to be rendered on the left side of the alert. Eg. 'check' for a check mark or 'exclamation-circle' for an exclamation mark in a circle.|NO|
 |className|Alert sub-class to use when rendering the alert. Eg. 'e-alert-success' for a green bar, 'e-alert-danger' for a red one.|NO|
 |timeout|Amount of time after the alert will fade out and get removed from the DOM, in milliseconds.|NO|5000|
