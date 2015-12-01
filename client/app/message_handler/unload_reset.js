@@ -12,7 +12,9 @@ class MessageHandlerUnloadReset extends AbstractMessageHandler {
     var eventNamespace = 'confirm_navigation_' + message.source.integration_instance_id;
 
     $(this.window).off('beforeunload.' + eventNamespace);
-    $(message.data.selection).off('click.' + eventNamespace);
+    $(message.data.selector).off('click.' + eventNamespace);
+
+    this.window.Emarsys.integration.unload.initialized = false;
   }
 
 }
