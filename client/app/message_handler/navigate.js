@@ -48,6 +48,13 @@ class MessageHandlerNavigate extends AbstractMessageHandler {
         'userprofiles.php?session_id={session_id}',
         'action=searchnlist',
         'list_id={contact_list_id}'
+      ].join('&'),
+
+      'administrators/profile': [
+        'bootstrap.php?session_id={session_id}',
+        'r=service',
+        'service=user-management',
+        'service_path=/admin/profile/{admin_id}'
       ].join('&')
     };
 
