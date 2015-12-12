@@ -10,6 +10,7 @@ var messageHandlers = [
   require('./message_handler/alert'),
   require('./message_handler/confirm'),
   require('./message_handler/enable_button'),
+  require('./message_handler/fit'),
   require('./message_handler/modal'),
   require('./message_handler/modal_close'),
   require('./message_handler/navigate'),
