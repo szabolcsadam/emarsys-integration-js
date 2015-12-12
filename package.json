@@ -9,7 +9,7 @@
     ]
   },
   "dependencies": {
-    "emarsys-integration-client": "^1.1.1",
+    "emarsys-integration-client": "^1.2.0",
     "extend": "^3.0.0"
   },
   "devDependencies": {
