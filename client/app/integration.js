@@ -42,7 +42,7 @@ var messageHandlers = [
   };
 
   messageHandlers.forEach(function(MessageHandlerClass) {
-    var messageHandler = new MessageHandlerClass(global);
+    var messageHandler = new MessageHandlerClass(global, transmitter);
     receiver.addMessageHandler(messageHandler.MESSAGE_EVENT, messageHandler.handleMessage.bind(messageHandler));
   });
 })(window);

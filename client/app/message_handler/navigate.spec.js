@@ -6,11 +6,17 @@ var MessageHandler = require('./navigate');
 describe('Navigate Handler', function() {
 
   var fakeWindow;
+  let transmitter;
   var messageHandler;
 
   beforeEach(function() {
     fakeWindow = require('../mocks/fake_window').create();
-    messageHandler = new MessageHandler(fakeWindow);
+
+    transmitter = {
+      messageToService: sinon.spy()
+    };
+
+    messageHandler = new MessageHandler(fakeWindow, transmitter);
   });
 
   it('should listen to messages with event "navigate"', function() {
@@ -26,6 +32,9 @@ describe('Navigate Handler', function() {
           campaign_id: 666,
           launch_id: 999
         }
+      },
+      source: {
+        integration_instance_id: 1
       }
     });
 
@@ -53,6 +62,9 @@ describe('Navigate Handler', function() {
       event: 'navigate',
       data: {
         target: 'email_campaigns/list'
+      },
+      source: {
+        integration_instance_id: 1
       }
     });
 
@@ -70,10 +82,59 @@ describe('Navigate Handler', function() {
         event: 'navigate',
         data: {
           target: 'email_campaigns/list'
+        },
+        source: {
+          integration_instance_id: 1
         }
       });
 
       expect(fakeWindow.Emarsys.integration.dialog.confirmNavigation).to.be.called;
+    });
+
+    it('should send response back to the service with success true', function(done) {
+      messageHandler.handleMessage({
+        event: 'navigate',
+        data: {
+          eventId: 1,
+          target: 'email_campaigns/list'
+        },
+        source: {
+          integration_instance_id: 1
+        }
+      })
+        .then(() => {
+          expect(transmitter.messageToService).to.have.been.calledWithMatch(
+            'navigate:response',
+            { id: 1, success: true }
+          );
+
+          done();
+        });
+    });
+  });
+
+  describe('when unload confirm is not initialized', function() {
+    beforeEach(function() {
+      fakeWindow.Emarsys.integration.unload.initialized = false;
+    });
+
+    it('should send response back to the service with success true', function() {
+      messageHandler.handleMessage({
+        event: 'navigate',
+        data: {
+          eventId: 1,
+          target: 'email_campaigns/list'
+        },
+        source: {
+          integration_instance_id: 1
+        }
+      });
+
+      expect(transmitter.messageToService).to.have.been.calledWithMatch(
+        'navigate:response',
+        { id: 1, success: true }
+      );
+
     });
   });
 

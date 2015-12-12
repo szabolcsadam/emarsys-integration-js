@@ -8,6 +8,12 @@ class MessageHandlerNavigate extends AbstractMessageHandler {
     return 'navigate';
   }
 
+  constructor(global, transmitter) {
+    super(global);
+
+    this.transmitter = transmitter;
+  }
+
   getUrlByTarget(pathname) {
     var targets = {
       'email_campaigns/list': [
@@ -82,12 +88,26 @@ class MessageHandlerNavigate extends AbstractMessageHandler {
     url = this.replaceUrlParams(url, message.data.params);
 
     if (this.window.Emarsys.integration.unload.initialized) {
-      return this.window.Emarsys.integration.dialog.confirmNavigation(
-        url,
-        this.getFakeConfirmMessage(message));
+      let promise = this.window.Emarsys.integration.dialog.confirmNavigation(
+          url,
+          this.getFakeConfirmMessage(message));
+
+      promise.then(() => this._responseToService(message.data.eventId, true, message.source.integration_instance_id));
+      promise.fail(() => this._responseToService(message.data.eventId, false, message.source.integration_instance_id));
+
+      return promise;
     } else {
+      this._responseToService(message.data.eventId, true, message.source.integration_instance_id);
       this.window.location.href = url;
     }
+  }
+
+  _responseToService(eventId, success, integrationInstanceId) {
+    this.transmitter.messageToService(
+        'navigate:response',
+        { id: eventId, success: success },
+        integrationInstanceId
+    );
   }
 
 }
