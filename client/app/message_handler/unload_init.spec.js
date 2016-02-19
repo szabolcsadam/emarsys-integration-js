@@ -29,7 +29,8 @@ describe('UnloadInit Handler', function() {
         title: 'test-title',
         body: 'test-body',
         ok: 'test-ok',
-        cancel: 'test-cancel'
+        cancel: 'test-cancel',
+        style: 'condensed'
       };
       var fakeMessage = messageHandler.getFakeConfirmMessage({
         data: {

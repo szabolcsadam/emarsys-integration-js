@@ -48,6 +48,15 @@ class Modal extends Dialog {
     return options.data.src + glue + params.join('&');
   }
 
+  getModalOptions() {
+    var modalOptions = super.getModalOptions();
+    if (this.options.data.title) {
+      modalOptions.title = this.options.data.title;
+    }
+
+    return modalOptions;
+  }
+
   getModalContent(options, integrationInstanceId) {
     options.data = extend({
       width: 650,

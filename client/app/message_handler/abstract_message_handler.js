@@ -24,7 +24,8 @@ class AbstractMessageHandler {
       ok: this.window.gettext('Ok'),
       cancel: this.window.gettext('Cancel'),
       title: this.window.gettext('Confirm navigation'),
-      body: this.window.gettext('You have unsaved changes you will lose if you leave this page.')
+      body: this.window.gettext('You have unsaved changes you will lose if you leave this page.'),
+      style: 'condensed'
     };
 
     if (message.data.confirm) {
