@@ -1,12 +1,12 @@
 'use strict';
 
-var FakeWindow = require('../mocks/fake_window');
-var MessageHandler = require('./modal_close');
+const FakeWindow = require('../mocks/fake_window');
+const MessageHandler = require('./modal_close');
 
 describe('Modal:Close Handler', function() {
 
-  var fakeWindow;
-  var messageHandler;
+  let fakeWindow;
+  let messageHandler;
 
   beforeEach(function() {
     fakeWindow = FakeWindow.create(this.sandbox);

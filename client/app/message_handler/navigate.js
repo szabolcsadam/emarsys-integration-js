@@ -1,6 +1,6 @@
 'use strict';
 
-var AbstractMessageHandler = require('./abstract_message_handler');
+const AbstractMessageHandler = require('./abstract_message_handler');
 
 class MessageHandlerNavigate extends AbstractMessageHandler {
 
@@ -15,7 +15,7 @@ class MessageHandlerNavigate extends AbstractMessageHandler {
   }
 
   getUrlByTarget(pathname) {
-    var targets = {
+    const targets = {
       'email_campaigns/list': [
         'campaignmanager.php?session_id={session_id}',
         'action=list'
@@ -74,7 +74,7 @@ class MessageHandlerNavigate extends AbstractMessageHandler {
   replaceUrlParams(url, params = {}) {
     params.session_id = this.window.Emarsys.config.session_id;
 
-    for (var key in params) {
+    for (let key in params) {
       if (params.hasOwnProperty(key) && key !== 'pathname') {
         url = url.replace('{' + key + '}', params[key]);
       }
@@ -84,8 +84,7 @@ class MessageHandlerNavigate extends AbstractMessageHandler {
   }
 
   handleMessage(message) {
-    var url = this.getUrlByTarget(message.data.target);
-    url = this.replaceUrlParams(url, message.data.params);
+    const url = this.replaceUrlParams(this.getUrlByTarget(message.data.target), message.data.params);
 
     if (this.window.Emarsys.integration.unload.initialized) {
       let promise = this.window.Emarsys.integration.dialog.confirmNavigation(

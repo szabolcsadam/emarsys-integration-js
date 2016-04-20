@@ -1,6 +1,6 @@
 'use strict';
 
-var AbstractMessageHandler = require('./abstract_message_handler');
+const AbstractMessageHandler = require('./abstract_message_handler');
 
 class MessageHandlerAlert extends AbstractMessageHandler {
 
@@ -9,7 +9,7 @@ class MessageHandlerAlert extends AbstractMessageHandler {
   }
 
   getClassNames(message) {
-    var classNames = [
+    let classNames = [
       'e-alert'
     ];
 
@@ -25,7 +25,7 @@ class MessageHandlerAlert extends AbstractMessageHandler {
   }
 
   getHtml(message) {
-    var markup = [
+    let markup = [
       '<div class="' + this.getClassNames(message).join(' ') + '">'
     ];
 
@@ -44,7 +44,7 @@ class MessageHandlerAlert extends AbstractMessageHandler {
   handleMessage(message) {
     message.data.timeout = message.data.timeout || 5000;
 
-    var $eAlert = $(this.getHtml(message));
+    let $eAlert = $(this.getHtml(message));
     $eAlert.appendTo(this.getMessageContainerElement());
 
     window.setTimeout(function() {

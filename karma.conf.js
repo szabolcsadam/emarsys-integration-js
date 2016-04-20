@@ -4,9 +4,9 @@ const tasks = require('boar-tasks-client');
 const taskConfigs = require('./tasks.config');
 
 module.exports = function(config) {
-  var configHash = tasks.getKarmaConfig(taskConfigs);
+  let configHash = tasks.getKarmaConfig(taskConfigs);
   configHash.reporters = ['dots'];
-  
+
   configHash.plugins = configHash.plugins.concat([
     require('karma-phantomjs-shim')
   ]);

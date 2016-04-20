@@ -1,13 +1,13 @@
 'use strict';
 
-var FakeWindow = require('../mocks/fake_window');
-var MessageHandler = require('./enable_button');
+const FakeWindow = require('../mocks/fake_window');
+const MessageHandler = require('./enable_button');
 
 describe('EnableButton Handler', function() {
 
-  var fakeWindow;
-  var messageHandler;
-  var fakeSelection = 'fake_selection';
+  let fakeWindow;
+  let messageHandler;
+  const fakeSelection = 'fake_selection';
 
   beforeEach(function() {
     fakeWindow = FakeWindow.create(this.sandbox);

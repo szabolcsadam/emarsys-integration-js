@@ -1,6 +1,6 @@
 'use strict';
 
-var ServiceTransmitter = require('emarsys-integration-client').comm.Transmitter;
+const ServiceTransmitter = require('emarsys-integration-client').comm.Transmitter;
 
 class Transmitter extends ServiceTransmitter {
 

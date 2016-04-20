@@ -1,13 +1,13 @@
 'use strict';
 
-var FakeWindow = require('../mocks/fake_window');
-var MessageHandler = require('./resize');
+const FakeWindow = require('../mocks/fake_window');
+const MessageHandler = require('./resize');
 
 describe('Resize Handler', function() {
 
-  var fakeWindow;
-  var messageHandler;
-  var integrationInstanceId = 'fake_instance_id';
+  const integrationInstanceId = 'fake_instance_id';
+  let fakeWindow;
+  let messageHandler;
 
   beforeEach(function() {
     fakeWindow = FakeWindow.create(this.sandbox);
@@ -24,7 +24,7 @@ describe('Resize Handler', function() {
   });
 
   it('should return element when calling getIntegrationIframe with valid source', function() {
-    var element = messageHandler.getIntegrationIframe({
+    const element = messageHandler.getIntegrationIframe({
       integration_instance_id: integrationInstanceId
     });
     expect(element).to.eql('fake_element');

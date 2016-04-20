@@ -8,13 +8,13 @@ class Dialog {
   }
 
   render() {
-    var $eModal = this.window.$(this.getHtml(this.options, Math.floor(Math.random() * 1000000000)));
+    let $eModal = this.window.$(this.getHtml(this.options, Math.floor(Math.random() * 1000000000)));
     this.window.$('body').append($eModal);
     this.window.riot.mount($eModal[0], this.getModalOptions());
   }
 
   getModalOptions() {
-    var modalOptions = {
+    let modalOptions = {
       opened: true,
       type: this.modalType,
       width: this.options.data.width

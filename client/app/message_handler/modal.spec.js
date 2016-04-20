@@ -1,12 +1,12 @@
 'use strict';
 
-var FakeWindow = require('../mocks/fake_window');
-var MessageHandler = require('./modal');
+const FakeWindow = require('../mocks/fake_window');
+const MessageHandler = require('./modal');
 
 describe('Modal Handler', function() {
 
-  var fakeWindow;
-  var messageHandler;
+  let fakeWindow;
+  let messageHandler;
 
   beforeEach(function() {
     fakeWindow = FakeWindow.create(this.sandbox);
@@ -18,7 +18,7 @@ describe('Modal Handler', function() {
   });
 
   describe('#handleMessage', function() {
-    var testCases = [
+    const testCases = [
       {
         name: 'should pass message to modal API',
         message: {

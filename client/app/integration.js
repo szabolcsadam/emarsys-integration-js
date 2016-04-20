@@ -1,12 +1,12 @@
 'use strict';
 
-var _extend = require('lodash/extend');
+const _extend = require('lodash/extend');
 
-var Receiver = require('emarsys-integration-client').comm.Receiver;
-var AlertApi = require('emarsys-integration-client').api.Alert;
-var Transmitter = require('./comm/transmitter');
-var DialogApi = require('./service/dialog_api');
-var messageHandlers = [
+const Receiver = require('emarsys-integration-client').comm.Receiver;
+const AlertApi = require('emarsys-integration-client').api.Alert;
+const Transmitter = require('./comm/transmitter');
+const DialogApi = require('./service/dialog_api');
+const messageHandlers = [
   require('./message_handler/alert'),
   require('./message_handler/confirm'),
   require('./message_handler/enable_button'),
@@ -25,12 +25,12 @@ var messageHandlers = [
   global.Emarsys = global.Emarsys || (global.SUITE ? _extend(true, {}, global.SUITE) : {});
   global.Emarsys.config = global.Emarsys.config || (global.SUITE.config ? _extend(true, {}, global.SUITE.config) : {});
 
-  var transmitter = new Transmitter({
+  let transmitter = new Transmitter({
     global: global,
     integrationId: 'EMARSYS',
     integrationInstanceId: 'EMARSYS'
   });
-  var receiver = new Receiver(global);
+  let receiver = new Receiver(global);
 
   global.Emarsys.integration = {
     messageToService: transmitter.messageToService.bind(transmitter),
@@ -43,7 +43,7 @@ var messageHandlers = [
   };
 
   messageHandlers.forEach(function(MessageHandlerClass) {
-    var messageHandler = new MessageHandlerClass(global, transmitter);
+    let messageHandler = new MessageHandlerClass(global, transmitter);
     receiver.addMessageHandler(messageHandler.MESSAGE_EVENT, messageHandler.handleMessage.bind(messageHandler));
   });
 })(window);

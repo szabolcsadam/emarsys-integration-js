@@ -1,9 +1,9 @@
 'use strict';
 
-var Q = require('q');
-var FakeWindow = require('../mocks/fake_window');
-var Transmitter = require('../comm/transmitter');
-var DialogApi = require('./dialog_api');
+const Q = require('q');
+const FakeWindow = require('../mocks/fake_window');
+const Transmitter = require('../comm/transmitter');
+const DialogApi = require('./dialog_api');
 
 const createFakeWindow = function(sandbox) {
   return FakeWindow.create(sandbox);
@@ -34,10 +34,10 @@ describe('DialogApi', function() {
   });
 
   describe('#submit', function() {
-    var fakeMessage = {
+    const fakeMessage = {
       message: 'fake-message'
     };
-    var fakeDialogId = 'foo';
+    const fakeDialogId = 'foo';
 
     beforeEach(function() {
       this.sandbox.stub(transmitter, 'messageToService');
@@ -97,7 +97,7 @@ describe('DialogApi', function() {
     });
 
     describe('without confirmParams', function() {
-      var testCases = [
+      const testCases = [
         {
           name: 'should pass success when true',
           success: true,
@@ -131,7 +131,7 @@ describe('DialogApi', function() {
       ];
 
       testCases.runTests(function(test) {
-        var message = dialogApi.generateMessageData(test.success, test.data);
+        const message = dialogApi.generateMessageData(test.success, test.data);
         expect(message).to.eql(test.expected);
       });
     });
@@ -141,7 +141,7 @@ describe('DialogApi', function() {
         dialogApi.confirmParams.foo = {
           test: 'option-value'
         };
-        var message = dialogApi.generateMessageData(true, {
+        const message = dialogApi.generateMessageData(true, {
           key: 'data-value'
         });
         expect(message).to.eql({
@@ -155,7 +155,7 @@ describe('DialogApi', function() {
   });
 
   describe('#confirm', function() {
-    var confirmMessage = {
+    const confirmMessage = {
       data: {
         dialogId: 1234
       },
@@ -198,8 +198,8 @@ describe('DialogApi', function() {
   });
 
   describe('#confirmNavigation', function() {
-    var fakeUrl = 'http://fake.url';
-    var fakeConfirmOptions = {
+    const fakeUrl = 'http://fake.url';
+    const fakeConfirmOptions = {
       key: 'foo'
     };
 
@@ -223,7 +223,7 @@ describe('DialogApi', function() {
     });
 
     it('should not change location when the confirm promise is rejected', function(done) {
-      var originalLocation = fakeWindow.location.href;
+      const originalLocation = fakeWindow.location.href;
       dialogApi.confirm = this.sandbox.stub().returns(fakeWindow.rejected());
 
       dialogApi.confirmNavigation(fakeUrl, fakeConfirmOptions).fail(() => {

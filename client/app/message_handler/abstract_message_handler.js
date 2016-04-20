@@ -15,17 +15,17 @@ class AbstractMessageHandler {
   }
 
   getFakeConfirmMessage(message) {
-    var retval = {
-      source: {
-        integration_id: 'EMARSYS'
-      }
-    };
-    var defaultConfirm = {
+    const defaultConfirm = {
       ok: this.window.gettext('Ok'),
       cancel: this.window.gettext('Cancel'),
       title: this.window.gettext('Confirm navigation'),
       body: this.window.gettext('You have unsaved changes you will lose if you leave this page.'),
       style: 'condensed'
+    };
+    let retval = {
+      source: {
+        integration_id: 'EMARSYS'
+      }
     };
 
     if (message.data.confirm) {
@@ -38,7 +38,7 @@ class AbstractMessageHandler {
   }
 
   getMessageContainerElement() {
-    var container = $('#suite-integration-js-message-container');
+    let container = $('#suite-integration-js-message-container');
     if (container.length === 0) {
       container = $('<div class="e-alert-fixed" id="suite-integration-js-message-container"/>').appendTo('body');
     }

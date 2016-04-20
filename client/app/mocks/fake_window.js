@@ -1,7 +1,7 @@
 'use strict';
 
-var FakeJQuery = require('./fake_jquery');
-var jquery = require('jquery');
+const FakeJQuery = require('./fake_jquery');
+const jquery = require('jquery');
 
 class FakeWindow {
   constructor(sandbox) {
@@ -60,13 +60,13 @@ class FakeWindow {
   }
 
   resolved(data) {
-    var deferred = jquery.Deferred(); // eslint-disable-line new-cap
+    let deferred = jquery.Deferred(); // eslint-disable-line new-cap
     deferred.resolve(data);
     return deferred.promise();
   }
 
   rejected(data) {
-    var deferred = jquery.Deferred(); // eslint-disable-line new-cap
+    let deferred = jquery.Deferred(); // eslint-disable-line new-cap
     deferred.reject(data);
     return deferred.promise();
   }

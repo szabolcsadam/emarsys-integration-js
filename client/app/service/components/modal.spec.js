@@ -1,20 +1,20 @@
 'use strict';
 
-var FakeWindow = require('../../mocks/fake_window');
-var ModalComponent = require('./modal');
+const FakeWindow = require('../../mocks/fake_window');
+const Component = require('./modal');
 
 describe('Modal Component', function() {
 
-  var fakeWindow;
-  var modalComponent;
+  let fakeWindow;
+  let modalComponent;
 
   beforeEach(function() {
     fakeWindow = FakeWindow.create(this.sandbox);
-    modalComponent = new ModalComponent(fakeWindow);
+    modalComponent = new Component(fakeWindow);
   });
 
   describe('#getAttributes', function() {
-    var attributes;
+    let attributes;
 
     beforeEach(function() {
       attributes = modalComponent.getAttributes({
@@ -61,7 +61,7 @@ describe('Modal Component', function() {
   });
 
   describe('#getHtml', function() {
-    var testCases = [
+    const testCases = [
       {
         name: 'should return HTML with e-modal tag',
         message: {
@@ -157,7 +157,7 @@ describe('Modal Component', function() {
         integration_instance_id: 1234
       };
 
-      var html = modalComponent.getHtml(test.message, 9876);
+      const html = modalComponent.getHtml(test.message, 9876);
       expect(html).to.have.string(test.expected);
     });
   });

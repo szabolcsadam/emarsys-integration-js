@@ -1,15 +1,16 @@
-var Static = require('node-static');
+'use strict';
 
-var fileServer = new Static.Server(__dirname + '/../dist', { cache: 0 });
+const Static = require('node-static');
+const port = 1235;
 
-var port = 1235;
+let fileServer = new Static.Server(__dirname + '/../dist', { cache: 0 });
 
 require('http').createServer(function(request, response) {
-    request.addListener('end', function() {
-        fileServer.serve(request, response);
-    }).resume();
+  request.addListener('end', function() {
+    fileServer.serve(request, response);
+  }).resume();
 }).listen(port);
 
 console.log('Application started:', {
-    port: port
+  port: port
 });

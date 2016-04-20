@@ -1,6 +1,6 @@
 'use strict';
 
-var AbstractMessageHandler = require('./abstract_message_handler');
+const AbstractMessageHandler = require('./abstract_message_handler');
 
 class MessageHandlerModalClose extends AbstractMessageHandler {
 

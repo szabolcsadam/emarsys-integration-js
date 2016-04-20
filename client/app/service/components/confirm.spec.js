@@ -1,16 +1,16 @@
 'use strict';
 
-var FakeWindow = require('../../mocks/fake_window');
-var ConfirmComponent = require('./confirm');
+const FakeWindow = require('../../mocks/fake_window');
+const Component = require('./confirm');
 
 describe('Confirm Component', function() {
 
-  var fakeWindow;
-  var confirmComponent;
+  let fakeWindow;
+  let confirmComponent;
 
   beforeEach(function() {
     fakeWindow = FakeWindow.create(this.sandbox);
-    confirmComponent = new ConfirmComponent(fakeWindow);
+    confirmComponent = new Component(fakeWindow);
 
     this.sandbox.stub(confirmComponent, 'cleanMessage', function(text) {
       return text;
@@ -18,7 +18,7 @@ describe('Confirm Component', function() {
   });
 
   describe('#getModalContent', function() {
-    var testCases = [
+    const testCases = [
       {
         name: 'should return HTML with modal title',
         message: {
@@ -68,7 +68,7 @@ describe('Confirm Component', function() {
         integration_instance_id: 1234
       };
 
-      var html = confirmComponent.getModalContent(test.message);
+      const html = confirmComponent.getModalContent(test.message);
       if (test.regexpected) {
         expect(html).to.match(test.regexpected);
       } else {
@@ -79,9 +79,8 @@ describe('Confirm Component', function() {
 
   describe('#getButtomHtml', function() {
     it('should provide HTML for a button', function() {
-      var buttonHtml = confirmComponent.getButtonHtml('foo', 'bar', 'text');
-
-      var expected = '<button type="button" onClick="foo" class="bar">text</button>';
+      const buttonHtml = confirmComponent.getButtonHtml('foo', 'bar', 'text');
+      const expected = '<button type="button" onClick="foo" class="bar">text</button>';
       expect(buttonHtml).to.be.eql(expected);
     });
 

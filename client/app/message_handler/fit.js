@@ -1,6 +1,6 @@
 'use strict';
 
-var AbstractMessageHandler = require('./abstract_message_handler');
+const AbstractMessageHandler = require('./abstract_message_handler');
 
 class MessageHandlerFit extends AbstractMessageHandler {
 
@@ -9,9 +9,8 @@ class MessageHandlerFit extends AbstractMessageHandler {
   }
 
   handleMessage(message) {
-    var $iframe = $(this.getIntegrationIframe(message.source.integration_instance_id));
-
-    var height = $iframe.height() + (document.body.offsetHeight - document.body.scrollHeight);
+    let $iframe = $(this.getIntegrationIframe(message.source.integration_instance_id));
+    const height = $iframe.height() + (document.body.offsetHeight - document.body.scrollHeight);
 
     $iframe
       .height(height)

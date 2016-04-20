@@ -1,12 +1,12 @@
 'use strict';
 
-var FakeWindow = require('../mocks/fake_window');
-var MessageHandler = require('./proxy');
+const FakeWindow = require('../mocks/fake_window');
+const MessageHandler = require('./proxy');
 
 describe('Proxy Handler', function() {
 
-  var fakeWindow;
-  var messageHandler;
+  let fakeWindow;
+  let messageHandler;
 
   beforeEach(function() {
     fakeWindow = FakeWindow.create(this.sandbox);
@@ -18,7 +18,7 @@ describe('Proxy Handler', function() {
   });
 
   describe('#handleMessage', function() {
-    var message = {
+    const message = {
       data: {
         envelope: {
           foo: 'bar'

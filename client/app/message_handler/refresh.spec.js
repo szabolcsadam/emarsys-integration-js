@@ -1,12 +1,12 @@
 'use strict';
 
-var FakeWindow = require('../mocks/fake_window');
-var MessageHandler = require('./refresh');
+const FakeWindow = require('../mocks/fake_window');
+const MessageHandler = require('./refresh');
 
 describe('Refresh Handler', function() {
 
-  var fakeWindow;
-  var messageHandler;
+  let fakeWindow;
+  let messageHandler;
 
   beforeEach(function() {
     fakeWindow = FakeWindow.create(this.sandbox);

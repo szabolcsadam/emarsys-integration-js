@@ -1,7 +1,7 @@
 'use strict';
 
-var _ = require('lodash');
-var jquery = require('jquery');
+const _extend = require('lodash/extend');
+const jquery = require('jquery');
 
 class FakeJQuery extends Array {
   constructor(sandbox) {
@@ -21,8 +21,8 @@ class FakeJQuery extends Array {
   }
 
   static create(sandbox) {
-    var retval = sandbox.stub().returns(new FakeJQuery(sandbox));
-    retval.extend = _.extend;
+    let retval = sandbox.stub().returns(new FakeJQuery(sandbox));
+    retval.extend = _extend;
     retval.Deferred = jquery.Deferred;
     return retval;
   }

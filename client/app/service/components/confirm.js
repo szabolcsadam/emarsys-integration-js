@@ -1,6 +1,6 @@
 'use strict';
 
-var Dialog = require('./dialog');
+const Dialog = require('./dialog');
 
 class Confirm extends Dialog {
 
@@ -11,7 +11,7 @@ class Confirm extends Dialog {
   render() {
     super.render();
 
-    var $eModal = this.window.$('e-modal');
+    let $eModal = this.window.$('e-modal');
     $eModal.attr('data-params', JSON.stringify({
       integrationId: this.options.source.integration_id,
       integrationInstanceId: 'EMARSYS',
@@ -29,7 +29,7 @@ class Confirm extends Dialog {
   }
 
   getModalContent(options) {
-    var retval = [
+    let retval = [
       '<h2>' + this.cleanMessage(options.data.title) + '</h2>'
     ];
 

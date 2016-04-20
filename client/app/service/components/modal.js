@@ -1,7 +1,7 @@
 'use strict';
 
-var _extend = require('lodash/extend');
-var Dialog = require('./dialog');
+const _extend = require('lodash/extend');
+const Dialog = require('./dialog');
 
 class Modal extends Dialog {
 
@@ -12,7 +12,7 @@ class Modal extends Dialog {
   render() {
     super.render();
 
-    var $eModal = $('e-modal');
+    let $eModal = $('e-modal');
     $eModal.css('opacity', 0);
     $eModal.find('iframe').load(() => {
       this.window.setTimeout(() => {
@@ -22,7 +22,7 @@ class Modal extends Dialog {
   }
 
   getAttributes(options, integrationInstanceId) {
-    var attributes = [
+    let attributes = [
       'frameborder="0"',
       'class="integration integration-' + options.source.integration_id + '"',
       'id="integration-' + integrationInstanceId + '"'
@@ -36,9 +36,9 @@ class Modal extends Dialog {
   }
 
   decorateUrl(options, integrationInstanceId) {
-    var glue = options.data.src.indexOf('?') < 0 ? '?' : '&';
+    const glue = options.data.src.indexOf('?') < 0 ? '?' : '&';
 
-    var params = [
+    const params = [
       'dialogId=' + options.data.dialogId,
       'integration_id=' + options.source.integration_id,
       'integration_instance_id=' + integrationInstanceId,
@@ -49,7 +49,7 @@ class Modal extends Dialog {
   }
 
   getModalOptions() {
-    var modalOptions = super.getModalOptions();
+    let modalOptions = super.getModalOptions();
     if (this.options.data.title) {
       modalOptions.title = this.options.data.title;
     }

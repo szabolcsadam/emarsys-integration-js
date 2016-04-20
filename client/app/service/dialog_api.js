@@ -1,8 +1,8 @@
 'use strict';
 
-var _extend = require('lodash/extend');
-var ConfirmComponent = require('./components/confirm');
-var ModalComponent = require('./components/modal');
+const _extend = require('lodash/extend');
+const ConfirmComponent = require('./components/confirm');
+const ModalComponent = require('./components/modal');
 
 class DialogApi {
 
@@ -20,7 +20,7 @@ class DialogApi {
 
   submit(success, data) {
     data = data || {};
-    var message = this.generateMessageData(success, data);
+    const message = this.generateMessageData(success, data);
 
     if (this.deferreds[this.params.dialogId]) {
       if (success) {
@@ -34,13 +34,13 @@ class DialogApi {
   }
 
   generateMessageData(success, data = {}) {
-    var message = _extend({
+    const message = _extend({
       dialogId: this.params.dialogId,
       success: success
     }, data);
 
     if (this.confirmParams[this.params.dialogId]) {
-      message = _extend(message, this.confirmParams[this.params.dialogId]);
+      return _extend(message, this.confirmParams[this.params.dialogId]);
     }
 
     return message;
@@ -72,7 +72,7 @@ class DialogApi {
   }
 
   confirmNavigation(url, message) {
-    var confirmPromise = this.confirm(message);
+    let confirmPromise = this.confirm(message);
 
     confirmPromise.then(() => {
       this.global.$(this.global).off('beforeunload');

@@ -1,6 +1,6 @@
 'use strict';
 
-var ClientApi = require('emarsys-integration-client');
+const ClientApi = require('emarsys-integration-client');
 
 (function(global) {
   global.Emarsys = global.Emarsys || {};

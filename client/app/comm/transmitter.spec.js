@@ -1,18 +1,18 @@
 'use strict';
 
-var FakeWindow = require('../mocks/fake_window');
-var Transmitter = require('./transmitter');
+const FakeWindow = require('../mocks/fake_window');
+const Transmitter = require('./transmitter');
 
 describe('Transmitter', function() {
 
-  var fakeWindow;
-  var transmitter;
+  let fakeWindow;
+  let transmitter;
 
-  var testMessage = {
+  const testMessage = {
     key: 'value'
   };
 
-  var jsonMessage = JSON.stringify({
+  const jsonMessage = JSON.stringify({
     event: 'foo',
     data: testMessage,
     source: {

@@ -1,12 +1,12 @@
 'use strict';
 
-var FakeWindow = require('../mocks/fake_window');
-var MessageHandler = require('./alert');
+const FakeWindow = require('../mocks/fake_window');
+const MessageHandler = require('./alert');
 
 describe('Alert Handler', function() {
 
-  var fakeWindow;
-  var messageHandler;
+  let fakeWindow;
+  let messageHandler;
 
   beforeEach(function() {
     fakeWindow = FakeWindow.create(this.sandbox);
@@ -18,7 +18,7 @@ describe('Alert Handler', function() {
   });
 
   describe('#getClassNames', function() {
-    var testCases = [
+    const testCases = [
       {
         name: 'should return classNames when no special className specified',
         message: {
@@ -70,7 +70,7 @@ describe('Alert Handler', function() {
 
     testCases.forEach(function(test) {
       it(test.name, function() {
-        var classNames = messageHandler.getClassNames(test.message);
+        const classNames = messageHandler.getClassNames(test.message);
         expect(classNames).to.eql(test.expected);
       });
     });
@@ -83,7 +83,7 @@ describe('Alert Handler', function() {
       });
     });
 
-    var testCases = [
+    const testCases = [
       {
         name: 'should return HTML with classNames',
         message: {
@@ -121,7 +121,7 @@ describe('Alert Handler', function() {
     ];
 
     testCases.runTests(function(test) {
-      var html = messageHandler.getHtml(test.message);
+      const html = messageHandler.getHtml(test.message);
       expect(html).to.have.string(test.expected);
     });
   });

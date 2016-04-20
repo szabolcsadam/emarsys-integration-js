@@ -1,13 +1,13 @@
 'use strict';
 
-var FakeWindow = require('../mocks/fake_window');
-var MessageHandler = require('./navigate');
+const FakeWindow = require('../mocks/fake_window');
+const MessageHandler = require('./navigate');
 
 describe('Navigate Handler', function() {
 
-  var fakeWindow;
+  let fakeWindow;
   let transmitter;
-  var messageHandler;
+  let messageHandler;
 
   beforeEach(function() {
     fakeWindow = FakeWindow.create(this.sandbox);
@@ -139,7 +139,7 @@ describe('Navigate Handler', function() {
   });
 
   it('should throw 404 when calling getUrlByTarget with invalid pathname', function() {
-    var exceptionThrown;
+    let exceptionThrown;
 
     try {
       messageHandler.getUrlByTarget('invalid/pathname');

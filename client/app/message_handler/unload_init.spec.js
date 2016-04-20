@@ -1,12 +1,12 @@
 'use strict';
 
-var FakeWindow = require('../mocks/fake_window');
-var MessageHandler = require('./unload_init');
+const FakeWindow = require('../mocks/fake_window');
+const MessageHandler = require('./unload_init');
 
 describe('UnloadInit Handler', function() {
 
-  var fakeWindow;
-  var messageHandler;
+  let fakeWindow;
+  let messageHandler;
 
   beforeEach(function() {
     fakeWindow = FakeWindow.create(this.sandbox);
@@ -19,21 +19,21 @@ describe('UnloadInit Handler', function() {
 
   describe('#getFakeConfirmMessage', function() {
     it('should return a message-like data structure', function() {
-      var fakeMessage = messageHandler.getFakeConfirmMessage({
+      const fakeMessage = messageHandler.getFakeConfirmMessage({
         data: {}
       });
       expect(fakeMessage).to.have.all.keys(['data', 'source']);
     });
 
     it('should use data passed', function() {
-      var testData = {
+      const testData = {
         title: 'test-title',
         body: 'test-body',
         ok: 'test-ok',
         cancel: 'test-cancel',
         style: 'condensed'
       };
-      var fakeMessage = messageHandler.getFakeConfirmMessage({
+      const fakeMessage = messageHandler.getFakeConfirmMessage({
         data: {
           confirm: testData
         }
@@ -42,7 +42,7 @@ describe('UnloadInit Handler', function() {
     });
 
     it('should fake source as EMARSYS', function() {
-      var fakeMessage = messageHandler.getFakeConfirmMessage({
+      const fakeMessage = messageHandler.getFakeConfirmMessage({
         data: {}
       });
       expect(fakeMessage.source.integration_id).to.eql('EMARSYS');

@@ -1,11 +1,11 @@
 'use strict';
 
-var gulp = require('gulp');
-var runSequence = require('run-sequence');
+const gulp = require('gulp');
+const runSequence = require('run-sequence');
 const tasksConfig = require('./tasks.config');
 const clientTasks = require('boar-tasks-client').getTasks(gulp, tasksConfig);
 const serverTasks = require('boar-tasks-server').getTasks(gulp, tasksConfig);
-var argv = require('yargs').argv;
+const argv = require('yargs').argv;
 
 gulp.task('default', ['start']);
 

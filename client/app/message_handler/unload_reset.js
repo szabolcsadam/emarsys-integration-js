@@ -1,6 +1,6 @@
 'use strict';
 
-var AbstractMessageHandler = require('./abstract_message_handler');
+const AbstractMessageHandler = require('./abstract_message_handler');
 
 class MessageHandlerUnloadReset extends AbstractMessageHandler {
 
@@ -9,7 +9,7 @@ class MessageHandlerUnloadReset extends AbstractMessageHandler {
   }
 
   handleMessage(message) {
-    var eventNamespace = 'confirm_navigation_' + message.source.integration_instance_id;
+    const eventNamespace = 'confirm_navigation_' + message.source.integration_instance_id;
 
     $(this.window).off('beforeunload.' + eventNamespace);
     $(message.data.selector).off('click.' + eventNamespace);
