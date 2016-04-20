@@ -1,6 +1,6 @@
 'use strict';
 
-var sinon = require('sinon');
+var FakeWindow = require('../../mocks/fake_window');
 var ConfirmComponent = require('./confirm');
 
 describe('Confirm Component', function() {
@@ -9,10 +9,10 @@ describe('Confirm Component', function() {
   var confirmComponent;
 
   beforeEach(function() {
-    fakeWindow = require('../../mocks/fake_window').create();
+    fakeWindow = FakeWindow.create(this.sandbox);
     confirmComponent = new ConfirmComponent(fakeWindow);
 
-    sinon.stub(confirmComponent, 'cleanMessage', function(text) {
+    this.sandbox.stub(confirmComponent, 'cleanMessage', function(text) {
       return text;
     });
   });
@@ -62,33 +62,22 @@ describe('Confirm Component', function() {
       }
     ];
 
-    testCases.forEach(function(test) {
-      it(test.name, function() {
-        test.message.source = {
-          integration_id: 'foo-integration',
-          integration_instance_id: 1234
-        };
+    testCases.runTests(function(test) {
+      test.message.source = {
+        integration_id: 'foo-integration',
+        integration_instance_id: 1234
+      };
 
-        var html = confirmComponent.getModalContent(test.message);
-        if (test.regexpected) {
-          expect(html).to.match(test.regexpected);
-        } else {
-          expect(html).to.have.string(test.expected);
-        }
-      });
+      var html = confirmComponent.getModalContent(test.message);
+      if (test.regexpected) {
+        expect(html).to.match(test.regexpected);
+      } else {
+        expect(html).to.have.string(test.expected);
+      }
     });
   });
 
   describe('#getButtomHtml', function() {
-    beforeEach(function() {
-      fakeWindow = require('../../mocks/fake_window').create();
-      confirmComponent = new ConfirmComponent(fakeWindow);
-
-      sinon.stub(confirmComponent, 'cleanMessage', function(text) {
-        return text;
-      });
-    });
-
     it('should provide HTML for a button', function() {
       var buttonHtml = confirmComponent.getButtonHtml('foo', 'bar', 'text');
 

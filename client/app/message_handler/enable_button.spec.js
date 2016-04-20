@@ -1,5 +1,6 @@
 'use strict';
 
+var FakeWindow = require('../mocks/fake_window');
 var MessageHandler = require('./enable_button');
 
 describe('EnableButton Handler', function() {
@@ -9,7 +10,7 @@ describe('EnableButton Handler', function() {
   var fakeSelection = 'fake_selection';
 
   beforeEach(function() {
-    fakeWindow = require('../mocks/fake_window').create();
+    fakeWindow = FakeWindow.create(this.sandbox);
     messageHandler = new MessageHandler(fakeWindow);
   });
 

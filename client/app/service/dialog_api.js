@@ -1,13 +1,13 @@
 'use strict';
 
-var extend = require('extend');
+var _extend = require('lodash/extend');
 var ConfirmComponent = require('./components/confirm');
 var ModalComponent = require('./components/modal');
 
 class DialogApi {
 
   get params() {
-    return JSON.parse(document.getElementsByTagName('e-modal')[0].getAttribute('data-params'));
+    return this._getParams();
   }
 
   constructor(api) {
@@ -34,13 +34,13 @@ class DialogApi {
   }
 
   generateMessageData(success, data = {}) {
-    var message = extend({
+    var message = _extend({
       dialogId: this.params.dialogId,
       success: success
     }, data);
 
     if (this.confirmParams[this.params.dialogId]) {
-      message = extend(message, this.confirmParams[this.params.dialogId]);
+      message = _extend(message, this.confirmParams[this.params.dialogId]);
     }
 
     return message;
@@ -62,7 +62,7 @@ class DialogApi {
     this.getConfirmComponent(message).render();
 
     if (message.source.integration_id === 'EMARSYS') {
-      this.deferreds[message.data.dialogId] = this.global.$.Deferred();
+      this.deferreds[message.data.dialogId] = this.global.$.Deferred(); // eslint-disable-line new-cap
       return this.deferreds[message.data.dialogId].promise();
     }
   }
@@ -90,6 +90,10 @@ class DialogApi {
 
   close() {
     this.global.$('e-modal').remove();
+  }
+
+  _getParams() {
+    return JSON.parse(document.getElementsByTagName('e-modal')[0].getAttribute('data-params'));
   }
 
 }

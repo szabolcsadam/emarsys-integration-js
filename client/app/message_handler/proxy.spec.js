@@ -1,17 +1,15 @@
 'use strict';
 
-var sinon = require('sinon');
+var FakeWindow = require('../mocks/fake_window');
 var MessageHandler = require('./proxy');
 
 describe('Proxy Handler', function() {
 
   var fakeWindow;
-  var fakeIframe;
   var messageHandler;
 
   beforeEach(function() {
-    fakeWindow = require('../mocks/fake_window').create();
-    fakeIframe = require('../mocks/fake_iframe').create();
+    fakeWindow = FakeWindow.create(this.sandbox);
     messageHandler = new MessageHandler(fakeWindow);
   });
 
@@ -31,7 +29,7 @@ describe('Proxy Handler', function() {
 
     beforeEach(function() {
       messageHandler.window.Emarsys.integration = {
-        messageToService: sinon.stub()
+        messageToService: this.sandbox.stub()
       };
     });
 

@@ -1,6 +1,6 @@
 'use strict';
 
-var extend = require('extend');
+var _extend = require('lodash/extend');
 var Dialog = require('./dialog');
 
 class Modal extends Dialog {
@@ -58,7 +58,7 @@ class Modal extends Dialog {
   }
 
   getModalContent(options, integrationInstanceId) {
-    options.data = extend({
+    options.data = _extend({
       width: 650,
       height: 500
     }, options.data);

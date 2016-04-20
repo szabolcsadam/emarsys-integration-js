@@ -1,6 +1,6 @@
 'use strict';
 
-var extend = require('extend');
+var _extend = require('lodash/extend');
 
 var Receiver = require('emarsys-integration-client').comm.Receiver;
 var AlertApi = require('emarsys-integration-client').api.Alert;
@@ -22,8 +22,8 @@ var messageHandlers = [
 ];
 
 (function(global) {
-  global.Emarsys = global.Emarsys || (global.SUITE ? extend(true, {}, global.SUITE) : {});
-  global.Emarsys.config = global.Emarsys.config || (global.SUITE.config ? extend(true, {}, global.SUITE.config) : {});
+  global.Emarsys = global.Emarsys || (global.SUITE ? _extend(true, {}, global.SUITE) : {});
+  global.Emarsys.config = global.Emarsys.config || (global.SUITE.config ? _extend(true, {}, global.SUITE.config) : {});
 
   var transmitter = new Transmitter({
     global: global,

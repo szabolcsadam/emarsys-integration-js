@@ -1,6 +1,6 @@
 'use strict';
 
-var sinon = require('sinon');
+var FakeWindow = require('../mocks/fake_window');
 var MessageHandler = require('./navigate');
 
 describe('Navigate Handler', function() {
@@ -10,10 +10,10 @@ describe('Navigate Handler', function() {
   var messageHandler;
 
   beforeEach(function() {
-    fakeWindow = require('../mocks/fake_window').create();
+    fakeWindow = FakeWindow.create(this.sandbox);
 
     transmitter = {
-      messageToService: sinon.spy()
+      messageToService: this.sandbox.spy()
     };
 
     messageHandler = new MessageHandler(fakeWindow, transmitter);
@@ -74,7 +74,7 @@ describe('Navigate Handler', function() {
   describe('when unload confirm is initialized', function() {
     beforeEach(function() {
       fakeWindow.Emarsys.integration.unload.initialized = true;
-      fakeWindow.Emarsys.integration.dialog.confirmNavigation = sinon.stub().returns(fakeWindow.resolved());
+      fakeWindow.Emarsys.integration.dialog.confirmNavigation = this.sandbox.stub().returns(fakeWindow.resolved());
     });
 
     it('should pop a confirm dialog when we have the unload confirm initialized', function() {

@@ -1,11 +1,9 @@
 'use strict';
 
-var sinon = require('sinon');
-
 class FakeIframe {
   constructor() {
     this.contentWindow = {
-      postMessage: sinon.stub()
+      postMessage: this.sandbox.stub()
     };
   }
 

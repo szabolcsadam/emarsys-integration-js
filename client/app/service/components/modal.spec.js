@@ -1,5 +1,6 @@
 'use strict';
 
+var FakeWindow = require('../../mocks/fake_window');
 var ModalComponent = require('./modal');
 
 describe('Modal Component', function() {
@@ -8,7 +9,7 @@ describe('Modal Component', function() {
   var modalComponent;
 
   beforeEach(function() {
-    fakeWindow = require('../../mocks/fake_window').create();
+    fakeWindow = FakeWindow.create(this.sandbox);
     modalComponent = new ModalComponent(fakeWindow);
   });
 
@@ -150,16 +151,14 @@ describe('Modal Component', function() {
       }
     ];
 
-    testCases.forEach(function(test) {
-      it(test.name, function() {
-        test.message.source = {
-          integration_id: 'foo-integration',
-          integration_instance_id: 1234
-        };
+    testCases.runTests(function(test) {
+      test.message.source = {
+        integration_id: 'foo-integration',
+        integration_instance_id: 1234
+      };
 
-        var html = modalComponent.getHtml(test.message, 9876);
-        expect(html).to.have.string(test.expected);
-      });
+      var html = modalComponent.getHtml(test.message, 9876);
+      expect(html).to.have.string(test.expected);
     });
   });
 });

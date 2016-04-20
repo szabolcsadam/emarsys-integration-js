@@ -22,7 +22,7 @@ describe('Transmitter', function() {
   });
 
   beforeEach(function() {
-    fakeWindow = FakeWindow.create();
+    fakeWindow = FakeWindow.create(this.sandbox);
     transmitter = new Transmitter({
       global: fakeWindow,
       integrationId: 'integration-id',

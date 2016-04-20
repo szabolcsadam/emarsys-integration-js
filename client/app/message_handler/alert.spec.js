@@ -1,6 +1,6 @@
 'use strict';
 
-var sinon = require('sinon');
+var FakeWindow = require('../mocks/fake_window');
 var MessageHandler = require('./alert');
 
 describe('Alert Handler', function() {
@@ -9,7 +9,7 @@ describe('Alert Handler', function() {
   var messageHandler;
 
   beforeEach(function() {
-    fakeWindow = require('../mocks/fake_window').create();
+    fakeWindow = FakeWindow.create(this.sandbox);
     messageHandler = new MessageHandler(fakeWindow);
   });
 
@@ -78,7 +78,7 @@ describe('Alert Handler', function() {
 
   describe('#getHtml', function() {
     beforeEach(function() {
-      sinon.stub(messageHandler, 'cleanMessage', function(text) {
+      this.sandbox.stub(messageHandler, 'cleanMessage', function(text) {
         return text;
       });
     });
@@ -120,11 +120,9 @@ describe('Alert Handler', function() {
       }
     ];
 
-    testCases.forEach(function(test) {
-      it(test.name, function() {
-        var html = messageHandler.getHtml(test.message);
-        expect(html).to.have.string(test.expected);
-      });
+    testCases.runTests(function(test) {
+      var html = messageHandler.getHtml(test.message);
+      expect(html).to.have.string(test.expected);
     });
   });
 });

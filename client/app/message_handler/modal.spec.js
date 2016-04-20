@@ -1,5 +1,6 @@
 'use strict';
 
+var FakeWindow = require('../mocks/fake_window');
 var MessageHandler = require('./modal');
 
 describe('Modal Handler', function() {
@@ -8,7 +9,7 @@ describe('Modal Handler', function() {
   var messageHandler;
 
   beforeEach(function() {
-    fakeWindow = require('../mocks/fake_window').create();
+    fakeWindow = FakeWindow.create(this.sandbox);
     messageHandler = new MessageHandler(fakeWindow);
   });
 
@@ -63,11 +64,9 @@ describe('Modal Handler', function() {
       }
     ];
 
-    testCases.forEach(function(testCase) {
-      it(testCase.name, function() {
-        messageHandler.handleMessage(testCase.message);
-        expect(messageHandler.window.Emarsys.integration.dialog.modal).to.be.calledWith(testCase.expected);
-      });
+    testCases.runTests(function(test) {
+      messageHandler.handleMessage(test.message);
+      expect(messageHandler.window.Emarsys.integration.dialog.modal).to.be.calledWith(test.expected);
     });
 
   });

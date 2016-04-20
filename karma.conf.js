@@ -1,27 +1,19 @@
 'use strict';
 
-var tasks = require('boar-tasks');
-var taskConfigs = require('./tasks.config');
-
-function initializeTests(config) {
-  config.frameworks.push('phantomjs-shim');
-}
+const tasks = require('boar-tasks-client');
+const taskConfigs = require('./tasks.config');
 
 module.exports = function(config) {
   var configHash = tasks.getKarmaConfig(taskConfigs);
+  configHash.reporters = ['dots'];
+  
+  configHash.plugins = configHash.plugins.concat([
+    require('karma-phantomjs-shim')
+  ]);
 
-  configHash.reporters = ['mocha'];
-
-  configHash.plugins = [
-    'karma-mocha',
-    'karma-browserify',
-    'karma-sinon-chai',
-    'karma-phantomjs-launcher',
-    'karma-phantomjs-shim',
-    'karma-mocha-reporter'
-  ];
-
-  initializeTests(configHash);
+  configHash.frameworks = configHash.frameworks.concat([
+    'phantomjs-shim'
+  ]);
 
   config.set(configHash);
 };

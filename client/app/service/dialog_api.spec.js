@@ -1,24 +1,36 @@
 'use strict';
 
-var sinon = require('sinon');
 var Q = require('q');
+var FakeWindow = require('../mocks/fake_window');
 var Transmitter = require('../comm/transmitter');
 var DialogApi = require('./dialog_api');
 
+const createFakeWindow = function(sandbox) {
+  return FakeWindow.create(sandbox);
+};
+
+const createTransmitter = function(fakeWindow) {
+  return new Transmitter({
+    global: fakeWindow,
+    integrationId: 'EMARSYS',
+    integrationInstanceId: 'EMARSYS'
+  });
+};
+
+const createDialogApi = function(transmitter) {
+  return new DialogApi(transmitter);
+};
+
 describe('DialogApi', function() {
 
-  var fakeWindow;
-  var transmitter;
-  var dialogApi;
+  let fakeWindow;
+  let transmitter;
+  let dialogApi;
 
   beforeEach(function() {
-    fakeWindow = require('../mocks/fake_window').create();
-    transmitter = new Transmitter({
-      global: fakeWindow,
-      integrationId: 'EMARSYS',
-      integrationInstanceId: 'EMARSYS'
-    });
-    dialogApi = new DialogApi(transmitter);
+    fakeWindow = createFakeWindow(this.sandbox);
+    transmitter = createTransmitter(fakeWindow);
+    dialogApi = createDialogApi(transmitter);
   });
 
   describe('#submit', function() {
@@ -28,17 +40,13 @@ describe('DialogApi', function() {
     var fakeDialogId = 'foo';
 
     beforeEach(function() {
-      sinon.stub(transmitter, 'messageToService');
-      sinon.stub(dialogApi, 'params', {
-        get: function() {
-          return {
-            dialogId: fakeDialogId,
-            openerIntegrationInstanceId: 'bar'
-          };
-        }
+      this.sandbox.stub(transmitter, 'messageToService');
+      this.sandbox.stub(dialogApi, '_getParams').returns({
+        dialogId: fakeDialogId,
+        openerIntegrationInstanceId: 'bar'
       });
 
-      sinon.stub(dialogApi, 'generateMessageData').returns(fakeMessage);
+      this.sandbox.stub(dialogApi, 'generateMessageData').returns(fakeMessage);
     });
 
     it('should generate a message', function() {
@@ -56,8 +64,8 @@ describe('DialogApi', function() {
     describe('submitting to Emarsys', function() {
       beforeEach(function() {
         dialogApi.deferreds[fakeDialogId] = Q.defer();
-        sinon.stub(dialogApi.deferreds[fakeDialogId], 'reject');
-        sinon.stub(dialogApi.deferreds[fakeDialogId], 'resolve');
+        this.sandbox.stub(dialogApi.deferreds[fakeDialogId], 'reject');
+        this.sandbox.stub(dialogApi.deferreds[fakeDialogId], 'resolve');
       });
 
       it('should send message when resolving the promise', function() {
@@ -81,14 +89,10 @@ describe('DialogApi', function() {
 
   describe('#generateMessageData', function() {
     beforeEach(function() {
-      sinon.stub(transmitter, 'messageToService');
-      sinon.stub(dialogApi, 'params', {
-        get: function() {
-          return {
-            dialogId: 'foo',
-            openerIntegrationInstanceId: 'bar'
-          };
-        }
+      this.sandbox.stub(transmitter, 'messageToService');
+      this.sandbox.stub(dialogApi, '_getParams').returns({
+        dialogId: 'foo',
+        openerIntegrationInstanceId: 'bar'
       });
     });
 
@@ -126,17 +130,15 @@ describe('DialogApi', function() {
         }
       ];
 
-      testCases.forEach(function(test) {
-        it(test.name, function() {
-          var message = dialogApi.generateMessageData(test.success, test.data);
-          expect(message).to.eql(test.expected);
-        });
+      testCases.runTests(function(test) {
+        var message = dialogApi.generateMessageData(test.success, test.data);
+        expect(message).to.eql(test.expected);
       });
     });
 
     describe('with confirmParams', function() {
       it('should also append options from the beginning', function() {
-        dialogApi.confirmParams['foo'] = {
+        dialogApi.confirmParams.foo = {
           test: 'option-value'
         };
         var message = dialogApi.generateMessageData(true, {
@@ -161,13 +163,14 @@ describe('DialogApi', function() {
         integration_id: 'EMARSYS'
       }
     };
-    var fakeConfirmComponent = {
-      render: sinon.stub()
-    };
+    let fakeConfirmComponent;
 
     beforeEach(function() {
-      dialogApi.getConfirmComponent = sinon.stub().returns(fakeConfirmComponent);
-      dialogApi.generateDialogId = sinon.stub().returns(1000);
+      fakeConfirmComponent = {
+        render: this.sandbox.stub()
+      };
+      dialogApi.getConfirmComponent = this.sandbox.stub().returns(fakeConfirmComponent);
+      dialogApi.generateDialogId = this.sandbox.stub().returns(1000);
     });
 
     it('should create a confirm dialog', function() {
@@ -201,8 +204,8 @@ describe('DialogApi', function() {
     };
 
     beforeEach(function() {
-      dialogApi.confirm = sinon.stub().returns(fakeWindow.resolved());
-      dialogApi.close = sinon.stub();
+      dialogApi.confirm = this.sandbox.stub().returns(fakeWindow.resolved());
+      dialogApi.close = this.sandbox.stub();
     });
 
     it('should call confirm() with options passed', function(done) {
@@ -221,7 +224,7 @@ describe('DialogApi', function() {
 
     it('should not change location when the confirm promise is rejected', function(done) {
       var originalLocation = fakeWindow.location.href;
-      dialogApi.confirm = sinon.stub().returns(fakeWindow.rejected());
+      dialogApi.confirm = this.sandbox.stub().returns(fakeWindow.rejected());
 
       dialogApi.confirmNavigation(fakeUrl, fakeConfirmOptions).fail(() => {
         expect(fakeWindow.location.href).to.eql(originalLocation);
@@ -230,7 +233,7 @@ describe('DialogApi', function() {
     });
 
     it('should close the confirm dialog at the end', function(done) {
-      dialogApi.confirm = sinon.stub().returns(fakeWindow.rejected());
+      dialogApi.confirm = this.sandbox.stub().returns(fakeWindow.rejected());
 
       dialogApi.confirmNavigation(fakeUrl, fakeConfirmOptions).fail(() => {
         expect(dialogApi.close).to.be.called;

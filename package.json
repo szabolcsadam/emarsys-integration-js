@@ -3,41 +3,48 @@
   "version": "1.2.0",
   "description": "",
   "main": "index.js",
-  "browserify": {
-    "transform": [
-      "babelify"
-    ]
-  },
   "dependencies": {
-    "emarsys-integration-client": "1.4.0",
-    "extend": "3.0.0"
+    "emarsys-integration-client": "1.6.1"
   },
   "devDependencies": {
-    "babelify": "6.3.0",
-    "boar-tasks": "2.9.0",
-    "gulp": "3.9.0",
-    "jquery": "2.1.4",
-    "karma-mocha-reporter": "1.1.1",
-    "karma-phantomjs-shim": "1.1.1",
-    "lodash": "3.10.1",
+    "babel-core": "6.7.6",
+    "babel-loader": "6.2.4",
+    "babel-polyfill": "6.7.4",
+    "babel-preset-es2015": "6.6.0",
+    "boar-tasks-client": "4.2.1",
+    "boar-tasks-server": "5.0.0",
+    "eslint": "2.8.0",
+    "eslint-config-emarsys": "4.0.0",
+    "exports-loader": "0.6.3",
+    "gulp": "3.9.1",
+    "imports-loader": "0.6.5",
+    "jquery": "2.2.3",
+    "json-loader": "0.5.4",
+    "karma-phantomjs-shim": "1.3.0",
+    "lodash": "4.11.1",
     "node-static": "0.7.7",
-    "phantomjs": "2.1.3",
+    "pre-commit": "1.1.2",
     "q": "1.4.1",
-    "run-sequence": "1.1.2",
-    "sinon": "1.16.1",
-    "yargs": "3.24.0"
+    "run-sequence": "1.1.5",
+    "validate-commit-message": "3.0.1",
+    "yargs": "4.6.0"
   },
   "scripts": {
-    "test": "gulp test"
+    "code-style": "gulp client-codestyle",
+    "validate-commit-msg": "validate-commit-msg"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/emartech/emarsys-integration-js.git"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Emarsys",
+  "license": "UNLICENSED",
   "bugs": {
     "url": "https://github.com/emartech/emarsys-integration-js/issues"
   },
-  "homepage": "https://github.com/emartech/emarsys-integration-js#readme"
+  "homepage": "https://github.com/emartech/emarsys-integration-js#readme",
+  "pre-commit": [
+    "code-style",
+    "validate-commit-msg"
+  ]
 }

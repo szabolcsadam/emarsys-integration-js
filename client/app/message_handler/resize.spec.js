@@ -1,5 +1,6 @@
 'use strict';
 
+var FakeWindow = require('../mocks/fake_window');
 var MessageHandler = require('./resize');
 
 describe('Resize Handler', function() {
@@ -9,7 +10,7 @@ describe('Resize Handler', function() {
   var integrationInstanceId = 'fake_instance_id';
 
   beforeEach(function() {
-    fakeWindow = require('../mocks/fake_window').create();
+    fakeWindow = FakeWindow.create(this.sandbox);
     messageHandler = new MessageHandler(fakeWindow);
   });
 
