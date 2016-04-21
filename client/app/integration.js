@@ -2,6 +2,7 @@
 
 const _extend = require('lodash/extend');
 
+const consts = require('./consts');
 const Receiver = require('emarsys-integration-client').comm.Receiver;
 const AlertApi = require('emarsys-integration-client').api.Alert;
 const Transmitter = require('./comm/transmitter');
@@ -27,8 +28,8 @@ const messageHandlers = [
 
   let transmitter = new Transmitter({
     global: global,
-    integrationId: 'EMARSYS',
-    integrationInstanceId: 'EMARSYS'
+    integrationId: consts.EMARSYS_INTEGRATION_ID,
+    integrationInstanceId: consts.EMARSYS_INTEGRATION_ID
   });
   let receiver = new Receiver(global);
 

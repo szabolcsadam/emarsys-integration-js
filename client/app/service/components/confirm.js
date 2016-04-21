@@ -1,5 +1,6 @@
 'use strict';
 
+const consts = require('../../consts');
 const Dialog = require('./dialog');
 
 class Confirm extends Dialog {
@@ -14,7 +15,7 @@ class Confirm extends Dialog {
     let $eModal = this.window.$('e-modal');
     $eModal.attr('data-params', JSON.stringify({
       integrationId: this.options.source.integration_id,
-      integrationInstanceId: 'EMARSYS',
+      integrationInstanceId: consts.EMARSYS_INTEGRATION_ID,
       openerIntegrationInstanceId: this.options.source.integration_instance_id,
       dialogId: this.options.data.dialogId
     }));

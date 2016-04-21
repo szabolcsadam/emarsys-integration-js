@@ -1,6 +1,7 @@
 'use strict';
 
 const _extend = require('lodash/extend');
+const consts = require('../consts');
 const ConfirmComponent = require('./components/confirm');
 const ModalComponent = require('./components/modal');
 
@@ -61,7 +62,7 @@ class DialogApi {
 
     this.getConfirmComponent(message).render();
 
-    if (message.source.integration_id === 'EMARSYS') {
+    if (message.source.integration_id === consts.EMARSYS_INTEGRATION_ID) {
       this.deferreds[message.data.dialogId] = this.global.$.Deferred(); // eslint-disable-line new-cap
       return this.deferreds[message.data.dialogId].promise();
     }

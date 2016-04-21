@@ -1,6 +1,7 @@
 'use strict';
 
 const Q = require('q');
+const consts = require('../consts');
 const FakeWindow = require('../mocks/fake_window');
 const Transmitter = require('../comm/transmitter');
 const DialogApi = require('./dialog_api');
@@ -12,8 +13,8 @@ const createFakeWindow = function(sandbox) {
 const createTransmitter = function(fakeWindow) {
   return new Transmitter({
     global: fakeWindow,
-    integrationId: 'EMARSYS',
-    integrationInstanceId: 'EMARSYS'
+    integrationId: consts.EMARSYS_INTEGRATION_ID,
+    integrationInstanceId: consts.EMARSYS_INTEGRATION_ID
   });
 };
 
@@ -160,7 +161,7 @@ describe('DialogApi', function() {
         dialogId: 1234
       },
       source: {
-        integration_id: 'EMARSYS'
+        integration_id: consts.EMARSYS_INTEGRATION_ID
       }
     };
     let fakeConfirmComponent;
