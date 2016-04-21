@@ -7,6 +7,7 @@ const Receiver = require('emarsys-integration-client').comm.Receiver;
 const AlertApi = require('emarsys-integration-client').api.Alert;
 const Transmitter = require('./comm/transmitter');
 const DialogApi = require('./service/dialog_api');
+const connect = require('./connect');
 const messageHandlers = [
   require('./message_handler/alert'),
   require('./message_handler/confirm'),
@@ -47,4 +48,6 @@ const messageHandlers = [
     let messageHandler = new MessageHandlerClass(global, transmitter);
     receiver.addMessageHandler(messageHandler.MESSAGE_EVENT, messageHandler.handleMessage.bind(messageHandler));
   });
+
+  connect(global);
 })(window);
