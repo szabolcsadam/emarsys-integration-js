@@ -9,5 +9,7 @@ module.exports = function(global) {
   ConnectCoreAPI.fullPreview = require('./openable/full_preview').create(global.Emarsys, global);
 
   global.Emarsys.integration.contentEditor = ConnectCoreAPI;
-  global.SUITE.integration.contentEditor = ConnectCoreAPI;
+  if (global.SUITE && global.SUITE.integration) {
+    global.SUITE.integration.contentEditor = ConnectCoreAPI;
+  }
 };
