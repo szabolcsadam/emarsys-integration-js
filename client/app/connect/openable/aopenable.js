@@ -1,6 +1,5 @@
 'use strict';
 
-const WrapperIntegration = require('../wrapper/integration');
 const WrapperCampaign = require('../wrapper/campaign');
 const WrapperConfig = require('../wrapper/config');
 const WrapperWindow = require('../wrapper/window');
@@ -11,7 +10,6 @@ class AbstractOpenable {
     this.SuiteAPI = SuiteAPI;
     this.global = global;
     this.CampaignAPI = WrapperCampaign.create(this.SuiteAPI, this.global);
-    this.IntegrationAPI = WrapperIntegration.create(this.SuiteAPI, this.global);
     this.ConfigAPI = WrapperConfig.create(this.SuiteAPI, this.global);
     this.Window = WrapperWindow.create(this.global);
 

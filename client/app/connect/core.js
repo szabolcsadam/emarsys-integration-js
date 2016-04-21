@@ -1,12 +1,9 @@
 'use strict';
 
-const WrapperIntegration = require('./wrapper/integration');
-
 class ConnectCore {
   constructor(SuiteAPI, global) {
     this.SuiteAPI = SuiteAPI;
     this.global = global;
-    this.IntegrationAPI = WrapperIntegration.create(this.SuiteAPI, this.global);
   }
 
   save(integrationInstanceId) {
