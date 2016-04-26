@@ -7,6 +7,7 @@ class InsertableConditionalText extends AbstractInsertable {
   get EVENT_NAMESPACE() { return 'conditional'; }
   get EVENT_OPEN() { return 'open'; }
   get EVENT_INSERT() { return 'insertCondition'; }
+  get EVENT_CHANGE() { return 'changeConditionals'; }
 
   _openDialog() {
     this.Window.callMethod(

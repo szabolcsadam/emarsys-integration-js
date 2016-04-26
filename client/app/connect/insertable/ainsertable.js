@@ -8,20 +8,22 @@ class AbstractInsertable extends AbstractOpenable {
 
   open(data) {
     this._clearAllGlobalCallbacks();
-    this._generateInsertCallbackName();
-    this._generateChangeCallbackName();
 
+    this._generateInsertCallbackName();
     this.Window.createCallback(
       this.insertCallbackName,
       this._insertCallback.bind(this, data.source.integration_instance_id),
       this
     );
 
-    this.Window.createCallback(
-      this.changeCallbackName,
-      this._changeCallback.bind(this, data.source.integration_instance_id),
-      this
-    );
+    if (this.EVENT_CHANGE) {
+      this._generateChangeCallbackName();
+      this.Window.createCallback(
+        this.changeCallbackName,
+        this._changeCallback.bind(this, data.source.integration_instance_id),
+        this
+      );
+    }
 
     super.open(data); // eslint-disable-line security/detect-non-literal-fs-filename
   }
@@ -50,7 +52,7 @@ class AbstractInsertable extends AbstractOpenable {
 
   _changeCallback(integrationInstanceId) {
     this.Window.global.Emarsys.integration.messageToService(
-      this._prepareEventName(this.EVENT_INSERT),
+      this._prepareEventName(this.EVENT_CHANGE),
       false,
       integrationInstanceId);
   }
