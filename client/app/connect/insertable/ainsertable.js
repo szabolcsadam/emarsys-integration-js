@@ -44,17 +44,25 @@ class AbstractInsertable extends AbstractOpenable {
     let args = Array.prototype.splice.call(arguments, 1);
     let insertData = this._getInsertMessage.apply(this, args);
 
-    this.Window.global.Emarsys.integration.messageToService(
+    this.Window.global.Emarsys.integration[this._getTransmitMethod(integrationInstanceId)](
       this._prepareEventName(this.EVENT_INSERT),
       insertData,
       integrationInstanceId);
   }
 
   _changeCallback(integrationInstanceId) {
-    this.Window.global.Emarsys.integration.messageToService(
+    this.Window.global.Emarsys.integration[this._getTransmitMethod(integrationInstanceId)](
       this._prepareEventName(this.EVENT_CHANGE),
       false,
       integrationInstanceId);
+  }
+
+  _getTransmitMethod(integrationInstanceId) {
+    if (integrationInstanceId === 'EMARSYS') {
+      return 'messageToEmarsys';
+    }
+
+    return 'messageToService';
   }
 
   _getInsertMessage() {

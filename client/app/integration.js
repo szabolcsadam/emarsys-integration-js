@@ -35,6 +35,7 @@ const messageHandlers = [
   let receiver = new Receiver(global);
 
   global.Emarsys.integration = {
+    messageToEmarsys: transmitter.messageToEmarsys.bind(transmitter),
     messageToService: transmitter.messageToService.bind(transmitter),
     addMessageHandler: receiver.addMessageHandler.bind(receiver),
     alert: AlertApi.create(transmitter),
