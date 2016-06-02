@@ -19,6 +19,7 @@ const messageHandlers = [
   require('./message_handler/proxy'),
   require('./message_handler/refresh'),
   require('./message_handler/resize'),
+  require('./message_handler/track'),
   require('./message_handler/unload_init'),
   require('./message_handler/unload_reset')
 ];

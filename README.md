@@ -262,6 +262,24 @@ __Fields__
 |source.integration_id|ID of the integration the message is coming from.|NO|
 |source.integration_instance_id|Random instance ID of the integration the message is coming from.|YES|
 
+## Track
+
+This handler will call Google Analytics API if available with the given options.
+
+__Message format__
+
+```
+{
+  "event": "track",
+  "data": {
+    "eventCategory": "some_category",
+    "eventAction": "some_action",
+    "eventLabel": "some_label",
+    "hitType": "event"
+  }
+}
+```
+
 ## Unload:init
 
 This handler will set up click handler for `<a>` elements, popping a navigation confirm dialog when clicked. It makes sense to call send this event right after your content gets dirty.

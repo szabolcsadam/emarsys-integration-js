@@ -38,6 +38,10 @@ class FakeWindow {
       postMessage: sandbox.stub()
     };
 
+    this.analytics = {
+      request: sandbox.stub()
+    };
+
     this.$ = FakeJQuery.create(sandbox);
   }
 
