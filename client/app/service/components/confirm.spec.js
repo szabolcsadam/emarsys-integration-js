@@ -10,84 +10,71 @@ describe('Confirm Component', function() {
 
   beforeEach(function() {
     fakeWindow = FakeWindow.create(this.sandbox);
-    confirmComponent = new Component(fakeWindow);
-
-    this.sandbox.stub(confirmComponent, 'cleanMessage', function(text) {
-      return text;
-    });
   });
 
   describe('#getModalContent', function() {
-    const testCases = [
-      {
-        name: 'should return HTML with modal title',
-        message: {
-          data: {
-            title: 'foo'
-          }
-        },
-        expected: '<h2>foo</h2>'
-      },
-      {
-        name: 'should return HTML with modal body',
-        message: {
-          data: {
-            title: 'foo',
-            body: 'bar'
-          }
-        },
-        expected: '<p>bar</p>'
-      },
-      {
-        name: 'should return HTML with a cancel button',
-        message: {
-          data: {
-            title: 'foo',
-            ok: 'yes',
-            cancel: 'no'
-          }
-        },
-        regexpected: new RegExp('<button type="button".*class="e-btn">no</button>')
-      },
-      {
-        name: 'should return HTML with an ok button',
-        message: {
-          data: {
-            title: 'foo',
-            ok: 'yes',
-            cancel: 'no'
-          }
-        },
-        regexpected: new RegExp('<button type="button".*class="e-btn e-btn-primary">yes</button>')
-      }
-    ];
-
-    testCases.runTests(function(test) {
-      test.message.source = {
-        integration_id: 'foo-integration',
-        integration_instance_id: 1234
+    it('should return HTML with modal body', function() {
+      var message = {
+        data: {
+          title: 'foo',
+          body: 'bar'
+        }
       };
-
-      const html = confirmComponent.getModalContent(test.message);
-      if (test.regexpected) {
-        expect(html).to.match(test.regexpected);
-      } else {
-        expect(html).to.have.string(test.expected);
-      }
+      confirmComponent = new Component(fakeWindow, message);
+      this.sandbox.stub(confirmComponent, 'cleanMessage', function(text) {
+        return text;
+      });
+      const html = confirmComponent.getModalContent();
+      expect(html).to.have.string(message.data.body);
     });
   });
 
-  describe('#getButtomHtml', function() {
-    it('should provide HTML for a button', function() {
-      const buttonHtml = confirmComponent.getButtonHtml('foo', 'bar', 'text');
-      const expected = '<button type="button" onClick="foo" class="bar">text</button>';
-      expect(buttonHtml).to.be.eql(expected);
+  describe('#getModalOptions', function() {
+    const testCases = [
+      {
+        name: 'should return options with a cancel button',
+        message: {
+          data: {
+            title: 'foo',
+            ok: 'yes',
+            cancel: 'no'
+          }
+        },
+        expected: {
+          key: 'buttons.no'
+        }
+      },
+      {
+        name: 'should return options with an ok button',
+        message: {
+          data: {
+            title: 'foo',
+            ok: 'yes',
+            cancel: 'no'
+          }
+        },
+        expected: {
+          key: 'buttons.yes'
+        }
+      }
+    ];
+
+    testCases.forEach(function(test) {
+      it(test.name, function() {
+        test.message.source = {
+          integration_id: 'foo-integration',
+          integration_instance_id: 1234
+        };
+
+        confirmComponent = new Component(fakeWindow, test.message);
+        this.sandbox.stub(confirmComponent, 'cleanMessage', function(text) {
+          return text;
+        });
+        const modalOptions = confirmComponent.getModalOptions();
+        expect(modalOptions).to.have.deep.property(test.expected.key);
+      });
     });
 
-    it('should use cleanMessage to clean button text', function() {
-      confirmComponent.getButtonHtml('foo', 'bar', 'text');
-      expect(confirmComponent.cleanMessage).to.have.been.calledWith('text');
-    });
   });
 
 });

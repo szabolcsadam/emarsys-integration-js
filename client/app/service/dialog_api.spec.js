@@ -82,9 +82,9 @@ describe('DialogApi', function() {
   });
 
   describe('#close', function() {
-    it('should look up e-modal elements', function() {
+    it('should look up e-dialog elements', function() {
       dialogApi.close();
-      expect(fakeWindow.$).to.be.calledWith('e-modal');
+      expect(fakeWindow.$).to.be.calledWith('e-dialog');
     });
   });
 

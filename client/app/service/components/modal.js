@@ -5,14 +5,23 @@ const Dialog = require('./dialog');
 
 class Modal extends Dialog {
 
-  get modalType() {
-    return 'iframe';
+  get dialogClass() {
+    return 'e-dialog-iframe';
+  }
+
+  constructor(global, options) {
+    super(global, options);
+
+    this.options.data = _extend({
+      width: 650,
+      height: 500
+    }, this.options.data);
   }
 
   render() {
     super.render();
 
-    let $eModal = $('e-modal');
+    let $eModal = $('e-dialog');
     $eModal.css('opacity', 0);
     $eModal.find('iframe').load(() => {
       this.window.setTimeout(() => {
@@ -21,50 +30,44 @@ class Modal extends Dialog {
     });
   }
 
-  getAttributes(options, integrationInstanceId) {
+  getAttributes() {
     let attributes = [
       'frameborder="0"',
-      'class="integration integration-' + options.source.integration_id + '"',
-      'id="integration-' + integrationInstanceId + '"'
+      'class="integration integration-' + this.options.source.integration_id + '"',
+      'id="integration-' + this.integrationInstanceId + '"'
     ];
 
     ['src', 'width', 'height'].forEach((attributeName) => {
-      attributes.push(attributeName + '="' + options.data[attributeName] + '"');
+      attributes.push(attributeName + '="' + this.options.data[attributeName] + '"');
     });
 
     return attributes;
   }
 
-  decorateUrl(options, integrationInstanceId) {
-    const glue = options.data.src.indexOf('?') < 0 ? '?' : '&';
+  decorateUrl() {
+    const glue = this.options.data.src.indexOf('?') < 0 ? '?' : '&';
 
     const params = [
-      'dialogId=' + options.data.dialogId,
-      'integration_id=' + options.source.integration_id,
-      'integration_instance_id=' + integrationInstanceId,
-      'opener_integration_instance_id=' + options.source.integration_instance_id
+      'dialogId=' + this.options.data.dialogId,
+      'integration_id=' + this.options.source.integration_id,
+      'integration_instance_id=' + this.integrationInstanceId,
+      'opener_integration_instance_id=' + this.options.source.integration_instance_id
     ];
 
-    return options.data.src + glue + params.join('&');
+    return this.options.data.src + glue + params.join('&');
   }
 
   getModalOptions() {
     let modalOptions = super.getModalOptions();
-    if (this.options.data.title) {
-      modalOptions.title = this.options.data.title;
-    }
+    modalOptions.height = this.options.data.height + 'px';
 
     return modalOptions;
   }
 
-  getModalContent(options, integrationInstanceId) {
-    options.data = _extend({
-      width: 650,
-      height: 500
-    }, options.data);
-    options.data.src = this.decorateUrl(options, integrationInstanceId);
+  getModalContent() {
+    this.options.data.src = this.decorateUrl();
 
-    return '<iframe ' + this.getAttributes(options, integrationInstanceId).join(' ') + '></iframe>';
+    return '<iframe ' + this.getAttributes().join(' ') + '></iframe>';
   }
 
 }

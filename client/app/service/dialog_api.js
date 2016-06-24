@@ -90,11 +90,11 @@ class DialogApi {
   }
 
   close() {
-    this.global.$('e-modal').remove();
+    this.global.$('e-dialog').remove();
   }
 
   _getParams() {
-    return JSON.parse(document.getElementsByTagName('e-modal')[0].getAttribute('data-params'));
+    return JSON.parse(document.getElementsByTagName('e-dialog')[0].getAttribute('data-params'));
   }
 
 }

@@ -10,14 +10,13 @@ describe('Modal Component', function() {
 
   beforeEach(function() {
     fakeWindow = FakeWindow.create(this.sandbox);
-    modalComponent = new Component(fakeWindow);
   });
 
   describe('#getAttributes', function() {
     let attributes;
 
     beforeEach(function() {
-      attributes = modalComponent.getAttributes({
+      modalComponent = new Component(fakeWindow, {
         data: {
           src: 'http://example.com',
           width: 100,
@@ -28,7 +27,8 @@ describe('Modal Component', function() {
           integration_id: 'foo-integration',
           integration_instance_id: 1234
         }
-      }, 9876);
+      });
+      attributes = modalComponent.getAttributes();
     });
 
     it('should return src attribute', function() {
@@ -48,7 +48,7 @@ describe('Modal Component', function() {
     });
 
     it('should return integration id', function() {
-      expect(attributes).to.contain('id="integration-9876"');
+      expect(attributes.join(' ')).to.match(/id="integration-[\d]+"/);
     });
 
     it('should return frameborder', function() {
@@ -63,14 +63,39 @@ describe('Modal Component', function() {
   describe('#getHtml', function() {
     const testCases = [
       {
-        name: 'should return HTML with e-modal tag',
+        name: 'should return HTML with e-dialog tag',
         message: {
           data: {
             src: 'http://example.com'
           }
         },
-        expected: '<e-modal'
+        expected: '<e-dialog'
       },
+      {
+        name: 'should have e-dialog-iframe class',
+        message: {
+          data: {
+            src: 'http://example.com'
+          }
+        },
+        expected: 'class="e-dialog-iframe"'
+      }
+    ];
+
+    testCases.runTests(function(test) {
+      test.message.source = {
+        integration_id: 'foo-integration',
+        integration_instance_id: 1234
+      };
+
+      modalComponent = new Component(fakeWindow, test.message);
+      const html = modalComponent.getHtml();
+      expect(html).to.have.string(test.expected);
+    });
+  });
+
+  describe('#getModalContent', function() {
+    const testCases = [
       {
         name: 'should set width to 650 by default',
         message: {
@@ -157,8 +182,31 @@ describe('Modal Component', function() {
         integration_instance_id: 1234
       };
 
-      const html = modalComponent.getHtml(test.message, 9876);
-      expect(html).to.have.string(test.expected);
+      modalComponent = new Component(fakeWindow, test.message);
+      modalComponent.integrationInstanceId = 9876;
+
+      const content = modalComponent.getModalContent();
+      expect(content).to.have.string(test.expected);
+    });
+  });
+
+  describe('#getModalOptions', function() {
+    it('should return options with height', function() {
+      let message = {
+        data: {
+          height: 300
+        }
+      };
+
+      modalComponent = new Component(fakeWindow, message);
+      this.sandbox.stub(modalComponent, 'cleanMessage', function(text) {
+        return text;
+      });
+      this.sandbox.stub(modalComponent, 'getModalContent', function() {
+        return '';
+      });
+      const modalOptions = modalComponent.getModalOptions();
+      expect(modalOptions).to.have.property('height', message.data.height + 'px');
     });
   });
 });

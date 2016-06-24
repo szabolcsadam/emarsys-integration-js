@@ -5,14 +5,10 @@ const Dialog = require('./dialog');
 
 class Confirm extends Dialog {
 
-  get modalType() {
-    return 'standard';
-  }
-
   render() {
     super.render();
 
-    let $eModal = this.window.$('e-modal');
+    let $eModal = this.window.$('e-dialog');
     $eModal.attr('data-params', JSON.stringify({
       integrationId: this.options.source.integration_id,
       integrationInstanceId: consts.EMARSYS_INTEGRATION_ID,
@@ -21,37 +17,36 @@ class Confirm extends Dialog {
     }));
   }
 
-  getButtonHtml(onClick, classNames, text) {
-    return [
-      '<button type="button" onClick="' + onClick + '" class="' + classNames + '">',
-      this.cleanMessage(text),
-      '</button>'
-    ].join('');
+  getModalOptions() {
+    let modalOptions = super.getModalOptions();
+    let cancelButton = this.cleanMessage(this.options.data.cancel);
+    let okButton = this.cleanMessage(this.options.data.ok);
+    modalOptions.buttons = {
+      [cancelButton]: {
+        callback: function() {
+          window.Emarsys.integration.dialog.submit(false);
+        },
+        className: 'e-flex__item'
+      },
+      [okButton]: {
+        autofocus: true,
+        callback: function() {
+          window.Emarsys.integration.dialog.submit(true);
+        },
+        className: 'e-btn-primary e-flex__item'
+      }
+    };
+
+    return modalOptions;
   }
 
-  getModalContent(options) {
-    let retval = [
-      '<h2>' + this.cleanMessage(options.data.title) + '</h2>'
-    ];
-
-    if (options.data.body) {
-      retval.push('<p>' + this.cleanMessage(options.data.body) + '</p>');
+  getModalContent() {
+    if (this.options.data.body) {
+      return this.cleanMessage(this.options.data.body);
     }
 
-    retval.push('<div class="e-buttongroup">');
-    retval.push(this.getButtonHtml(
-      'window.Emarsys.integration.dialog.submit(false)',
-      'e-btn',
-      options.data.cancel));
-    retval.push(this.getButtonHtml(
-      'window.Emarsys.integration.dialog.submit(true)',
-      'e-btn e-btn-primary',
-      options.data.ok));
-    retval.push('</div>');
-
-    return retval.join('\n');
+    return '';
   }
-
 }
 
 module.exports = Confirm;

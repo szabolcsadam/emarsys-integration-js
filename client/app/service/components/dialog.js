@@ -5,34 +5,30 @@ class Dialog {
   constructor(global, options) {
     this.window = global;
     this.options = options;
+    this.integrationInstanceId = Math.floor(Math.random() * 1000000000);
+  }
+
+  get dialogClass() {
+    return '';
   }
 
   render() {
-    let $eModal = this.window.$(this.getHtml(this.options, Math.floor(Math.random() * 1000000000)));
-    this.window.$('body').append($eModal);
-    this.window.riot.mount($eModal[0], this.getModalOptions());
+    let $eModal = this.window.$(this.getHtml());
+    $eModal[0].open(this.getModalOptions());
   }
 
   getModalOptions() {
     let modalOptions = {
-      opened: true,
-      type: this.modalType,
-      width: this.options.data.width
+      headline: this.options.data.title,
+      width: this.options.data.width + 'px',
+      content: this.getModalContent()
     };
-
-    if (this.options.data.style) {
-      modalOptions['data-e-style'] = this.options.data.style;
-    }
 
     return modalOptions;
   }
 
-  getHtml(message, integrationInstanceId) {
-    return [
-      '<e-modal opened="true">',
-      this.getModalContent(message, integrationInstanceId),
-      '</e-modal>'
-    ].join('\n');
+  getHtml() {
+    return `<e-dialog class="${this.dialogClass}"></e-dialog>`;
   }
 
   cleanMessage(text) {
