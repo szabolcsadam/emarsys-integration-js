@@ -61,28 +61,15 @@ describe('Modal Component', function() {
   });
 
   describe('#getHtml', function() {
-    const testCases = [
-      {
-        name: 'should return HTML with e-dialog tag',
-        message: {
-          data: {
-            src: 'http://example.com'
-          }
-        },
-        expected: '<e-dialog'
-      },
-      {
-        name: 'should have e-dialog-iframe class',
-        message: {
-          data: {
-            src: 'http://example.com'
-          }
-        },
-        expected: 'class="e-dialog-iframe"'
+    let test = {
+      message: {
+        data: {
+          src: 'http://example.com'
+        }
       }
-    ];
+    };
 
-    testCases.runTests(function(test) {
+    it('should return HTML with e-dialog tag', function() {
       test.message.source = {
         integration_id: 'foo-integration',
         integration_instance_id: 1234
@@ -90,7 +77,18 @@ describe('Modal Component', function() {
 
       modalComponent = new Component(fakeWindow, test.message);
       const html = modalComponent.getHtml();
-      expect(html).to.have.string(test.expected);
+      expect(html.nodeName).to.have.string('E-DIALOG');
+    });
+
+    it('should have e-dialog-iframe class', function() {
+      test.message.source = {
+        integration_id: 'foo-integration',
+        integration_instance_id: 1234
+      };
+
+      modalComponent = new Component(fakeWindow, test.message);
+      const html = modalComponent.getHtml();
+      expect(html.className).to.have.string('e-dialog-iframe');
     });
   });
 

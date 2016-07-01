@@ -13,8 +13,8 @@ class Dialog {
   }
 
   render() {
-    let $eModal = this.window.$(this.getHtml());
-    $eModal[0].open(this.getModalOptions());
+    let $eModal = this.getHtml();
+    $eModal.open(this.getModalOptions());
   }
 
   getModalOptions() {
@@ -28,7 +28,9 @@ class Dialog {
   }
 
   getHtml() {
-    return `<e-dialog class="${this.dialogClass}"></e-dialog>`;
+    let $eModal = document.createElement('e-dialog');
+    $eModal.className = this.dialogClass;
+    return $eModal;
   }
 
   cleanMessage(text) {
