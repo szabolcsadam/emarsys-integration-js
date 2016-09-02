@@ -38,6 +38,11 @@ describe('Transmitter', function() {
   });
 
   describe('#messageToService', function() {
+    it('should not throw error if there is no integration', function() {
+      fakeWindow.$.returns([]);
+      transmitter.messageToService('foo', testMessage, 1234);
+    });
+
     it('should look for the iframe addressed', function() {
       transmitter.messageToService('foo', testMessage, 1234);
       expect(fakeWindow.$).to.be.calledWith('#integration-1234');

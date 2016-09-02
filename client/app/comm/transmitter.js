@@ -17,10 +17,13 @@ class Transmitter extends ServiceTransmitter {
   }
 
   messageToService(eventName, data, targetInstanceId) {
-    this.global.$('#integration-' + targetInstanceId)[0].contentWindow.postMessage(
-      JSON.stringify(
-        this.setMessageSource(
-          this.compileMessage(eventName, data))), '*');
+    const integrationInstance = this.global.$('#integration-' + targetInstanceId);
+    if (integrationInstance && integrationInstance.length) {
+      integrationInstance[0].contentWindow.postMessage(
+        JSON.stringify(
+          this.setMessageSource(
+            this.compileMessage(eventName, data))), '*');
+    }
   }
 
 }
