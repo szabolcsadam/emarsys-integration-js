@@ -56,6 +56,11 @@ class MessageHandlerNavigate extends AbstractMessageHandler {
         'list_id={contact_list_id}'
       ].join('&'),
 
+      'content_blocks/selector': [
+        'bootstrap.php?session_id={session_id}',
+        'r=contentBlocks/selector'
+      ].join('&'),
+
       'administrators/profile': [
         'bootstrap.php?session_id={session_id}',
         'r=service',
