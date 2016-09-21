@@ -66,7 +66,9 @@ class MessageHandlerNavigate extends AbstractMessageHandler {
         'r=service',
         'service=user-management',
         'service_path=/admin/profile/{admin_id}'
-      ].join('&')
+      ].join('&'),
+
+      'administrators/locked_out': 'custlogin.php?lockout=1'
     };
 
     if (pathname in targets) {
