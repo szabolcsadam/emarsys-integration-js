@@ -196,6 +196,7 @@ __Targets available__
 |email_analysis/list|Will head to reporting.||
 |email_analysis/details|Will head to reporting details of a campaign.|campaign_id, launch_id|
 |administrators/profile|Administrator profile page|admin_id|
+|administrators/locked_out|Login page with locked out error message||
 
 ## Proxy
 
