@@ -68,6 +68,16 @@ class MessageHandlerNavigate extends AbstractMessageHandler {
         'service_path=/admin/profile/{admin_id}'
       ].join('&'),
 
+      'program/create': [
+        'bootstrap.php?session_id={session_id}',
+        'r=program/create'
+      ].join('&'),
+
+      'trendsreporting/trends': [
+        'bootstrap.php?session_id={session_id}',
+        'r=trendsreporting/trends'
+      ].join('&'),
+
       'administrators/locked_out': 'custlogin.php?lockout=1'
     };
 
