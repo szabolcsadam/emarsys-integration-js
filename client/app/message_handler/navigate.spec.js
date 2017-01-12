@@ -149,4 +149,10 @@ describe('Navigate Handler', function() {
 
     expect(exceptionThrown.message).to.eql('Error 404: Unknown pathname');
   });
+
+  it('should return valid campaign copy url when calling getUrlByTarget', function() {
+    let copyUrl = messageHandler.getUrlByTarget('email_campaigns/copy');
+
+    expect(copyUrl).to.eql('campaignmanager.php?session_id={session_id}&action=copy&copy={campaign_id}');
+  });
 });
