@@ -197,6 +197,7 @@ __Targets available__
 |email_analysis/list|Will head to reporting.||
 |email_analysis/details|Will head to reporting details of a campaign.|campaign_id, launch_id|
 |administrators/profile|Administrator profile page|admin_id|
+|administrators/list|Administrator list page||
 |administrators/locked_out|Login page with locked out error message||
 |program/create|AC program creation||
 |trendsreporting/trends|Trend reporting page||

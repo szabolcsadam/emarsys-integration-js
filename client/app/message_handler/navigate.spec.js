@@ -71,6 +71,25 @@ describe('Navigate Handler', function() {
     expect(fakeWindow.location.href).to.eql('campaignmanager.php?session_id=SESSIONID&action=list');
   });
 
+  it('navigates to admin list', function() {
+    messageHandler.handleMessage({
+      event: 'navigate',
+      data: {
+        target: 'administrators/list'
+      },
+      source: {
+        integration_instance_id: 1
+      }
+    });
+
+    expect(fakeWindow.location.href).to.eql([
+      'bootstrap.php?session_id=SESSIONID',
+      'r=service',
+      'service=user-management',
+      'service_path=/admin/list'
+    ].join('&'));
+  });
+
   describe('when unload confirm is initialized', function() {
     beforeEach(function() {
       fakeWindow.Emarsys.integration.unload.initialized = true;
