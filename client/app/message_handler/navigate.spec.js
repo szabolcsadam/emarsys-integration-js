@@ -174,4 +174,27 @@ describe('Navigate Handler', function() {
 
     expect(copyUrl).to.eql('campaignmanager.php?session_id={session_id}&action=copy&copy={campaign_id}');
   });
+
+  it('navigates to create campaign with proper params', function() {
+    messageHandler.handleMessage({
+      event: 'navigate',
+      data: {
+        target: 'email_campaigns/create',
+        params: {
+          use_template: 'n',
+          mailstream: 1
+        }
+      },
+      source: {
+        integration_instance_id: 1
+      }
+    });
+
+    expect(fakeWindow.location.href).to.eql([
+      'campaignmanager.php?session_id=SESSIONID',
+      'action=new',
+      'use_template=n',
+      'mailstream=1'
+    ].join('&'));
+  });
 });

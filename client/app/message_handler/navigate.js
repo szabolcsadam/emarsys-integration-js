@@ -21,6 +21,13 @@ class MessageHandlerNavigate extends AbstractMessageHandler {
         'action=list'
       ].join('&'),
 
+      'email_campaigns/create': [
+        'campaignmanager.php?session_id={session_id}',
+        'action=new',
+        'use_template={use_template}',
+        'mailstream={mailstream}'
+      ].join('&'),
+
       'email_campaigns/edit': [
         'campaignmanager.php?session_id={session_id}',
         'action=content',
