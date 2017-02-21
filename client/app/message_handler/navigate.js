@@ -95,6 +95,12 @@ class MessageHandlerNavigate extends AbstractMessageHandler {
         'service_path=/admin/list'
       ].join('&'),
 
+      'segments/combine': [
+        'bootstrap.php?session_id={session_id}',
+        'r=combinedSegment/edit',
+        'filter_id={segment_id}'
+      ].join('&'),
+
       'program/create': [
         'bootstrap.php?session_id={session_id}',
         'r=program/create'

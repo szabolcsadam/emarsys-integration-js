@@ -201,6 +201,7 @@ __Targets available__
 |administrators/list|Administrator list page||
 |administrators/security-settings|Security settings page||
 |administrators/locked_out|Login page with locked out error message||
+|segments/combine|Combine a segment|segment_id|
 |program/create|AC program creation||
 |trendsreporting/trends|Trend reporting page||
 
