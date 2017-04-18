@@ -111,7 +111,13 @@ class MessageHandlerNavigate extends AbstractMessageHandler {
         'r=trendsreporting/trends'
       ].join('&'),
 
-      'administrators/locked_out': 'custlogin.php?lockout=1'
+      'administrators/locked_out': 'custlogin.php?lockout=1',
+
+      'admin/data_onboarding': [
+        'bootstrap.php?session_id={session_id}',
+        'r=service',
+        'service=data_onboarding'
+      ].join('&')
     };
 
     if (pathname in targets) {
