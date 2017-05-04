@@ -121,7 +121,8 @@ class MessageHandlerNavigate extends AbstractMessageHandler {
       'admin/data_onboarding': [
         'bootstrap.php?session_id={session_id}',
         'r=service',
-        'service=data_onboarding'
+        'service=data_onboarding',
+        'menu=12700'
       ].join('&')
     };
 
