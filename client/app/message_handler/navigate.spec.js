@@ -217,4 +217,24 @@ describe('Navigate Handler', function() {
       'mailstream=1'
     ].join('&'));
   });
+
+  it('navigates to trend reporting page for specific campaign', function() {
+    messageHandler.handleMessage({
+      event: 'navigate',
+      data: {
+        target: 'trendsreporting/trends/campaign',
+        params: {
+          campaign_id: 42
+        }
+      },
+      source: {
+        integration_instance_id: 1
+      }
+    });
+
+    expect(fakeWindow.location.href).to.eql([
+      'repmanager.php?action=analysis&page=1&step=11&session_id=SESSIONID',
+      'camp_id=42'
+    ].join('&'));
+  });
 });

@@ -116,6 +116,11 @@ class MessageHandlerNavigate extends AbstractMessageHandler {
         'r=trendsreporting/trends'
       ].join('&'),
 
+      'trendsreporting/trends/campaign': [
+        'repmanager.php?action=analysis&page=1&step=11&session_id={session_id}',
+        'camp_id={campaign_id}'
+      ].join('&'),
+
       'administrators/locked_out': 'custlogin.php?lockout=1',
 
       'admin/data_onboarding': [

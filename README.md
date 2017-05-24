@@ -205,6 +205,7 @@ __Targets available__
 |segments/combine|Combine a segment|segment_id|
 |program/create|AC program creation||
 |trendsreporting/trends|Trend reporting page||
+|trendsreporting/trends/campaign|Trend reporting page for specific campaign|campaign_id|
 
 ## Proxy
 
