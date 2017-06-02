@@ -29,6 +29,9 @@
     "validate-commit-message": "3.0.1",
     "yargs": "4.7.0"
   },
+  "engines": {
+    "node": "6.10.3"
+  },
   "scripts": {
     "code-style": "gulp client-codestyle",
     "validate-commit-msg": "validate-commit-msg"
