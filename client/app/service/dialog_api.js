@@ -47,13 +47,9 @@ class DialogApi {
     return message;
   }
 
-  generateDialogId() {
-    return Math.floor(Math.random() * 10000000);
-  }
-
   confirm(message) {
     if (!message.data.dialogId) {
-      message.data.dialogId = this.generateDialogId();
+      message.data.dialogId = this._generateDialogId();
     }
 
     if (message.data.params) {
@@ -91,6 +87,10 @@ class DialogApi {
 
   close() {
     this.global.$('e-dialog').remove();
+  }
+
+  _generateDialogId() {
+    return Math.floor(Math.random() * 10000000);
   }
 
   _getParams() {

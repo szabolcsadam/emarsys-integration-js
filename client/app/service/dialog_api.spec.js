@@ -1,5 +1,6 @@
 'use strict';
 
+const sinon = global.sinon || {};
 const Q = require('q');
 const consts = require('../consts');
 const FakeWindow = require('../mocks/fake_window');
@@ -171,7 +172,6 @@ describe('DialogApi', function() {
         render: this.sandbox.stub()
       };
       dialogApi.getConfirmComponent = this.sandbox.stub().returns(fakeConfirmComponent);
-      dialogApi.generateDialogId = this.sandbox.stub().returns(1000);
     });
 
     it('should create a confirm dialog', function() {
@@ -186,7 +186,7 @@ describe('DialogApi', function() {
       });
       expect(dialogApi.getConfirmComponent).to.be.calledWith({
         data: {
-          dialogId: 1000
+          dialogId: sinon.match.number
         },
         source: confirmMessage.source
       });
