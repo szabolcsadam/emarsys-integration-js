@@ -3,6 +3,26 @@
 const FakeWindow = require('../../mocks/fake_window');
 const Component = require('./confirm');
 
+const createComponent = function(sandbox, fakeModal) {
+  const message = {
+    data: { title: 'foo' },
+    source: {
+      integration_id: 'foo-integration',
+      integration_instance_id: 1234
+    }
+  };
+  const dialogComponent = new Component(FakeWindow.create(sandbox), message);
+  sandbox.stub(dialogComponent, 'cleanMessage', function(text) {
+    return text;
+  });
+  sandbox.stub(dialogComponent, 'getModalContent', function() {
+    return 'content';
+  });
+  sandbox.stub(dialogComponent, 'getHtml').returns(fakeModal);
+
+  return dialogComponent;
+};
+
 describe('Dialog Component', function() {
 
   let fakeWindow;
@@ -61,6 +81,40 @@ describe('Dialog Component', function() {
       });
     });
 
+  });
+
+  describe('#close', function() {
+    it('should close the dialog', function() {
+      const fakeModal = {
+        open: this.sandbox.spy(),
+        close: this.sandbox.spy(),
+        getAttribute: this.sandbox.spy()
+      };
+
+      const dialogComponent = createComponent(this.sandbox, fakeModal);
+      dialogComponent.render();
+
+      dialogComponent.close();
+
+      expect(fakeModal.close).to.have.been.called;
+    });
+  });
+
+  describe('#getAttribute', function() {
+    it('should work', function() {
+      const fakeModal = {
+        open: this.sandbox.spy(),
+        close: this.sandbox.spy(),
+        getAttribute: this.sandbox.spy()
+      };
+
+      const dialogComponent = createComponent(this.sandbox, fakeModal);
+      dialogComponent.render();
+
+      dialogComponent.getAttribute('foo');
+
+      expect(fakeModal.getAttribute).to.have.been.calledWith('foo');
+    });
   });
 
 });

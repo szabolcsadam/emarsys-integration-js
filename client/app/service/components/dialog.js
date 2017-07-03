@@ -13,8 +13,8 @@ class Dialog {
   }
 
   render() {
-    let $eModal = this.getHtml();
-    $eModal.open(this.getModalOptions());
+    this._modal = this.getHtml();
+    this._modal.open(this.getModalOptions());
   }
 
   getModalOptions() {
@@ -27,10 +27,18 @@ class Dialog {
     return modalOptions;
   }
 
+  close() {
+    this._modal.close();
+  }
+
+  getAttribute(attributeName) {
+    return this._modal.getAttribute(attributeName);
+  }
+
   getHtml() {
-    let $eModal = document.createElement('e-dialog');
-    $eModal.className = this.dialogClass;
-    return $eModal;
+    const eDialog = document.createElement('e-dialog');
+    eDialog.className = this.dialogClass;
+    return eDialog;
   }
 
   cleanMessage(text) {

@@ -13,6 +13,8 @@ class FakeJQuery extends Array {
 
     this.remove = sandbox.stub();
 
+    this.attr = sandbox.stub();
+
     this.push({
       contentWindow: {
         postMessage: sandbox.stub()

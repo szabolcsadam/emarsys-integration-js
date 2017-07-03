@@ -5,6 +5,7 @@ const Q = require('q');
 const consts = require('../consts');
 const FakeWindow = require('../mocks/fake_window');
 const Transmitter = require('../comm/transmitter');
+const DialogFactory = require('./dialog_factory');
 const DialogApi = require('./dialog_api');
 
 const createFakeWindow = function(sandbox) {
@@ -19,20 +20,24 @@ const createTransmitter = function(fakeWindow) {
   });
 };
 
-const createDialogApi = function(transmitter) {
-  return new DialogApi(transmitter);
+const createDialogApi = function({
+  transmitter,
+  dialogFactory = DialogFactory.create()
+} = {}) {
+  return new DialogApi(transmitter, dialogFactory);
 };
 
 describe('DialogApi', function() {
 
   let fakeWindow;
   let transmitter;
+  let dialogFactory;
   let dialogApi;
 
   beforeEach(function() {
     fakeWindow = createFakeWindow(this.sandbox);
     transmitter = createTransmitter(fakeWindow);
-    dialogApi = createDialogApi(transmitter);
+    dialogApi = createDialogApi({ transmitter });
   });
 
   describe('#submit', function() {
@@ -83,9 +88,67 @@ describe('DialogApi', function() {
   });
 
   describe('#close', function() {
-    it('should look up e-dialog elements', function() {
-      dialogApi.close();
-      expect(fakeWindow.$).to.be.calledWith('e-dialog');
+    describe('when dialog is a confirm dialog', function() {
+      const confirmMessage = {
+        data: {
+          dialogId: 1234
+        },
+        source: {
+          integration_id: consts.EMARSYS_INTEGRATION_ID
+        }
+      };
+      let fakeConfirmComponent;
+
+      beforeEach(function() {
+        fakeConfirmComponent = {
+          render: this.sandbox.stub(),
+          close: this.sandbox.stub()
+        };
+
+        dialogFactory = DialogFactory.create();
+        dialogFactory.createConfirmDialog = this.sandbox.stub().returns(fakeConfirmComponent);
+
+        dialogApi = createDialogApi({ transmitter, dialogFactory });
+      });
+
+      it('should close the confirm dialog', function() {
+        dialogApi.confirm(confirmMessage);
+        dialogApi.close();
+
+        expect(fakeConfirmComponent.close).to.be.called;
+      });
+    });
+
+    describe('when dialog is a modal dialog', function() {
+      const modalMessage = {
+        data: {
+          dialogId: 1234,
+          src: 'http://test.com'
+        },
+        source: {
+          integration_id: consts.EMARSYS_INTEGRATION_ID
+        }
+      };
+      let fakeModalComponent;
+
+      beforeEach(function() {
+        fakeModalComponent = {
+          render: this.sandbox.stub(),
+          close: this.sandbox.stub()
+        };
+
+        dialogFactory = DialogFactory.create();
+        dialogFactory.createModalDialog = this.sandbox.stub().returns(fakeModalComponent);
+
+        dialogApi = createDialogApi({ transmitter, dialogFactory });
+      });
+
+      it('should close the modal dialog', function() {
+        dialogApi.modal(modalMessage);
+        dialogApi.close();
+
+        expect(fakeModalComponent.close).to.be.called;
+      });
     });
   });
 
@@ -171,12 +234,16 @@ describe('DialogApi', function() {
       fakeConfirmComponent = {
         render: this.sandbox.stub()
       };
-      dialogApi.getConfirmComponent = this.sandbox.stub().returns(fakeConfirmComponent);
+
+      dialogFactory = DialogFactory.create();
+      dialogFactory.createConfirmDialog = this.sandbox.stub().returns(fakeConfirmComponent);
+
+      dialogApi = createDialogApi({ transmitter, dialogFactory });
     });
 
     it('should create a confirm dialog', function() {
       dialogApi.confirm(confirmMessage);
-      expect(dialogApi.getConfirmComponent).to.be.calledWith(confirmMessage);
+      expect(dialogFactory.createConfirmDialog).to.be.calledWith(transmitter.global, confirmMessage);
     });
 
     it('should create a confirm dialog with a random ID when no ID is given', function() {
@@ -184,7 +251,7 @@ describe('DialogApi', function() {
         data: {},
         source: confirmMessage.source
       });
-      expect(dialogApi.getConfirmComponent).to.be.calledWith({
+      expect(dialogFactory.createConfirmDialog).to.be.calledWith(transmitter.global, {
         data: {
           dialogId: sinon.match.number
         },
