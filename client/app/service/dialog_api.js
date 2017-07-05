@@ -2,8 +2,6 @@
 
 const _extend = require('lodash/extend');
 const consts = require('../consts');
-const ConfirmComponent = require('./components/confirm');
-const ModalComponent = require('./components/modal');
 
 class DialogApi {
 
@@ -11,9 +9,11 @@ class DialogApi {
     return this._getParams();
   }
 
-  constructor(api) {
+  constructor(api, dialogFactory) {
     this.api = api;
+    this.dialogFactory = dialogFactory;
     this.global = api.global;
+    this._currentDialog = null;
 
     this.deferreds = {};
     this.confirmParams = {};
@@ -47,29 +47,22 @@ class DialogApi {
     return message;
   }
 
-  generateDialogId() {
-    return Math.floor(Math.random() * 10000000);
-  }
-
   confirm(message) {
     if (!message.data.dialogId) {
-      message.data.dialogId = this.generateDialogId();
+      message.data.dialogId = this._generateDialogId();
     }
 
     if (message.data.params) {
       this.confirmParams[message.data.dialogId] = message.data.params;
     }
 
-    this.getConfirmComponent(message).render();
+    this._currentDialog = this.dialogFactory.createConfirmDialog(this.global, message);
+    this._currentDialog.render();
 
     if (message.source.integration_id === consts.EMARSYS_INTEGRATION_ID) {
       this.deferreds[message.data.dialogId] = this.global.$.Deferred(); // eslint-disable-line new-cap
       return this.deferreds[message.data.dialogId].promise();
     }
-  }
-
-  getConfirmComponent(message) {
-    return new ConfirmComponent(this.global, message);
   }
 
   confirmNavigation(url, message) {
@@ -86,15 +79,24 @@ class DialogApi {
   }
 
   modal(message) {
-    new ModalComponent(this.global, message).render();
+    this._currentDialog = this.dialogFactory.createModalDialog(this.global, message);
+    this._currentDialog.render();
   }
 
   close() {
-    this.global.$('e-dialog').remove();
+    this._currentDialog && this._currentDialog.close();
+  }
+
+  _generateDialogId() {
+    return Math.floor(Math.random() * 10000000);
   }
 
   _getParams() {
-    return JSON.parse(document.getElementsByTagName('e-dialog')[0].getAttribute('data-params'));
+    if (!this._currentDialog) {
+      return {};
+    }
+
+    return JSON.parse(this._currentDialog.getAttribute('data-params'));
   }
 
 }

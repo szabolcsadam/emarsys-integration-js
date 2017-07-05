@@ -7,6 +7,7 @@ const Receiver = require('emarsys-integration-client').comm.Receiver;
 const AlertApi = require('emarsys-integration-client').api.Alert;
 const Transmitter = require('./comm/transmitter');
 const DialogApi = require('./service/dialog_api');
+const DialogFactory = require('./service/dialog_factory');
 const connect = require('./connect');
 const messageHandlers = [
   require('./message_handler/alert'),
@@ -42,7 +43,7 @@ const messageHandlers = [
     messageToService: transmitter.messageToService.bind(transmitter),
     addMessageHandler: receiver.addMessageHandler.bind(receiver),
     alert: AlertApi.create(transmitter),
-    dialog: new DialogApi(transmitter),
+    dialog: new DialogApi(transmitter, DialogFactory.create()),
     unload: {
       initialized: false
     }
