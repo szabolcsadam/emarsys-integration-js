@@ -218,6 +218,26 @@ describe('Navigate Handler', function() {
     ].join('&'));
   });
 
+  it('navigates to bounce management page with proper params', function() {
+    messageHandler.handleMessage({
+      event: 'navigate',
+      data: {
+        target: 'bounce_management/list',
+        params: {
+          only_mailstreams: 1
+        }
+      },
+      source: {
+        integration_instance_id: 1
+      }
+    });
+
+    expect(fakeWindow.location.href).to.eql([
+      'adminmanager.php?session_id=SESSIONID&action=invmails',
+      'only_mailstreams=1'
+    ].join('&'));
+  });
+
   it('navigates to trend reporting page for specific campaign', function() {
     messageHandler.handleMessage({
       event: 'navigate',
