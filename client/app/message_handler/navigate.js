@@ -68,6 +68,12 @@ class MessageHandlerNavigate extends AbstractMessageHandler {
         'type=all'
       ].join('&'),
 
+      'bounce_management/list': [
+        'adminmanager.php?session_id={session_id}',
+        'action=invmails',
+        'only_mailstreams={only_mailstreams}'
+      ].join('&'),
+
       'contact_lists/details': [
         'userprofiles.php?session_id={session_id}',
         'action=searchnlist',

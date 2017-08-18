@@ -198,6 +198,7 @@ __Targets available__
 |email_campaigns/blocks/create|Will open the content blocks template selector.|mailstream|
 |email_analysis/list|Will head to reporting.||
 |email_analysis/details|Will head to reporting details of a campaign.|campaign_id, launch_id|
+|bounce_management/list|Will head to Bounce management page|only_mailstreams
 |administrators/profile|Administrator profile page|admin_id|
 |administrators/list|Administrator list page||
 |administrators/security-settings|Security settings page||
