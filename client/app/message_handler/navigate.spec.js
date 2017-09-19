@@ -238,6 +238,28 @@ describe('Navigate Handler', function() {
     ].join('&'));
   });
 
+  it('navigates to contact edit page with proper params', function() {
+    messageHandler.handleMessage({
+      event: 'navigate',
+      data: {
+        target: 'contact/edit',
+        params: {
+          uid: 318,
+          return_url: 'triggeredEmail'
+        }
+      },
+      source: {
+        integration_instance_id: 1
+      }
+    });
+
+    expect(fakeWindow.location.href).to.eql([
+      'userprofiles.php?session_id=SESSIONID&action=show',
+      'uid=318',
+      'sback=triggeredEmail'
+    ].join('&'));
+  });
+
   it('navigates to trend reporting page for specific campaign', function() {
     messageHandler.handleMessage({
       event: 'navigate',
