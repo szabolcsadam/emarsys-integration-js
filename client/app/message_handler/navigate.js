@@ -153,6 +153,16 @@ class MessageHandlerNavigate extends AbstractMessageHandler {
         'r=service',
         'service=data_onboarding',
         'menu=12700'
+      ].join('&'),
+
+      'permission_settings/policies': [
+        'bootstrap.php?session_id={session_id}',
+        'r=permissionSettings'
+      ].join('&'),
+
+      'permission_settings/roles': [
+        'bootstrap.php?session_id={session_id}',
+        'r=permissionSettings#/roles'
       ].join('&')
     };
 

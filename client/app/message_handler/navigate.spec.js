@@ -321,4 +321,38 @@ describe('Navigate Handler', function() {
       'camp_id=42'
     ].join('&'));
   });
+
+  it('navigates to permission settings policies page', function() {
+    messageHandler.handleMessage({
+      event: 'navigate',
+      data: {
+        target: 'permission_settings/policies'
+      },
+      source: {
+        integration_instance_id: 1
+      }
+    });
+
+    expect(fakeWindow.location.href).to.eql([
+      'bootstrap.php?session_id=SESSIONID',
+      'r=permissionSettings'
+    ].join('&'));
+  });
+
+  it('navigates to permission settings roles page', function() {
+    messageHandler.handleMessage({
+      event: 'navigate',
+      data: {
+        target: 'permission_settings/roles'
+      },
+      source: {
+        integration_instance_id: 1
+      }
+    });
+
+    expect(fakeWindow.location.href).to.eql([
+      'bootstrap.php?session_id=SESSIONID',
+      'r=permissionSettings#/roles'
+    ].join('&'));
+  });
 });
