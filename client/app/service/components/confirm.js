@@ -23,17 +23,17 @@ class Confirm extends Dialog {
     let okButton = this.cleanMessage(this.options.data.ok);
     modalOptions.buttons = {
       [cancelButton]: {
+        autofocus: true,
         callback: function() {
           window.Emarsys.integration.dialog.submit(false);
         },
         className: 'e-flex__item'
       },
       [okButton]: {
-        autofocus: true,
         callback: function() {
           window.Emarsys.integration.dialog.submit(true);
         },
-        className: 'e-btn-primary e-flex__item'
+        className: 'e-flex__item'
       }
     };
 
