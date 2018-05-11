@@ -355,4 +355,21 @@ describe('Navigate Handler', function() {
       'r=permissionSettings#/roles'
     ].join('&'));
   });
+
+  it('navigates to Tactics page', function() {
+    messageHandler.handleMessage({
+      event: 'navigate',
+      data: {
+        target: 'tactics'
+      },
+      source: {
+        integration_instance_id: 1
+      }
+    });
+
+    expect(fakeWindow.location.href).to.eql([
+      'bootstrap.php?session_id=SESSIONID',
+      'r=tactics'
+    ].join('&'));
+  });
 });
