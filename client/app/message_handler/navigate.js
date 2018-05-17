@@ -167,7 +167,8 @@ class MessageHandlerNavigate extends AbstractMessageHandler {
 
       'tactics': [
         'bootstrap.php?session_id={session_id}',
-        'r=tactics'
+        'r=tactics',
+        'kpi={kpi}'
       ].join('&')
     };
 

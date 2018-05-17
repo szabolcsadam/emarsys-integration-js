@@ -360,7 +360,10 @@ describe('Navigate Handler', function() {
     messageHandler.handleMessage({
       event: 'navigate',
       data: {
-        target: 'tactics'
+        target: 'tactics',
+        params: {
+          kpi: 'foo'
+        }
       },
       source: {
         integration_instance_id: 1
@@ -369,7 +372,8 @@ describe('Navigate Handler', function() {
 
     expect(fakeWindow.location.href).to.eql([
       'bootstrap.php?session_id=SESSIONID',
-      'r=tactics'
+      'r=tactics',
+      'kpi=foo'
     ].join('&'));
   });
 });
