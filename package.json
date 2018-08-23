@@ -41,7 +41,7 @@
     "url": "git+https://github.com/emartech/emarsys-integration-js.git"
   },
   "author": "Emarsys",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/emartech/emarsys-integration-js/issues"
   },
