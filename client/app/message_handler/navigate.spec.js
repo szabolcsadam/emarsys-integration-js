@@ -19,6 +19,19 @@ describe('Navigate Handler', function() {
     messageHandler = new MessageHandler(fakeWindow, transmitter);
   });
 
+  const navigateTo = ({ target, params }) => {
+    messageHandler.handleMessage({
+      event: 'navigate',
+      data: {
+        target,
+        params
+      },
+      source: {
+        integration_instance_id: 1
+      }
+    });
+  };
+
   it('should listen to messages with event "navigate"', function() {
     expect(messageHandler.MESSAGE_EVENT).to.be.eql('navigate');
   });
@@ -395,6 +408,40 @@ describe('Navigate Handler', function() {
       'bootstrap.php?session_id=SESSIONID',
       'r=tactics',
       'id=foo'
+    ].join('&'));
+  });
+
+  it('navigates to Mobile Engage push editor page', function() {
+    navigateTo({
+      target: 'me_push/edit',
+      params: {
+        id: 'foo'
+      }
+    });
+
+    expect(fakeWindow.location.href).to.eql([
+      'bootstrap.php?session_id=SESSIONID',
+      'r=service/index',
+      'service=push-notification',
+      'iframe=show',
+      '#/campaigns/foo'
+    ].join('&'));
+  });
+
+  it('navigates to Mobile Engage push reporting page', function() {
+    navigateTo({
+      target: 'me_push/report',
+      params: {
+        id: 'foo'
+      }
+    });
+
+    expect(fakeWindow.location.href).to.eql([
+      'bootstrap.php?session_id=SESSIONID',
+      'r=service/index',
+      'service=push-notification',
+      'iframe=show',
+      '#/reports/foo'
     ].join('&'));
   });
 });
