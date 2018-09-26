@@ -309,6 +309,27 @@ describe('Navigate Handler', function() {
     ].join('&'));
   });
 
+  it('navigate to trend reporing page for selecting multiple campaigns', function() {
+    messageHandler.handleMessage({
+      event: 'navigate',
+      data: {
+        target: 'trendsreporting/trends/campaigns',
+        params: {
+          campaign_ids: '42,43'
+        }
+      },
+      source: {
+        integration_instance_id: 1
+      }
+    });
+
+    expect(fakeWindow.location.href).to.eql([
+      'bootstrap.php?session_id=SESSIONID',
+      'r=trendsreporting/trends',
+      'campaignIds=42,43'
+    ].join('&'));
+  });
+
   it('navigates to trend reporting page for specific campaign', function() {
     messageHandler.handleMessage({
       event: 'navigate',
