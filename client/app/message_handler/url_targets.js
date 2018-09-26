@@ -126,6 +126,12 @@ module.exports = {
     'r=trendsreporting/trends'
   ].join('&'),
 
+  'trendsreporting/trends/campaigns': [
+    'bootstrap.php?session_id={session_id}',
+    'r=trendsreporting/trends',
+    'campaignIds={campaign_ids}'
+  ].join('&'),
+
   'trendsreporting/trends/campaign': [
     'repmanager.php?action=analysis&page=1&step=11&session_id={session_id}',
     'camp_id={campaign_id}'
