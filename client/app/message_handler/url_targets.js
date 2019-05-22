@@ -121,6 +121,12 @@ module.exports = {
     'programId={program_id}'
   ].join('&'),
 
+  'program/summary': [
+    'bootstrap.php?session_id={session_id}',
+    'r=program/summary',
+    'programId={program_id}'
+  ].join('&'),
+
   'trendsreporting/trends': [
     'bootstrap.php?session_id={session_id}',
     'r=trendsreporting/trends'
