@@ -287,6 +287,27 @@ describe('Navigate Handler', function() {
     ].join('&'));
   });
 
+  it('navigates to program summary page with proper params', function() {
+    messageHandler.handleMessage({
+      event: 'navigate',
+      data: {
+        target: 'program/summary',
+        params: {
+          program_id: 318
+        }
+      },
+      source: {
+        integration_instance_id: 1
+      }
+    });
+
+    expect(fakeWindow.location.href).to.eql([
+      'bootstrap.php?session_id=SESSIONID',
+      'r=program/summary',
+      'programId=318'
+    ].join('&'));
+  });
+
   it('navigates to contact edit page with proper params', function() {
     messageHandler.handleMessage({
       event: 'navigate',
