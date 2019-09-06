@@ -187,5 +187,10 @@ module.exports = {
     'service=push-notification',
     'iframe=show',
     '#/reports/{id}'
+  ].join('&'),
+
+  'rti/edit': [
+    'bootstrap.php?session_id={session_id}',
+    'r=eventCenter/index#/edit/{id}'
   ].join('&')
 };
