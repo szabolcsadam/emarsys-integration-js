@@ -475,4 +475,18 @@ describe('Navigate Handler', function() {
       '#/reports/foo'
     ].join('&'));
   });
+
+  it('navigates to RTI program edit page', function() {
+    navigateTo({
+      target: 'rti/edit',
+      params: {
+        id: 'ukumasing'
+      }
+    });
+
+    expect(fakeWindow.location.href).to.eql(
+      'bootstrap.php?session_id=SESSIONID' +
+        '&r=eventCenter/index#/edit/ukumasing'
+    );
+  });
 });

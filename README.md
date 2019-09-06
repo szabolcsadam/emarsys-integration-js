@@ -209,6 +209,7 @@ __Targets available__
 |trendsreporting/trends/campaign|Trend reporting page for specific campaign|campaign_id|
 |me_push/edit|Mobile Engage push campaign editor|id|
 |me_push/report|Mobile Engage push campaign report|id|
+|rti/edit|RTI program editor|id|
 
 ## Proxy
 
