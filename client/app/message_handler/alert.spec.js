@@ -25,7 +25,8 @@ describe('Alert Handler', function() {
           data: {}
         },
         expected: [
-          'e-alert'
+          'e-alert',
+          'e-alert-fixed'
         ]
       },
       {
@@ -37,6 +38,7 @@ describe('Alert Handler', function() {
         },
         expected: [
           'e-alert',
+          'e-alert-fixed',
           'e-alert-foo'
         ]
       },
@@ -49,6 +51,7 @@ describe('Alert Handler', function() {
         },
         expected: [
           'e-alert',
+          'e-alert-fixed',
           'e-alert-withicon'
         ]
       },
@@ -62,6 +65,7 @@ describe('Alert Handler', function() {
         },
         expected: [
           'e-alert',
+          'e-alert-fixed',
           'e-alert-foo',
           'e-alert-withicon'
         ]
