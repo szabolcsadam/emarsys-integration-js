@@ -10,7 +10,7 @@ class MessageHandlerAlert extends AbstractMessageHandler {
 
   getClassNames(message) {
     let classNames = [
-      'e-alert'
+      'e-alert', 'e-alert-fixed'
     ];
 
     if (message.data.className) {

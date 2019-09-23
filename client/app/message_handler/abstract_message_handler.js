@@ -42,7 +42,7 @@ class AbstractMessageHandler {
   getMessageContainerElement() {
     let container = $('#suite-integration-js-message-container');
     if (container.length === 0) {
-      container = $('<div class="e-alert-fixed" id="suite-integration-js-message-container"/>').appendTo('body');
+      container = $('<div id="suite-integration-js-message-container"/>').appendTo('body');
     }
 
     return container;
