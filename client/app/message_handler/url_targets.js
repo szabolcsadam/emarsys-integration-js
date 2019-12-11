@@ -208,5 +208,10 @@ module.exports = {
   'rti/edit': [
     'bootstrap.php?session_id={session_id}',
     'r=eventCenter/index#/edit/{id}'
+  ].join('&'),
+
+  'rti/report': [
+    'bootstrap.php?session_id={session_id}',
+    'r=eventCenter/index#/reports/{id}/overview'
   ].join('&')
 };

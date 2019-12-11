@@ -212,6 +212,7 @@ __Targets available__
 |me_push/campaigns|Mobile Engage push campaigns list
 |me_push/inapp-campaigns|Mobile Engage inapp campaigns list
 |rti/edit|RTI program editor|id|
+|rti/report|RTI program report|id|
 
 ## Proxy
 
