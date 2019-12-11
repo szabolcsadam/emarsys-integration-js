@@ -189,8 +189,29 @@ module.exports = {
     '#/reports/{id}'
   ].join('&'),
 
+  'me_push/campaigns': [
+    'bootstrap.php?session_id={session_id}',
+    'r=service/index',
+    'service=push-notification',
+    'iframe=show',
+    '#/campaigns'
+  ].join('&'),
+
+  'me_push/inapp-campaigns': [
+    'bootstrap.php?session_id={session_id}',
+    'r=service/index',
+    'service=push-notification',
+    'iframe=show',
+    '#/inapp-campaigns'
+  ].join('&'),
+
   'rti/edit': [
     'bootstrap.php?session_id={session_id}',
     'r=eventCenter/index#/edit/{id}'
+  ].join('&'),
+
+  'rti/report': [
+    'bootstrap.php?session_id={session_id}',
+    'r=eventCenter/index#/reports/{id}/overview'
   ].join('&')
 };

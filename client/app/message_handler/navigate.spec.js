@@ -489,4 +489,47 @@ describe('Navigate Handler', function() {
         '&r=eventCenter/index#/edit/ukumasing'
     );
   });
+
+  it('navigates to RTI program report overview page', function() {
+    const programId = 'my-program-id';
+    navigateTo({
+      target: 'rti/report',
+      params: {
+        id: programId
+      }
+    });
+
+    expect(fakeWindow.location.href).to.eql(
+      'bootstrap.php?session_id=SESSIONID' +
+      '&r=eventCenter/index#/reports/' + programId + '/overview'
+    );
+  });
+
+  it('navigates to Mobile Engage push campaigns page', function() {
+    navigateTo({
+      target: 'me_push/campaigns'
+    });
+
+    expect(fakeWindow.location.href).to.eql([
+      'bootstrap.php?session_id=SESSIONID',
+      'r=service/index',
+      'service=push-notification',
+      'iframe=show',
+      '#/campaigns'
+    ].join('&'));
+  });
+
+  it('navigates to Mobile Engage inapp campaigns page', function() {
+    navigateTo({
+      target: 'me_push/inapp-campaigns'
+    });
+
+    expect(fakeWindow.location.href).to.eql([
+      'bootstrap.php?session_id=SESSIONID',
+      'r=service/index',
+      'service=push-notification',
+      'iframe=show',
+      '#/inapp-campaigns'
+    ].join('&'));
+  });
 });
