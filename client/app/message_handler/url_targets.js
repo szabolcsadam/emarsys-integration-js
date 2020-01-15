@@ -109,6 +109,11 @@ module.exports = {
     'r=program/create'
   ].join('&'),
 
+  'program/list': [
+    'bootstrap.php?session_id={session_id}',
+    'r=program'
+  ].join('&'),
+
   'program/edit': [
     'bootstrap.php?session_id={session_id}',
     'r=program/edit',
