@@ -368,9 +368,10 @@ If you would like to make local changes, you need to run `gulp start`. You can r
 
 ## Running tests
 
-If you want to run the tests on your machine you can do by executing the following command:
+If you want to run the tests on your machine you can do by executing one of the following commands:
 ```bash
 gulp test
+npm test
 ```
 
 If you don't have gulp on your machine you can install by executing the following command:

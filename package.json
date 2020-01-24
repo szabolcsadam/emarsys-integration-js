@@ -33,6 +33,7 @@
     "node": "6.10.3"
   },
   "scripts": {
+    "test": "gulp test",
     "code-style": "gulp client-codestyle",
     "validate-commit-msg": "validate-commit-msg"
   },
