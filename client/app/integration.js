@@ -15,6 +15,7 @@ const messageHandlers = [
   require('./message_handler/confirm'),
   require('./message_handler/enable_button'),
   require('./message_handler/fit'),
+  require('./message_handler/get_url'),
   require('./message_handler/intercom_track_event'),
   require('./message_handler/modal'),
   require('./message_handler/modal_close'),
