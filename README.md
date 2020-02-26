@@ -110,6 +110,55 @@ __Fields__
 |-----|----|---------|
 |selector|jQuery selector.|YES|
 
+
+## GetUrl
+
+This handler will respond with a prespecified URL. Target URLs are built using data passed in the message. Session ID is provided by the handler if needed.
+See [Navigate](#navigate) for the targets that can be used.
+
+__Message format__
+
+```
+{
+  "event": "get_url",
+  "data": {
+    "eventId": 111,
+    "target": "some/prespecified/path",
+    "params": {
+      "foo": "foo_indeed"
+    }
+  }
+}
+```
+
+__Response format__
+
+```
+{ 
+  "id": 111,
+  "success": true, 
+  "url": "path.php?session_id=SESSIONID&action=foo_indeed"
+}
+```
+
+__Response format in case of error__
+
+```
+{ 
+  "id": 111,
+  "success": false, 
+  "error": "something went terribly wrong"
+}
+```
+
+__Fields__
+
+|Field|Role|Mandatory|
+|-----|----|---------|
+|target|The prespecified target you would like to have a link to.|YES|
+|params.foo|The general param the actual target needs.|MIXED|
+|eventId|The unique identifier of the message, it will be returned in the response.|YES|
+
 ## Modal
 
 This handler will open a modal dialog with content provided by either Emarsys or your service rendered in an iframe inside the modal. It will generate a new integration instance ID for the iframe and glue integration_id, integration_instance_id and opener_integration_instance_id to the iframe URL.
@@ -204,6 +253,7 @@ __Targets available__
 |administrators/security-settings|Security settings page||
 |administrators/locked_out|Login page with locked out error message||
 |segments/combine|Combine a segment|segment_id|
+|segments/edit|Edit a segment|segment_id|
 |program/create|AC program creation||
 |program/list|AC program overview||
 |trendsreporting/trends|Trend reporting page||

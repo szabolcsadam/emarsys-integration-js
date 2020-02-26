@@ -104,6 +104,12 @@ module.exports = {
     'filter_id={segment_id}'
   ].join('&'),
 
+  'segments/edit': [
+    'querymanager.php?session_id={session_id}',
+    'action=edit',
+    'query_id={segment_id}'
+  ].join('&'),
+
   'program/create': [
     'bootstrap.php?session_id={session_id}',
     'r=program/create'
