@@ -486,7 +486,7 @@ describe('Navigate Handler', function() {
 
     expect(fakeWindow.location.href).to.eql(
       'bootstrap.php?session_id=SESSIONID' +
-        '&r=eventCenter/index#/edit/ukumasing'
+        '&r=eventCenter/index#/edit/rti/ukumasing'
     );
   });
 
