@@ -224,7 +224,7 @@ module.exports = {
 
   'rti/edit': [
     'bootstrap.php?session_id={session_id}',
-    'r=eventCenter/index#/edit/{id}'
+    'r=eventCenter/index#/edit/rti/{id}'
   ].join('&'),
 
   'rti/report': [
