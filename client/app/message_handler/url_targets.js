@@ -203,7 +203,7 @@ module.exports = {
     'r=service/index',
     'service=push-notification',
     'iframe=show',
-    '#/reports/{id}'
+    '#/reports/push/{id}'
   ].join('&'),
 
   'me_push/campaigns': [
@@ -220,6 +220,14 @@ module.exports = {
     'service=push-notification',
     'iframe=show',
     '#/inapp-campaigns'
+  ].join('&'),
+
+  'me_push/inapp-campaigns/report': [
+    'bootstrap.php?session_id={session_id}',
+    'r=service/index',
+    'service=push-notification',
+    'iframe=show',
+    '#/reports/inapp/{id}'
   ].join('&'),
 
   'rti/edit': [
