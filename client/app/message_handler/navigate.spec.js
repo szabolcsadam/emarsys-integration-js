@@ -472,7 +472,7 @@ describe('Navigate Handler', function() {
       'r=service/index',
       'service=push-notification',
       'iframe=show',
-      '#/reports/foo'
+      '#/reports/push/foo'
     ].join('&'));
   });
 
@@ -530,6 +530,23 @@ describe('Navigate Handler', function() {
       'service=push-notification',
       'iframe=show',
       '#/inapp-campaigns'
+    ].join('&'));
+  });
+
+  it('navigates to Mobile Engage inapp reports page', function() {
+    navigateTo({
+      target: 'me_push/inapp-campaigns/report',
+      params: {
+        id: 'foo'
+      }
+    });
+
+    expect(fakeWindow.location.href).to.eql([
+      'bootstrap.php?session_id=SESSIONID',
+      'r=service/index',
+      'service=push-notification',
+      'iframe=show',
+      '#/reports/inapp/foo'
     ].join('&'));
   });
 });

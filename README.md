@@ -262,6 +262,7 @@ __Targets available__
 |me_push/report|Mobile Engage push campaign report|id|
 |me_push/campaigns|Mobile Engage push campaigns list
 |me_push/inapp-campaigns|Mobile Engage inapp campaigns list
+|me_push/inapp-campaigns/report|Mobile Engage inapp campaign report|id|
 |rti/edit|RTI program editor|id|
 |rti/report|RTI program report|id|
 
