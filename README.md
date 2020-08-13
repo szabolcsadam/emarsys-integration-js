@@ -134,9 +134,9 @@ __Message format__
 __Response format__
 
 ```
-{ 
+{
   "id": 111,
-  "success": true, 
+  "success": true,
   "url": "path.php?session_id=SESSIONID&action=foo_indeed"
 }
 ```
@@ -144,9 +144,9 @@ __Response format__
 __Response format in case of error__
 
 ```
-{ 
+{
   "id": 111,
-  "success": false, 
+  "success": false,
   "error": "something went terribly wrong"
 }
 ```
@@ -266,6 +266,7 @@ __Targets available__
 |rti/edit|RTI program editor|id|
 |rti/report|RTI program report|id|
 |revenue_attribution/settings|Revenue Attribution settings||
+|homepage|Homepage||
 
 ## Proxy
 

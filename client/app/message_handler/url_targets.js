@@ -244,5 +244,10 @@ module.exports = {
     'bootstrap.php?session_id={session_id}',
     'r=service',
     'service=revenue-attribution'
+  ].join('&'),
+
+  'homepage': [
+    'bootstrap.php?session_id={session_id}',
+    'r=homepage'
   ].join('&')
 };
