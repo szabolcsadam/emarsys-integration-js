@@ -251,11 +251,6 @@ module.exports = {
     'r=eventCenter/index#/edit/rti/{id}'
   ].join('&'),
 
-  'rti/edit-node': [
-    'bootstrap.php?session_id={session_id}',
-    'r=eventCenter/index#/edit/rti/{id}?dialog={nodeId}'
-  ].join('&'),
-
   'rti/report': [
     'bootstrap.php?session_id={session_id}',
     'r=eventCenter/index#/reports/{id}/overview'

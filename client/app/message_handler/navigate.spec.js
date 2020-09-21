@@ -524,21 +524,6 @@ describe('Navigate Handler', function() {
     );
   });
 
-  it('navigates to a node editor dialog on the RTI program page', function() {
-    navigateTo({
-      target: 'rti/edit-node',
-      params: {
-        id: 'ukumasing',
-        nodeId: 23
-      }
-    });
-
-    expect(fakeWindow.location.href).to.eql(
-      'bootstrap.php?session_id=SESSIONID' +
-      '&r=eventCenter/index#/edit/rti/ukumasing?dialog=23'
-    );
-  });
-
   it('navigates to RTI program report overview page', function() {
     const programId = 'my-program-id';
     navigateTo({
