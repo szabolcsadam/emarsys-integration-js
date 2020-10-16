@@ -254,6 +254,7 @@ __Targets available__
 |administrators/locked_out|Login page with locked out error message||
 |segments/combine|Combine a segment|segment_id|
 |segments/edit|Edit a segment|segment_id|
+|combined_segments/list|List combined segments||
 |program/create|AC program creation||
 |program/list|AC program overview||
 |trendsreporting/trends|Trend reporting page||

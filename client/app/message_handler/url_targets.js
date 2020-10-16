@@ -98,6 +98,11 @@ module.exports = {
     'service_path=/admin/list'
   ].join('&'),
 
+  'combined_segments/list': [
+    'bootstrap.php?session_id={session_id}',
+    'r=combinedSegment/list'
+  ].join('&'),
+
   'segments/combine': [
     'bootstrap.php?session_id={session_id}',
     'r=combinedSegment/edit',
