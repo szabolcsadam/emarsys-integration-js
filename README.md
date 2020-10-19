@@ -416,6 +416,19 @@ window.Emarsys.integration.getFullUrlByTarget({
 })
 ```
 
+## navigate
+
+Redirect to target (same targets available as in navigate message handler).
+
+```javascript
+window.Emarsys.integration.navigate({
+  target: 'me_push/edit',
+  params: {
+    id: 318
+  }
+})
+```
+
 # Development
 
 If you would like to make local changes, you need to run `gulp start`. You can reach the resulting code [on this local URL then](http://localhost:1235/integration.js).
