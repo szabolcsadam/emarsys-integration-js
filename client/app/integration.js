@@ -52,7 +52,7 @@ const messageHandlers = [
       params
     }),
     navigate: ({ target, params }) => {
-      this.window.location.href = global.Emarsys.integration.getFullUrlByTarget({ target, params });
+      global.location.href = global.Emarsys.integration.getFullUrlByTarget({ target, params });
     },
     unload: {
       initialized: false
