@@ -150,7 +150,7 @@ describe('Navigate Handler', function() {
       fakeWindow.Emarsys.integration.unload.initialized = false;
     });
 
-    it('should send response back to the service with success true', function() {
+    it('should send response back to the service with success true', function(done) {
       messageHandler.handleMessage({
         event: 'navigate',
         data: {
@@ -160,13 +160,14 @@ describe('Navigate Handler', function() {
         source: {
           integration_instance_id: 1
         }
+      }).then(() => {
+        expect(transmitter.messageToService).to.have.been.calledWithMatch(
+          'navigate:response',
+          { id: 1, success: true }
+        );
+
+        done();
       });
-
-      expect(transmitter.messageToService).to.have.been.calledWithMatch(
-        'navigate:response',
-        { id: 1, success: true }
-      );
-
     });
   });
 

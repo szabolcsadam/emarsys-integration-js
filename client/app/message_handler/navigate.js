@@ -16,6 +16,11 @@ class MessageHandlerNavigate extends AbstractMessageHandler {
   }
 
   handleMessage(message) {
+    return this.navigate(message)
+      .then(success => this._responseToService(message.data.eventId, success, message.source.integration_instance_id));
+  }
+
+  navigate(message) {
     const url = getFullUrlByTarget({
       sessionId: this.window.Emarsys.config.session_id,
       target: message.data.target,
@@ -24,16 +29,13 @@ class MessageHandlerNavigate extends AbstractMessageHandler {
 
     if (this.window.Emarsys.integration.unload.initialized) {
       let promise = this.window.Emarsys.integration.dialog.confirmNavigation(
-          url,
-          this.getFakeConfirmMessage(message));
+        url,
+        this.getFakeConfirmMessage(message));
 
-      promise.then(() => this._responseToService(message.data.eventId, true, message.source.integration_instance_id));
-      promise.fail(() => this._responseToService(message.data.eventId, false, message.source.integration_instance_id));
-
-      return promise;
+      return promise.then(() => true).fail(() => false);
     } else {
-      this._responseToService(message.data.eventId, true, message.source.integration_instance_id);
       this.window.location.href = url;
+      return this.window.$.Deferred().resolve(true).promise(); // eslint-disable-line new-cap
     }
   }
 

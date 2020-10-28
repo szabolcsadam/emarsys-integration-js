@@ -10,6 +10,7 @@ const DialogApi = require('./service/dialog_api');
 const DialogFactory = require('./service/dialog_factory');
 const connect = require('./connect');
 const getFullUrlByTarget = require('./message_handler/get_full_url_by_target');
+const MessageHandlerNavigate = require('./message_handler/navigate');
 const messageHandlers = [
   require('./message_handler/alert'),
   require('./message_handler/confirm'),
@@ -51,8 +52,9 @@ const messageHandlers = [
       target,
       params
     }),
-    navigate: ({ target, params }) => {
-      global.location.href = global.Emarsys.integration.getFullUrlByTarget({ target, params });
+    navigate: (messageData) => {
+      let messageHandler = new MessageHandlerNavigate(global, null);
+      return messageHandler.navigate({ data: messageData });
     },
     unload: {
       initialized: false
