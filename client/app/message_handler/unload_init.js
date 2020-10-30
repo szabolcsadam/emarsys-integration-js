@@ -21,14 +21,14 @@ class MessageHandlerUnloadInit extends AbstractMessageHandler {
     this.window.$(message.data.selector)
       .off('click.' + eventNamespace)
       .on('click.' + eventNamespace, linksToWatch, (event) => {
-        if (event.ctrlKey || event.metaKey || event.which === 2 || !event.target.hostname) {
+        if (event.ctrlKey || event.metaKey || event.which === 2 || !event.currentTarget.hostname) {
           return;
         }
 
         event.preventDefault();
         event.stopPropagation();
 
-        this.window.Emarsys.integration.dialog.confirmNavigation(event.target.href, fakeConfirmMessage);
+        this.window.Emarsys.integration.dialog.confirmNavigation(event.currentTarget.href, fakeConfirmMessage);
       });
 
     this.window.Emarsys.integration.unload.initialized = true;

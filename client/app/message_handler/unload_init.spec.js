@@ -69,6 +69,16 @@ describe('UnloadInit Handler', function() {
       expect(fakeWindow.Emarsys.integration.dialog.confirmNavigation).to.have.been.called;
     });
 
+    it('should call confirm navigation when some content inside link clicked', function() {
+      fakeWindow.Emarsys.integration.dialog.confirmNavigation = this.sandbox.stub();
+      messageHandler.handleMessage(message);
+
+      let link = insertLink({ href: '#' });
+      jquery('<e-layout-back-button>').appendTo(link).trigger('click');
+
+      expect(fakeWindow.Emarsys.integration.dialog.confirmNavigation).to.have.been.called;
+    });
+
     it('should not call confirm navigation when link has prevent attribute', function() {
       fakeWindow.Emarsys.integration.dialog.confirmNavigation = this.sandbox.stub();
       messageHandler.handleMessage(message);
