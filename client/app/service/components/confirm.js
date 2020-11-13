@@ -33,7 +33,7 @@ class Confirm extends Dialog {
         callback: function() {
           window.Emarsys.integration.dialog.submit(true);
         },
-        className: 'e-flex__item'
+        className: 'e-flex__item e-btn-primary background-color-danger'
       }
     };
 
