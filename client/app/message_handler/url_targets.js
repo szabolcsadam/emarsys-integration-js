@@ -120,6 +120,12 @@ module.exports = {
     'r=program/create'
   ].join('&'),
 
+  'program/new': [
+    'bootstrap.php?session_id={session_id}',
+    'r=program/new',
+    'blueprint_id=0'
+  ].join('&'),
+
   'program/list': [
     'bootstrap.php?session_id={session_id}',
     'r=program'
