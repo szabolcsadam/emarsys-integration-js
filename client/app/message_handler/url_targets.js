@@ -184,6 +184,11 @@ module.exports = {
     'r=permissionSettings#/roles'
   ].join('&'),
 
+  'tactics': [
+    'bootstrap.php?session_id={session_id}',
+    'r=tactics'
+  ].join('&'),
+
   'tactics/list': [
     'bootstrap.php?session_id={session_id}',
     'r=tactics',
