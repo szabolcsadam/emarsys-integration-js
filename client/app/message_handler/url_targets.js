@@ -109,6 +109,13 @@ module.exports = {
     'filter_id={segment_id}'
   ].join('&'),
 
+  'segments/combineThisSegment': [
+    'bootstrap.php?session_id={session_id}',
+    'r=combinedSegment/edit',
+    'filter_id={segment_id}',
+    'useOldEditor={useOldEditor}'
+  ].join('&'),
+
   'segments/edit': [
     'querymanager.php?session_id={session_id}',
     'action=edit',
