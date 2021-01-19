@@ -267,6 +267,7 @@ __Targets available__
 |rti/edit|RTI program editor|id|
 |rti/report|RTI program report|id|
 |revenue_attribution/settings|Revenue Attribution settings||
+|revenue_attributor/settings|New Revenue Attirbution settings||
 |homepage|Homepage||
 
 ## Proxy

@@ -285,6 +285,12 @@ module.exports = {
     'service=revenue-attribution'
   ].join('&'),
 
+  'revenue_attributor/settings': [
+    'bootstrap.php?session_id={session_id}',
+    'r=service',
+    'service=revenue-attributor'
+  ].join('&'),
+
   'homepage': [
     'bootstrap.php?session_id={session_id}',
     'r=homepage'
