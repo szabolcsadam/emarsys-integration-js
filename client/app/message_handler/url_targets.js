@@ -276,7 +276,7 @@ module.exports = {
 
   'rti/report': [
     'bootstrap.php?session_id={session_id}',
-    'r=eventCenter/index#/reports/{id}/overview'
+    'r=eventCenter/index#/summary/{id}'
   ].join('&'),
 
   'revenue_attribution/settings': [
