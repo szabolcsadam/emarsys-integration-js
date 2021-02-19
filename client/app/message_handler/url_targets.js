@@ -294,5 +294,11 @@ module.exports = {
   'homepage': [
     'bootstrap.php?session_id={session_id}',
     'r=homepage'
+  ].join('&'),
+
+  'forms/edit': [
+    'regmanager.php?session_id={session_id}',
+    'form_id={form_id}',
+    'action=description'
   ].join('&')
 };
