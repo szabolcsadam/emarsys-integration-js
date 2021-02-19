@@ -592,4 +592,19 @@ describe('Navigate Handler', function() {
       '#/reports/inapp/foo'
     ].join('&'));
   });
+
+  it('navigates to Form edit page', function() {
+    navigateTo({
+      target: 'forms/edit',
+      params: {
+        form_id: 123
+      }
+    });
+
+    expect(fakeWindow.location.href).to.eql([
+      'regmanager.php?session_id=SESSIONID',
+      'form_id=123',
+      'action=description'
+    ].join('&'));
+  });
 });
