@@ -576,6 +576,23 @@ describe('Navigate Handler', function() {
     ].join('&'));
   });
 
+  it('navigates to Mobile Engage inapp campaigns edit page', function() {
+    navigateTo({
+      target: 'me_push/inapp-campaigns/edit',
+      params: {
+        id: 'foo'
+      }
+    });
+
+    expect(fakeWindow.location.href).to.eql([
+      'bootstrap.php?session_id=SESSIONID',
+      'r=service/index',
+      'service=push-notification',
+      'iframe=show',
+      '#/inapp-campaigns/foo'
+    ].join('&'));
+  });
+
   it('navigates to Mobile Engage inapp reports page', function() {
     navigateTo({
       target: 'me_push/inapp-campaigns/report',

@@ -253,6 +253,14 @@ module.exports = {
     '#/reports/inapp/{id}'
   ].join('&'),
 
+  'me_push/inapp-campaigns/edit': [
+    'bootstrap.php?session_id={session_id}',
+    'r=service/index',
+    'service=push-notification',
+    'iframe=show',
+    '#/inapp-campaigns/{id}'
+  ].join('&'),
+
   'me_inbox/edit': [
     'bootstrap.php?session_id={session_id}',
     'r=service/index',
