@@ -257,7 +257,6 @@ __Targets available__
 |combined_segments/list|List combined segments||
 |program/create|AC program creation||
 |program/list|AC program overview||
-|automation_program/ac/edit|AC program edit in unified editor|id|
 |trendsreporting/trends|Trend reporting page||
 |trendsreporting/trends/campaign|Trend reporting page for specific campaign|campaign_id|
 |me_push/edit|Mobile Engage push campaign editor|id|

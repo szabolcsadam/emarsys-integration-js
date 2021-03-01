@@ -144,11 +144,6 @@ module.exports = {
     'programId={program_id}'
   ].join('&'),
 
-  'automation_program/ac/edit': [
-    'bootstrap.php?session_id={session_id}',
-    'r=eventCenter/index#/edit/ac/{id}'
-  ].join('&'),
-
   'program/report': [
     'bootstrap.php?session_id={session_id}',
     'r=program/report',
