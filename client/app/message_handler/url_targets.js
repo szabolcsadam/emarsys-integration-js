@@ -6,6 +6,11 @@ module.exports = {
     'action=list'
   ].join('&'),
 
+  'email_campaigns/preview': [
+    'preview_fs.php?session_id={session_id}',
+    'camp_id={campaign_id}'
+  ].join('&'),
+
   'email_campaigns/create': [
     'campaignmanager.php?session_id={session_id}',
     'action=new',

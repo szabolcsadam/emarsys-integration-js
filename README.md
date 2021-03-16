@@ -243,6 +243,7 @@ __Targets available__
 |email_campaigns/list|Will head to the campaign list.||
 |email_campaigns/create|Will open the editor with a new campaign.|use_template, mailstream|
 |email_campaigns/edit|Will open the editor with the campaign set.|campaign_id|
+|email_campaigns/preview|Will open the preview of the campaign set.|campaign_id|
 |email_campaigns/copy|Will open the editor with a new copied campaign.|campaign_id|
 |email_campaigns/blocks/create|Will open the content blocks template selector.|mailstream|
 |email_analysis/list|Will head to reporting.||

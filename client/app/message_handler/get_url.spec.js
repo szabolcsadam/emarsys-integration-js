@@ -67,6 +67,26 @@ describe('GetUrl Handler', function() {
     );
   });
 
+  it('should send back proper url when calling handleMessage with the correct campaignId params', function() {
+    getUrl({
+      target: 'email_campaigns/preview',
+      params: {
+        campaign_id: 666
+      },
+      eventId: 42
+    });
+
+    const expectedUrl = [
+      'preview_fs.php?session_id=SESSIONID',
+      'camp_id=666'
+    ].join('&');
+
+    expect(transmitter.messageToService).to.have.been.calledWithMatch(
+      'get_url:response',
+      { id: 42, success: true, url: expectedUrl }
+    );
+  });
+
   it('should send back proper url when calling handleMessage without params', function() {
     getUrl({ target: 'email_campaigns/list' });
 
