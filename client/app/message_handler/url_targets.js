@@ -167,12 +167,6 @@ module.exports = {
     'programId={program_id}'
   ].join('&'),
 
-  'trendsreporting': [
-    'bootstrap.php?session_id={session_id}',
-    'r=trendsreporting',
-    'campaignId={campaign_id}'
-  ].join('&'),
-
   'trendsreporting/trends': [
     'bootstrap.php?session_id={session_id}',
     'r=trendsreporting/trends'
