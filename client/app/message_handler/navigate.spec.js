@@ -511,6 +511,14 @@ describe('Navigate Handler', function() {
     ].join('&'));
   });
 
+  it('navigates to SMS Dashboard page', function() {
+    navigateTo({ target: 'sms/dashboard' });
+
+    expect(fakeWindow.location.href).to.eql(
+      'bootstrap.php?session_id=SESSIONID&r=service&service=smsadapter'
+    );
+  });
+
   it('navigates to RTI program edit page', function() {
     navigateTo({
       target: 'rti/edit',

@@ -282,6 +282,12 @@ module.exports = {
     '#/reports/inbox/{id}'
   ].join('&'),
 
+  'sms/dashboard': [
+    'bootstrap.php?session_id={session_id}',
+    'r=service',
+    'service=smsadapter'
+  ].join('&'),
+
   'rti/edit': [
     'bootstrap.php?session_id={session_id}',
     'r=eventCenter/index#/edit/rti/{id}'
