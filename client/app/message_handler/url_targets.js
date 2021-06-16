@@ -151,7 +151,7 @@ module.exports = {
 
   'program/report': [
     'bootstrap.php?session_id={session_id}',
-    'r=program/report',
+    'r=program/summary',
     'programId={program_id}'
   ].join('&'),
 
