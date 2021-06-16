@@ -160,12 +160,6 @@ module.exports = {
     'programId={program_id}'
   ].join('&'),
 
-  'program/disableNewEditor': [
-    'bootstrap.php?session_id={session_id}',
-    'r=program/disableNewEditor',
-    'programId={program_id}'
-  ].join('&'),
-
   'trendsreporting/trends': [
     'bootstrap.php?session_id={session_id}',
     'r=trendsreporting/trends'
