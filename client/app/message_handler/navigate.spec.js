@@ -246,7 +246,7 @@ describe('Navigate Handler', function() {
     ].join('&'));
   });
 
-  it('navigates to program edit page with proper params', function() {
+  it('navigates to unified program edit page with proper params', function() {
     messageHandler.handleMessage({
       event: 'navigate',
       data: {
@@ -262,8 +262,7 @@ describe('Navigate Handler', function() {
 
     expect(fakeWindow.location.href).to.eql([
       'bootstrap.php?session_id=SESSIONID',
-      'r=program/edit',
-      'programId=318'
+      'r=eventCenter/index#/edit/ac/318'
     ].join('&'));
   });
 
