@@ -256,8 +256,6 @@ __Targets available__
 |segments/combine|Combine a segment|segment_id|
 |segments/edit|Edit a segment|segment_id|
 |combined_segments/list|List combined segments||
-|program/create|AC program creation||
-|program/list|AC program overview||
 |trendsreporting/trends|Trend reporting page||
 |trendsreporting/trends/campaign|Trend reporting page for specific campaign|campaign_id|
 |me_push/edit|Mobile Engage push campaign editor|id|
@@ -267,6 +265,9 @@ __Targets available__
 |me_push/inapp-campaigns/report|Mobile Engage inapp campaign report|id|
 |me_push/inapp-campaigns/edit|Mobile Engage inapp campaign edit|id|
 |sms/dashboard|SMS Dashboard||
+|program/list|AC program overview||
+|program/edit|AC program editor|id|
+|program/summary|AC program report|id|
 |rti/edit|RTI program editor|id|
 |rti/report|RTI program report|id|
 |revenue_attribution/settings|Revenue Attribution settings||
