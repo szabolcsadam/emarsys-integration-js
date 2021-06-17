@@ -149,6 +149,17 @@ module.exports = {
     'programId={program_id}'
   ].join('&'),
 
+  'program/create': [
+    'bootstrap.php?session_id={session_id}',
+    'r=program/create'
+  ].join('&'),
+
+  'program/new': [
+    'bootstrap.php?session_id={session_id}',
+    'r=program/new',
+    'blueprint_id=0'
+  ].join('&'),
+
   'trendsreporting/trends': [
     'bootstrap.php?session_id={session_id}',
     'r=trendsreporting/trends'
