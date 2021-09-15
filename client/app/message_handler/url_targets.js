@@ -275,6 +275,22 @@ module.exports = {
     '#/reports/inbox/{id}'
   ].join('&'),
 
+  'web_push/edit': [
+    'bootstrap.php?session_id={session_id}',
+    'r=service/index',
+    'service=web-push',
+    'iframe=show',
+    '#/campaigns/{id}'
+  ].join('&'),
+
+  'web_push/report': [
+    'bootstrap.php?session_id={session_id}',
+    'r=service/index',
+    'service=web-push',
+    'iframe=show',
+    '#/reports/web-push/{id}'
+  ].join('&'),
+
   'sms/dashboard': [
     'bootstrap.php?session_id={session_id}',
     'r=service',
