@@ -266,6 +266,7 @@ __Targets available__
 |me_push/inapp-campaigns/edit|Mobile Engage inapp campaign edit|id|
 |sms/dashboard|SMS Dashboard||
 |program/list|AC program overview||
+|program/new|Create an AC program||
 |program/edit|AC program editor|id|
 |program/summary|AC program report|id|
 |rti/edit|RTI program editor|id|

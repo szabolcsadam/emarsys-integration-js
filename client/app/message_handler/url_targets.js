@@ -129,7 +129,7 @@ module.exports = {
 
   'program/list': [
     'bootstrap.php?session_id={session_id}',
-    'r=program'
+    'r=eventCenter/index#/'
   ].join('&'),
 
   'program/edit': [
@@ -151,13 +151,12 @@ module.exports = {
 
   'program/create': [
     'bootstrap.php?session_id={session_id}',
-    'r=program/create'
+    'r=eventCenter/index#/edit/ac/'
   ].join('&'),
 
   'program/new': [
     'bootstrap.php?session_id={session_id}',
-    'r=program/new',
-    'blueprint_id=0'
+    'r=eventCenter/index#/edit/ac/'
   ].join('&'),
 
   'trendsreporting/trends': [
