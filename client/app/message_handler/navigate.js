@@ -41,9 +41,9 @@ class MessageHandlerNavigate extends AbstractMessageHandler {
 
   _responseToService(eventId, success, integrationInstanceId) {
     this.transmitter.messageToService(
-        'navigate:response',
-        { id: eventId, success: success },
-        integrationInstanceId
+      'navigate:response',
+      { id: eventId, success: success },
+      integrationInstanceId
     );
   }
 
