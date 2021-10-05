@@ -42,8 +42,8 @@ gulp.task('client-watch', function() {
 
 gulp.task('deploy', clientTasks.build.deploy);
 
-gulp.task('publish-s3', function() { return clientTasks.s3.publish(); });
-gulp.task('publish-redirector', function() { return clientTasks.redirector.save(); });
+gulp.task('publish-s3', function(cb) { clientTasks.s3.publish(); cb(); });
+gulp.task('publish-redirector', function(cb) { clientTasks.redirector.save(); cb(); });
 gulp.task('publish', gulp.series('publish-s3', 'publish-redirector'));
 
 
