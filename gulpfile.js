@@ -11,7 +11,8 @@ gulp.task('client-code-style', function() { return clientTasks.client.codeStyle(
 
 // Helper
 gulp.task('build-clean', function(cb) {
-  clientTasks.build.clean(cb);
+  clientTasks.build.clean();
+  cb();
 });
 
 gulp.task('build', gulp.series('build-clean', function(cb) {
