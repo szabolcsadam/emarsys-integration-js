@@ -31,7 +31,7 @@ class MessageHandlerAlert extends AbstractMessageHandler {
 
     if (message.data.icon) {
       markup.push('<span class="e-alert__icon">');
-      markup.push('<svg class="e-icon"><use xlink:href="#' + message.data.icon + '"></use></svg>');
+      markup.push('<e-icon icon="' + message.data.icon + '" color="inherit"></e-icon>');
       markup.push('</span>');
     }
 
