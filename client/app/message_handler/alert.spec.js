@@ -111,7 +111,7 @@ describe('Alert Handler', function() {
             icon: 'foo'
           }
         },
-        expected: '#foo'
+        expected: 'foo'
       },
       {
         name: 'should return HTML with text message',
