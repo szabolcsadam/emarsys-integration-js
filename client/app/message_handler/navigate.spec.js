@@ -510,6 +510,14 @@ describe('Navigate Handler', function() {
     ].join('&'));
   });
 
+  it('navigates to SMS Settings page', function() {
+    navigateTo({ target: 'sms/settings' });
+
+    expect(fakeWindow.location.href).to.eql(
+      'bootstrap.php?session_id=SESSIONID&r=smsSettings'
+    );
+  });
+
   it('navigates to SMS Dashboard page', function() {
     navigateTo({ target: 'sms/dashboard' });
 
