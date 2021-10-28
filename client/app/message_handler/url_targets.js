@@ -296,6 +296,11 @@ module.exports = {
     'service=smsadapter'
   ].join('&'),
 
+  'sms/settings': [
+    'bootstrap.php?session_id={session_id}',
+    'r=smsSettings'
+  ].join('&'),
+
   'rti/edit': [
     'bootstrap.php?session_id={session_id}',
     'r=eventCenter/index#/edit/rti/{id}'
