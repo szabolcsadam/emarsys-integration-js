@@ -311,6 +311,11 @@ module.exports = {
     'r=eventCenter/index#/summary/{id}'
   ].join('&'),
 
+  'webhook_preset/edit': [
+    'bootstrap.php?session_id={session_id}',
+    'r=webhookNode/index#/edit/{id}'
+  ].join('&'),
+
   'revenue_attribution/settings': [
     'bootstrap.php?session_id={session_id}',
     'r=service',

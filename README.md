@@ -276,6 +276,7 @@ __Targets available__
 |revenue_attributor/settings|New Revenue Attribution settings||
 |homepage|Homepage||
 |forms/edit|Will open the form editor page|form_id|
+|webhook_preset/edit|Webhook Preset Editor|id|
 
 ## Proxy
 
