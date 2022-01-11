@@ -337,5 +337,10 @@ module.exports = {
     'regmanager.php?session_id={session_id}',
     'form_id={form_id}',
     'action=description'
+  ].join('&'),
+
+  'smart_insight/settings': [
+    'bootstrap.php?session_id={session_id}',
+    'r=smartinsight/CustomerRegistrySettings'
   ].join('&')
 };
