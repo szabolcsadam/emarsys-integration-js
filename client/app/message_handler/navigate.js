@@ -4,7 +4,6 @@ const AbstractMessageHandler = require('./abstract_message_handler');
 const getFullUrlByTarget = require('./get_full_url_by_target');
 
 class MessageHandlerNavigate extends AbstractMessageHandler {
-
   get MESSAGE_EVENT() {
     return 'navigate';
   }
@@ -15,9 +14,14 @@ class MessageHandlerNavigate extends AbstractMessageHandler {
     this.transmitter = transmitter;
   }
 
-  handleMessage(message) {
-    return this.navigate(message)
-      .then(success => this._responseToService(message.data.eventId, success, message.source.integration_instance_id));
+  handleMessage(message, event) {
+    return this.navigate(message).then(success =>
+      this.transmitter.responseToService(
+        'navigate:response',
+        { id: message.data.eventId, success },
+        event
+      )
+    );
   }
 
   navigate(message) {
@@ -28,9 +32,10 @@ class MessageHandlerNavigate extends AbstractMessageHandler {
     });
 
     if (this.window.Emarsys.integration.unload.initialized) {
-      let promise = this.window.Emarsys.integration.dialog.confirmNavigation(
+      const promise = this.window.Emarsys.integration.dialog.confirmNavigation(
         url,
-        this.getFakeConfirmMessage(message));
+        this.getFakeConfirmMessage(message)
+      );
 
       return promise.then(() => true).fail(() => false);
     } else {
@@ -38,15 +43,6 @@ class MessageHandlerNavigate extends AbstractMessageHandler {
       return this.window.$.Deferred().resolve(true).promise(); // eslint-disable-line new-cap
     }
   }
-
-  _responseToService(eventId, success, integrationInstanceId) {
-    this.transmitter.messageToService(
-      'navigate:response',
-      { id: eventId, success: success },
-      integrationInstanceId
-    );
-  }
-
 }
 
 module.exports = MessageHandlerNavigate;

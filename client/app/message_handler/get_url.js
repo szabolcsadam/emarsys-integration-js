@@ -4,7 +4,6 @@ const AbstractMessageHandler = require('./abstract_message_handler');
 const getFullUrlByTarget = require('./get_full_url_by_target');
 
 class GetUrl extends AbstractMessageHandler {
-
   get MESSAGE_EVENT() {
     return 'get_url';
   }
@@ -15,7 +14,7 @@ class GetUrl extends AbstractMessageHandler {
     this.transmitter = transmitter;
   }
 
-  handleMessage(message) {
+  handleMessage(message, event) {
     try {
       const url = getFullUrlByTarget({
         sessionId: this.window.Emarsys.config.session_id,
@@ -23,16 +22,16 @@ class GetUrl extends AbstractMessageHandler {
         params: message.data.params
       });
 
-      this.transmitter.messageToService(
+      this.transmitter.responseToService(
         'get_url:response',
         { id: message.data.eventId, success: true, url: url },
-        message.source.integration_instance_id
+        event
       );
     } catch (e) {
-      this.transmitter.messageToService(
+      this.transmitter.responseToService(
         'get_url:response',
         { id: message.data.eventId, success: false, error: e.message },
-        message.source.integration_instance_id
+        event
       );
     }
   }

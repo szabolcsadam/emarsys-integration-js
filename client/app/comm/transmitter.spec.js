@@ -4,7 +4,6 @@ const FakeWindow = require('../mocks/fake_window');
 const Transmitter = require('./transmitter');
 
 describe('Transmitter', function() {
-
   let fakeWindow;
   let transmitter;
 
@@ -54,4 +53,11 @@ describe('Transmitter', function() {
     });
   });
 
+  describe('#responseToService', () => {
+    it('should send response to source found in event', function() {
+      const event = { source: { postMessage: this.sandbox.stub() } };
+      transmitter.responseToService('foo', testMessage, event);
+      expect(event.source.postMessage).to.be.calledWith(jsonMessage, '*');
+    });
+  });
 });
