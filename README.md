@@ -468,8 +468,5 @@ Code is automatically built and deployed whenever there is a new changeset in fo
 So you can push your changes into the master branch, and Codeship will deploy it to the staging environment. Also you can merge your changes to the master branch, and it will be deployed to production by Codeship:
 
 ```bash
-git checkout production
-git pull --rebase
-git merge origin master
-git push
+git pull origin master; git push origin master; git push origin master:production
 ```
