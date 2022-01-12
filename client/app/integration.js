@@ -2,7 +2,6 @@
 
 const _extend = require('lodash/extend');
 
-const consts = require('./consts');
 const Receiver = require('emarsys-integration-client').comm.Receiver;
 const AlertApi = require('emarsys-integration-client').api.Alert;
 const Transmitter = require('./comm/transmitter');
@@ -30,30 +29,30 @@ const messageHandlers = [
   require('./message_handler/unload_reset')
 ];
 
-(function(global) {
-  global.Emarsys = global.Emarsys || (global.SUITE ? _extend(true, {}, global.SUITE) : {});
-  global.Emarsys.config = global.Emarsys.config || (global.SUITE.config ? _extend(true, {}, global.SUITE.config) : {});
+(function() {
+  window.Emarsys = window.Emarsys || (window.SUITE ? _extend(true, {}, window.SUITE) : {});
+  window.Emarsys.config = window.Emarsys.config || (window.SUITE.config ? _extend(true, {}, window.SUITE.config) : {});
 
   let transmitter = new Transmitter({
-    global: global,
-    integrationId: consts.EMARSYS_INTEGRATION_ID,
-    integrationInstanceId: consts.EMARSYS_INTEGRATION_ID
+    global: window,
+    integrationId: 'EMARSYS',
+    integrationInstanceId: 'EMARSYS'
   });
-  let receiver = new Receiver(global);
+  let receiver = new Receiver(window);
 
-  global.Emarsys.integration = {
+  window.Emarsys.integration = {
     messageToEmarsys: transmitter.messageToEmarsys.bind(transmitter),
     messageToService: transmitter.messageToService.bind(transmitter),
     addMessageHandler: receiver.addMessageHandler.bind(receiver),
     alert: AlertApi.create(transmitter),
     dialog: new DialogApi(transmitter, DialogFactory.create()),
     getFullUrlByTarget: ({ target, params }) => getFullUrlByTarget({
-      sessionId: global.Emarsys.config.session_id,
+      sessionId: window.Emarsys.config.session_id,
       target,
       params
     }),
     navigate: (messageData) => {
-      let messageHandler = new MessageHandlerNavigate(global, null);
+      let messageHandler = new MessageHandlerNavigate(window, null);
       return messageHandler.navigate({ data: messageData });
     },
     unload: {
@@ -62,9 +61,9 @@ const messageHandlers = [
   };
 
   messageHandlers.forEach(function(MessageHandlerClass) {
-    let messageHandler = new MessageHandlerClass(global, transmitter);
+    let messageHandler = new MessageHandlerClass(window, transmitter);
     receiver.addMessageHandler(messageHandler.MESSAGE_EVENT, messageHandler.handleMessage.bind(messageHandler));
   });
 
-  connect(global);
-})(window);
+  connect(window);
+})();

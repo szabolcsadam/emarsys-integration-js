@@ -1,7 +1,5 @@
 'use strict';
 
-const consts = require('../consts');
-
 class AbstractMessageHandler {
 
   constructor(global) {
@@ -26,7 +24,7 @@ class AbstractMessageHandler {
     };
     let retval = {
       source: {
-        integration_id: consts.EMARSYS_INTEGRATION_ID
+        integration_id: 'EMARSYS'
       }
     };
 

@@ -2,7 +2,6 @@
 
 const sinon = global.sinon || {};
 const Q = require('q');
-const consts = require('../consts');
 const FakeWindow = require('../mocks/fake_window');
 const Transmitter = require('../comm/transmitter');
 const DialogFactory = require('./dialog_factory');
@@ -15,8 +14,8 @@ const createFakeWindow = function(sandbox) {
 const createTransmitter = function(fakeWindow) {
   return new Transmitter({
     global: fakeWindow,
-    integrationId: consts.EMARSYS_INTEGRATION_ID,
-    integrationInstanceId: consts.EMARSYS_INTEGRATION_ID
+    integrationId: 'EMARSYS',
+    integrationInstanceId: 'EMARSYS'
   });
 };
 
@@ -94,7 +93,7 @@ describe('DialogApi', function() {
           dialogId: 1234
         },
         source: {
-          integration_id: consts.EMARSYS_INTEGRATION_ID
+          integration_id: 'EMARSYS'
         }
       };
       let fakeConfirmComponent;
@@ -126,7 +125,7 @@ describe('DialogApi', function() {
           src: 'http://test.com'
         },
         source: {
-          integration_id: consts.EMARSYS_INTEGRATION_ID
+          integration_id: 'EMARSYS'
         }
       };
       let fakeModalComponent;
@@ -225,7 +224,7 @@ describe('DialogApi', function() {
         dialogId: 1234
       },
       source: {
-        integration_id: consts.EMARSYS_INTEGRATION_ID
+        integration_id: 'EMARSYS'
       }
     };
     let fakeConfirmComponent;

@@ -2,11 +2,11 @@
 
 const ClientApi = require('emarsys-integration-client');
 
-(function(global) {
-  global.Emarsys = global.Emarsys || {};
-  global.Emarsys.integration = {
+(function() {
+  window.Emarsys = window.Emarsys || {};
+  window.Emarsys.integration = {
     init: function(options) {
-      global.Emarsys.integration = ClientApi.init(options);
+      window.Emarsys.integration = ClientApi.init(options);
     }
   };
-})(window);
+})();

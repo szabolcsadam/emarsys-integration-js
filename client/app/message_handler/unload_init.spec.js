@@ -1,6 +1,5 @@
 'use strict';
 
-const consts = require('../consts');
 const FakeWindow = require('../mocks/fake_window');
 const MessageHandler = require('./unload_init');
 const jquery = require('jquery');
@@ -47,7 +46,7 @@ describe('UnloadInit Handler', function() {
       const fakeMessage = messageHandler.getFakeConfirmMessage({
         data: {}
       });
-      expect(fakeMessage.source.integration_id).to.eql(consts.EMARSYS_INTEGRATION_ID);
+      expect(fakeMessage.source.integration_id).to.eql('EMARSYS');
     });
   });
 
