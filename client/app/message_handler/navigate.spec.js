@@ -13,7 +13,7 @@ describe('Navigate Handler', function() {
     fakeWindow = FakeWindow.create(this.sandbox);
 
     transmitter = {
-      responseToService: this.sandbox.spy()
+      respondToSender: this.sandbox.spy()
     };
 
     messageHandler = new MessageHandler(fakeWindow, transmitter);
@@ -135,7 +135,7 @@ describe('Navigate Handler', function() {
         }
       })
         .then(() => {
-          expect(transmitter.responseToService).to.have.been.calledWithMatch(
+          expect(transmitter.respondToSender).to.have.been.calledWithMatch(
             'navigate:response',
             { id: 1, success: true }
           );
@@ -161,7 +161,7 @@ describe('Navigate Handler', function() {
           integration_instance_id: 1
         }
       }).then(() => {
-        expect(transmitter.responseToService).to.have.been.calledWithMatch(
+        expect(transmitter.respondToSender).to.have.been.calledWithMatch(
           'navigate:response',
           { id: 1, success: true }
         );

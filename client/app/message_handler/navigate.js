@@ -16,7 +16,7 @@ class MessageHandlerNavigate extends AbstractMessageHandler {
 
   handleMessage(message, event) {
     return this.navigate(message).then(success =>
-      this.transmitter.responseToService(
+      this.transmitter.respondToSender(
         'navigate:response',
         { id: message.data.eventId, success },
         event

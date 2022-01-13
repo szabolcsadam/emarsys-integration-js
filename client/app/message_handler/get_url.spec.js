@@ -13,7 +13,7 @@ describe('GetUrl Handler', function() {
     fakeWindow = FakeWindow.create(this.sandbox);
 
     transmitter = {
-      responseToService: this.sandbox.spy()
+      respondToSender: this.sandbox.spy()
     };
 
     messageHandler = new MessageHandler(fakeWindow, transmitter);
@@ -61,7 +61,7 @@ describe('GetUrl Handler', function() {
       'type=all'
     ].join('&');
 
-    expect(transmitter.responseToService).to.have.been.calledWithMatch(
+    expect(transmitter.respondToSender).to.have.been.calledWithMatch(
       'get_url:response',
       { id: 42, success: true, url: expectedUrl }
     );
@@ -81,7 +81,7 @@ describe('GetUrl Handler', function() {
       'camp_id=666'
     ].join('&');
 
-    expect(transmitter.responseToService).to.have.been.calledWithMatch(
+    expect(transmitter.respondToSender).to.have.been.calledWithMatch(
       'get_url:response',
       { id: 42, success: true, url: expectedUrl }
     );
@@ -90,7 +90,7 @@ describe('GetUrl Handler', function() {
   it('should send back proper url when calling handleMessage without params', function() {
     getUrl({ target: 'email_campaigns/list' });
 
-    expect(transmitter.responseToService).to.have.been.calledWithMatch(
+    expect(transmitter.respondToSender).to.have.been.calledWithMatch(
       'get_url:response',
       { id: 111, success: true, url: 'campaignmanager.php?session_id=SESSIONID&action=list' }
     );
@@ -99,7 +99,7 @@ describe('GetUrl Handler', function() {
   it('should send back error when called with invalid pathname', function() {
     getUrl({ target: 'invalid/pathname' });
 
-    expect(transmitter.responseToService).to.have.been.calledWithMatch(
+    expect(transmitter.respondToSender).to.have.been.calledWithMatch(
       'get_url:response',
       { id: 111, success: false, error: 'Error 404: Unknown pathname' }
     );

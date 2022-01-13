@@ -29,41 +29,39 @@ const messageHandlers = [
   require('./message_handler/unload_reset')
 ];
 
-(function() {
-  window.Emarsys = window.Emarsys || (window.SUITE ? _extend(true, {}, window.SUITE) : {});
-  window.Emarsys.config = window.Emarsys.config || (window.SUITE.config ? _extend(true, {}, window.SUITE.config) : {});
+window.Emarsys = window.Emarsys || (window.SUITE ? _extend(true, {}, window.SUITE) : {});
+window.Emarsys.config = window.Emarsys.config || (window.SUITE.config ? _extend(true, {}, window.SUITE.config) : {});
 
-  let transmitter = new Transmitter({
-    global: window,
-    integrationId: 'EMARSYS',
-    integrationInstanceId: 'EMARSYS'
-  });
-  let receiver = new Receiver(window);
+let transmitter = new Transmitter({
+  global: window,
+  integrationId: 'EMARSYS',
+  integrationInstanceId: 'EMARSYS'
+});
+let receiver = new Receiver(window);
 
-  window.Emarsys.integration = {
-    messageToEmarsys: transmitter.messageToEmarsys.bind(transmitter),
-    messageToService: transmitter.messageToService.bind(transmitter),
-    addMessageHandler: receiver.addMessageHandler.bind(receiver),
-    alert: AlertApi.create(transmitter),
-    dialog: new DialogApi(transmitter, DialogFactory.create()),
-    getFullUrlByTarget: ({ target, params }) => getFullUrlByTarget({
-      sessionId: window.Emarsys.config.session_id,
-      target,
-      params
-    }),
-    navigate: (messageData) => {
-      let messageHandler = new MessageHandlerNavigate(window, null);
-      return messageHandler.navigate({ data: messageData });
-    },
-    unload: {
-      initialized: false
-    }
-  };
+window.Emarsys.integration = {
+  messageToEmarsys: transmitter.messageToEmarsys.bind(transmitter),
+  messageToService: transmitter.messageToService.bind(transmitter),
+  addMessageHandler: receiver.addMessageHandler.bind(receiver),
+  alert: AlertApi.create(transmitter),
+  dialog: new DialogApi(transmitter, DialogFactory.create()),
+  getFullUrlByTarget: ({ target, params }) => getFullUrlByTarget({
+    sessionId: window.Emarsys.config.session_id,
+    target,
+    params
+  }),
+  navigate: (messageData) => {
+    let messageHandler = new MessageHandlerNavigate(window, null);
+    return messageHandler.navigate({ data: messageData });
+  },
+  unload: {
+    initialized: false
+  }
+};
 
-  messageHandlers.forEach(function(MessageHandlerClass) {
-    let messageHandler = new MessageHandlerClass(window, transmitter);
-    receiver.addMessageHandler(messageHandler.MESSAGE_EVENT, messageHandler.handleMessage.bind(messageHandler));
-  });
+messageHandlers.forEach(function(MessageHandlerClass) {
+  let messageHandler = new MessageHandlerClass(window, transmitter);
+  receiver.addMessageHandler(messageHandler.MESSAGE_EVENT, messageHandler.handleMessage.bind(messageHandler));
+});
 
-  connect(window);
-})();
+connect(window);

@@ -53,10 +53,10 @@ describe('Transmitter', function() {
     });
   });
 
-  describe('#responseToService', () => {
+  describe('#respondToSender', () => {
     it('should send response to source found in event', function() {
       const event = { source: { postMessage: this.sandbox.stub() } };
-      transmitter.responseToService('foo', testMessage, event);
+      transmitter.respondToSender('foo', testMessage, event);
       expect(event.source.postMessage).to.be.calledWith(jsonMessage, '*');
     });
   });

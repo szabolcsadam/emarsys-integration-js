@@ -27,7 +27,7 @@ class Transmitter extends ServiceTransmitter {
     }
   }
 
-  responseToService(eventName, data, eventToRespondTo) {
+  respondToSender(eventName, data, eventToRespondTo) {
     eventToRespondTo.source.postMessage(
       JSON.stringify(this.setMessageSource(this.compileMessage(eventName, data))),
       '*'

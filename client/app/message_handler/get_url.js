@@ -22,13 +22,13 @@ class GetUrl extends AbstractMessageHandler {
         params: message.data.params
       });
 
-      this.transmitter.responseToService(
+      this.transmitter.respondToSender(
         'get_url:response',
         { id: message.data.eventId, success: true, url: url },
         event
       );
     } catch (e) {
-      this.transmitter.responseToService(
+      this.transmitter.respondToSender(
         'get_url:response',
         { id: message.data.eventId, success: false, error: e.message },
         event
