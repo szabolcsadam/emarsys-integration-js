@@ -35,6 +35,11 @@ module.exports = {
     'copy={campaign_id}'
   ].join('&'),
 
+  'revenue_analytics/dashboard': [
+    'bootstrap.php?session_id={session_id}',
+    'r=revenueAnalytics'
+  ].join('&'),
+
   'email_analysis/list': [
     'repmanager.php?session_id={session_id}',
     'action=overview'

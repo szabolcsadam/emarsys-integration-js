@@ -246,6 +246,7 @@ __Targets available__
 |email_campaigns/preview|Will open the preview of the campaign set.|campaign_id|
 |email_campaigns/copy|Will open the editor with a new copied campaign.|campaign_id|
 |email_campaigns/blocks/create|Will open the content blocks template selector.|mailstream|
+|revenue_analytics/dashboard|Will head to Revenue Analytics page.||
 |email_analysis/list|Will head to reporting.||
 |email_analysis/details|Will head to reporting details of a campaign.|campaign_id, launch_id|
 |bounce_management/list|Will head to Bounce management page|only_mailstreams
