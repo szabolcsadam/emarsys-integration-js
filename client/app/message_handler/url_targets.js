@@ -172,7 +172,11 @@ module.exports = {
   'trendsreporting/trends/campaigns': [
     'bootstrap.php?session_id={session_id}',
     'r=trendsreporting/trends',
-    'campaignIds={campaign_ids}'
+    'campaignIds={campaign_ids}',
+    'programId={program_id}',
+    'programName={program_name}',
+    'startDate={start_date}',
+    'endDate={end_date}'
   ].join('&'),
 
   'trendsreporting/trends/campaign': [

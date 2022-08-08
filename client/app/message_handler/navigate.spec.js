@@ -330,13 +330,17 @@ describe('Navigate Handler', function() {
     ].join('&'));
   });
 
-  it('navigate to trend reporing page for selecting multiple campaigns', function() {
+  it('navigate to trend reporting page for selecting multiple campaigns', function() {
     messageHandler.handleMessage({
       event: 'navigate',
       data: {
         target: 'trendsreporting/trends/campaigns',
         params: {
-          campaign_ids: '42,43'
+          campaign_ids: '42,43',
+          program_id: 993,
+          program_name: 'csudaprogram',
+          start_date: 1582156800000,
+          end_date: 1582243200000
         }
       },
       source: {
@@ -347,7 +351,11 @@ describe('Navigate Handler', function() {
     expect(fakeWindow.location.href).to.eql([
       'bootstrap.php?session_id=SESSIONID',
       'r=trendsreporting/trends',
-      'campaignIds=42,43'
+      'campaignIds=42,43',
+      'programId=993',
+      'programName=csudaprogram',
+      'startDate=1582156800000',
+      'endDate=1582243200000'
     ].join('&'));
   });
 
