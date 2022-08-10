@@ -320,6 +320,11 @@ module.exports = {
     'r=eventCenter/index#/summary/{id}'
   ].join('&'),
 
+  'automation/report': [
+    'bootstrap.php?session_id={session_id}',
+    'r=eventCenter/index#/reporting/{programType}/{id}?start_date={startDate}&end_date={endDate}'
+  ].join('&'),
+
   'webhook_preset/edit': [
     'bootstrap.php?session_id={session_id}',
     'r=webhookNode/index#/edit/{id}'

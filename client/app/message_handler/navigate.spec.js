@@ -563,6 +563,30 @@ describe('Navigate Handler', function() {
     );
   });
 
+  describe('automation program reporting', () => {
+    [
+      { programType: 'ac', id: 123, startDate: '2022-08-01', endDate: '2022-09-01' },
+      { programType: 'rti', id: '1asdf1234' }
+    ].forEach(({ programType, id, startDate, endDate }) => {
+      it(`navigates to ${programType} program unified report page`, () => {
+        navigateTo({
+          target: 'automation/report',
+          params: {
+            programType,
+            id,
+            startDate,
+            endDate
+          }
+        });
+
+        expect(fakeWindow.location.href).to.eql(
+          'bootstrap.php?session_id=SESSIONID' +
+          `&r=eventCenter/index#/reporting/${programType}/${id}?start_date=${startDate}&end_date=${endDate}`
+        );
+      });
+    });
+  });
+
   it('navigates to New Revenue Attribution Settings page', function() {
     navigateTo({ target: 'revenue_attributor/settings' });
 
