@@ -324,7 +324,7 @@ module.exports = {
 
   'automation/report': [
     'bootstrap.php?session_id={session_id}',
-    'r=eventCenter/index#/reporting/{programType}/{id}?start_date={start_date}&end_date={end_date}'
+    'r=eventCenter/index#/reporting/{program_type}/{id}?start_date={start_date}&end_date={end_date}'
   ].join('&'),
 
   'webhook_preset/edit': [

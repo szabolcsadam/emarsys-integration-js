@@ -576,7 +576,7 @@ describe('Navigate Handler', function() {
         navigateTo({
           target: 'automation/report',
           params: {
-            programType,
+            program_type: programType,
             id,
             start_date: startDate,
             end_date: endDate
