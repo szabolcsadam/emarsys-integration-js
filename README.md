@@ -238,48 +238,48 @@ __Fields__
 
 __Targets available__
 
-| Target                           | Action                                                         | Params                                       |
-|----------------------------------|----------------------------------------------------------------|----------------------------------------------|
+| Target                           | Action                                                         | Params                                         |
+|----------------------------------|----------------------------------------------------------------|------------------------------------------------|
 | email_campaigns/list             | Will head to the campaign list.                                ||
-| email_campaigns/create           | Will open the editor with a new campaign.                      | use_template, mailstream                     |
-| email_campaigns/edit             | Will open the editor with the campaign set.                    | campaign_id                                  |
-| email_campaigns/preview          | Will open the preview of the campaign set.                     | campaign_id                                  |
-| email_campaigns/copy             | Will open the editor with a new copied campaign.               | campaign_id                                  |
-| email_campaigns/blocks/create    | Will open the content blocks template selector.                | mailstream                                   |
+| email_campaigns/create           | Will open the editor with a new campaign.                      | use_template, mailstream                       |
+| email_campaigns/edit             | Will open the editor with the campaign set.                    | campaign_id                                    |
+| email_campaigns/preview          | Will open the preview of the campaign set.                     | campaign_id                                    |
+| email_campaigns/copy             | Will open the editor with a new copied campaign.               | campaign_id                                    |
+| email_campaigns/blocks/create    | Will open the content blocks template selector.                | mailstream                                     |
 | revenue_analytics/dashboard      | Will head to Revenue Analytics page.                           ||
 | email_analysis/list              | Will head to reporting.                                        ||
-| email_analysis/details           | Will head to reporting details of a campaign.                  | campaign_id, launch_id                       |
-| bounce_management/list           | Will head to Bounce management page                            | only_mailstreams                             
-| administrators/profile           | Administrator profile page                                     | admin_id                                     |
+| email_analysis/details           | Will head to reporting details of a campaign.                  | campaign_id, launch_id                         |
+| bounce_management/list           | Will head to Bounce management page                            | only_mailstreams                               
+| administrators/profile           | Administrator profile page                                     | admin_id                                       |
 | administrators/list              | Administrator list page                                        ||
 | administrators/security-settings | Security settings page                                         ||
 | administrators/locked_out        | Login page with locked out error message                       ||
-| segments/combine                 | Combine a segment                                              | segment_id                                   |
-| segments/edit                    | Edit a segment                                                 | segment_id                                   |
+| segments/combine                 | Combine a segment                                              | segment_id                                     |
+| segments/edit                    | Edit a segment                                                 | segment_id                                     |
 | combined_segments/list           | List combined segments                                         ||
 | trendsreporting/trends           | Trend reporting page                                           ||
-| trendsreporting/trends/campaign  | Trend reporting page for specific campaign                     | campaign_id                                  |
-| me_push/edit                     | Mobile Engage push campaign editor                             | id                                           |
-| me_push/report                   | Mobile Engage push campaign report (push internal campaign id) | id                                           |
+| trendsreporting/trends/campaign  | Trend reporting page for specific campaign                     | campaign_id                                    |
+| me_push/edit                     | Mobile Engage push campaign editor                             | id                                             |
+| me_push/report                   | Mobile Engage push campaign report (push internal campaign id) | id                                             |
 | me_push/campaigns                | Mobile Engage push campaigns list                              
 | me_push/inapp-campaigns          | Mobile Engage inapp campaigns list                             
-| me_push/inapp-campaigns/report   | Mobile Engage inapp campaign report                            | id                                           |
-| me_push/inapp-campaigns/edit     | Mobile Engage inapp campaign edit                              | id                                           |
+| me_push/inapp-campaigns/report   | Mobile Engage inapp campaign report                            | id                                             |
+| me_push/inapp-campaigns/edit     | Mobile Engage inapp campaign edit                              | id                                             |
 | sms/dashboard                    | SMS Dashboard                                                  ||
 | sms/settings                     | SMS Settings                                                   ||
 | program/list                     | AC program overview                                            ||
 | program/new                      | Create an AC program                                           ||
-| program/edit                     | AC program editor                                              | program_id                                   |
-| program/summary                  | AC program report                                              | program_id, start_date, end_date             |
-| rti/edit                         | RTI program editor                                             | id                                           |
-| rti/report                       | RTI program report                                             | id                                           |
-| automation/report                | Automation program report                                      | programType (ac/rti), id, startDate, endDate |
+| program/edit                     | AC program editor                                              | program_id                                     |
+| program/summary                  | AC program report                                              | program_id, start_date, end_date               |
+| rti/edit                         | RTI program editor                                             | id                                             |
+| rti/report                       | RTI program report                                             | id                                             |
+| automation/report                | Automation program report                                      | programType (ac/rti), id, start_date, end_date |
 | revenue_attribution/settings     | Revenue Attribution settings                                   ||
 | revenue_attributor/settings      | New Revenue Attribution settings                               ||
 | homepage                         | Homepage                                                       ||
-| forms/edit                       | Will open the form editor page                                 | form_id                                      |
+| forms/edit                       | Will open the form editor page                                 | form_id                                        |
 | smart_insight/settings           | Will open the smart insight customer registry settings page    ||
-| webhook_preset/edit              | Webhook Preset Editor                                          | id                                           |
+| webhook_preset/edit              | Webhook Preset Editor                                          | id                                             |
 
 ## Proxy
 

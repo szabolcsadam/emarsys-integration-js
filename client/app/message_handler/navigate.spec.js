@@ -578,8 +578,8 @@ describe('Navigate Handler', function() {
           params: {
             programType,
             id,
-            startDate,
-            endDate
+            start_date: startDate,
+            end_date: endDate
           }
         });
 
