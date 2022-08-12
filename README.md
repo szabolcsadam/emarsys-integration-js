@@ -270,7 +270,7 @@ __Targets available__
 | program/list                     | AC program overview                                            ||
 | program/new                      | Create an AC program                                           ||
 | program/edit                     | AC program editor                                              | id                                           |
-| program/summary                  | AC program report                                              | id                                           |
+| program/summary                  | AC program report                                              | id, start_date, end_date                                           |
 | rti/edit                         | RTI program editor                                             | id                                           |
 | rti/report                       | RTI program report                                             | id                                           |
 | automation/report                | Automation program report                                      | programType (ac/rti), id, startDate, endDate |

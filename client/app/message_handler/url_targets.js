@@ -151,7 +151,9 @@ module.exports = {
   'program/summary': [
     'bootstrap.php?session_id={session_id}',
     'r=program/summary',
-    'programId={program_id}'
+    'programId={program_id}',
+    'start_date={start_date}',
+    'end_date={end_date}'
   ].join('&'),
 
   'program/create': [

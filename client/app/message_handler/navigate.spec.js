@@ -266,7 +266,7 @@ describe('Navigate Handler', function() {
     ].join('&'));
   });
 
-  it('navigates to program summary page with proper params', function() {
+  it('navigates to program summary page with reporting param with proper params', function() {
     messageHandler.handleMessage({
       event: 'navigate',
       data: {
@@ -293,7 +293,9 @@ describe('Navigate Handler', function() {
       data: {
         target: 'program/summary',
         params: {
-          program_id: 318
+          program_id: 318,
+          start_date: '2022-01-01',
+          end_date: '2022-01-05'
         }
       },
       source: {
@@ -304,7 +306,9 @@ describe('Navigate Handler', function() {
     expect(fakeWindow.location.href).to.eql([
       'bootstrap.php?session_id=SESSIONID',
       'r=program/summary',
-      'programId=318'
+      'programId=318',
+      'start_date=2022-01-01',
+      'end_date=2022-01-05'
     ].join('&'));
   });
 
