@@ -17,7 +17,8 @@ const replaceUrlParams = (url, params = {}) => {
     }
   }
 
-  return url;
+  const regexForAnythingInBraces = /\{[^\{\}]*\}/g;
+  return url.replace(regexForAnythingInBraces, '');
 };
 
 module.exports = ({ sessionId, target, params = {} }) => {
