@@ -335,7 +335,9 @@ module.exports = {
   'revenue_attribution/settings': [
     'bootstrap.php?session_id={session_id}',
     'r=service',
-    'service=revenue-attribution'
+    'service=revenue-attribution',
+    'from={start_date}',
+    'to={end_date}'
   ].join('&'),
 
   'revenue_attributor/settings': [
