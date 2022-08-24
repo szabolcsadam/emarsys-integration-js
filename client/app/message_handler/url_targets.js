@@ -37,7 +37,9 @@ module.exports = {
 
   'revenue_analytics/dashboard': [
     'bootstrap.php?session_id={session_id}',
-    'r=revenueAnalytics'
+    'r=revenueAnalytics',
+    'from={start_date}',
+    'to={end_date}'
   ].join('&'),
 
   'email_analysis/list': [
@@ -335,9 +337,7 @@ module.exports = {
   'revenue_attribution/settings': [
     'bootstrap.php?session_id={session_id}',
     'r=service',
-    'service=revenue-attribution',
-    'from={start_date}',
-    'to={end_date}'
+    'service=revenue-attribution'
   ].join('&'),
 
   'revenue_attributor/settings': [
