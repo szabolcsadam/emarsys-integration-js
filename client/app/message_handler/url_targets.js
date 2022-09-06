@@ -120,6 +120,11 @@ module.exports = {
     'r=combinedSegment/edit'
   ].join('&'),
 
+  'combined_segments/edit': [
+    'bootstrap.php?session_id={session_id}',
+    'r=segmentationClient/index#/{segment_id}'
+  ].join('&'),
+
   'segments/combine': [
     'bootstrap.php?session_id={session_id}',
     'r=combinedSegment/edit',
